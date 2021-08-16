@@ -14,7 +14,7 @@ Vue.component("homepage", {
 
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Login</a>
+  <a class="nav-link active" aria-current="page" href="http://localhost:8080/Grock/#/login">Login</a>
 </li>
 <li class="nav-item">
   <a class="nav-link active" href="#">Sign up</a>
@@ -32,15 +32,9 @@ Vue.component("homepage", {
 </nav>
     	</div>		  
     	`,
-    mounted () {
-        axios
-          .get('rest/homepage/')
-          .then(response => (this.products = response.data))
-    },
+   
     methods: {
-    	addProduct : function() {
-    		router.push(`/homepage/-1`);
-    	}
+    
     }
 	
 });

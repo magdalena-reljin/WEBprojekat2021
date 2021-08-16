@@ -16,7 +16,7 @@ public class Manager extends User {
 		this.restaurant = restaurant;
 	}
 
-	public Manager(String username, String password, String name, Gender gender, Date birthDate, Role role,
+	public Manager(String username, String password, String name, Gender gender, String birthDate, Role role,
 			Restaurant restaurant) {
 		super(username, password, name, gender, birthDate, role);
 		this.restaurant = restaurant;

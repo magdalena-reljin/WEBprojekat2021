@@ -11,7 +11,7 @@ public class User {
 	private String password;
 	private String name;
 	private Gender gender;
-	private Date birthDate;
+	private String birthDate;
 	private Role role;
 	public String getUsername() {
 		return username;
@@ -37,10 +37,10 @@ public class User {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public Role getRole() {
@@ -49,7 +49,7 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	public User(String username, String password, String name, Gender gender, Date birthDate, Role role) {
+	public User(String username, String password, String name, Gender gender, String birthDate, Role role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -60,5 +60,6 @@ public class User {
 	}
 	
 	public User() {}
+
 	
 }
