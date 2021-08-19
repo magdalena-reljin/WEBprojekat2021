@@ -12,7 +12,15 @@ public class Item {
      private String quantity;
      private String description;
      private Image image;
-    public String getName() {
+     private boolean deleted;
+     
+    public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getName() {
         return name;
     }
     public void setName(String name) {
@@ -64,6 +72,7 @@ public class Item {
         this.quantity = quantity;
         this.description = description;
         this.image = image;
+        this.deleted=false;
     }
     public Item() {} 
 }

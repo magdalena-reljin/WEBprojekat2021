@@ -7,6 +7,7 @@ public class Review {
     private Restaurant restaurant;
     private String comment;
     private RestaurantRating rating;
+    private boolean deleted;
     public Buyer getBuyer() {
         return buyer;
     }
@@ -39,6 +40,13 @@ public class Review {
 		this.restaurant = restaurant;
 		this.comment = comment;
 		this.rating = rating;
+		this.deleted=false;
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	public Review() {}
 }

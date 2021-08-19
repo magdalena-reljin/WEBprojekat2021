@@ -1,5 +1,7 @@
 package services;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +41,7 @@ public class LoginService {
 	@Path("/signup")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response signup(User newUser, @Context HttpServletRequest request) {
+	public Response signup(User newUser, @Context HttpServletRequest request) throws IOException {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		System.out.println("USPEO SAM");
 		User user = userDao.getUserById(newUser.getUsername());

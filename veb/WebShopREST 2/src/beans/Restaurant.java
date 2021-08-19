@@ -13,7 +13,15 @@ public class Restaurant {
     private RestaurantStatus status;
     private Location location;
     private Image logo;
-    public String getName() {
+    private boolean deleted;
+    
+    public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getName() {
         return name;
     }
     public void setName(String name) {

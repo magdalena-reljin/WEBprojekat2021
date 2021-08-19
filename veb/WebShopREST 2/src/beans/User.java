@@ -12,7 +12,15 @@ public class User {
     private Gender gender;
     private String birthDate;
     private Role role;
-    public String getUsername() {
+    private boolean deleted;
+    
+    public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getUsername() {
         return username;
     }
     public void setUsername(String username) {
@@ -64,6 +72,7 @@ public class User {
         this.gender = gender;
         this.birthDate = birthDate;
         this.role = role;
+        this.deleted=false;
     }
 
     public User() {}
