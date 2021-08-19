@@ -10,6 +10,8 @@ Vue.component("profile", {
             gender: null,
             birthDate: null,
             role: null,
+            deleted: false,
+            blocked: false
         }, 
       }
     },

@@ -8,7 +8,9 @@ Vue.component("login", {
         surname: '',
         gender: 0,
         birthDate: '',
-        role: 0
+        role: 0,
+        deleted: false,
+        blocked: false
 		  	},
         greska: "",
       

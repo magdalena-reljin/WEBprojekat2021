@@ -13,6 +13,7 @@ public class User {
     private String birthDate;
     private Role role;
     private boolean deleted;
+    private boolean blocked;
     
     public boolean isDeleted() {
 		return deleted;
@@ -63,7 +64,14 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    public User(String username, String password, String name,String surname, Gender gender, String birthDate, Role role) {
+    
+    public boolean isBlocked() {
+		return blocked;
+	}
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+	public User(String username, String password, String name,String surname, Gender gender, String birthDate, Role role,boolean deleted,boolean blocked) {
         super();
         this.username = username;
         this.password = password;
@@ -72,7 +80,8 @@ public class User {
         this.gender = gender;
         this.birthDate = birthDate;
         this.role = role;
-        this.deleted=false;
+        this.deleted=deleted;
+        this.blocked=blocked;
     }
 
     public User() {}

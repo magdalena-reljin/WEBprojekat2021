@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.User;
+import dao.ManagerDAO;
 import dao.UserDAO;
 
 @Path("/users")
@@ -43,12 +44,14 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(User newUser, @Context HttpServletRequest request) throws IOException {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 		System.out.println("USPEO SAM");
 		User user = userDao.getUserById(newUser.getUsername());
 		if (user != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
 		userDao.saveUser(newUser);
+		
 		System.out.println("ovo je novi user"+newUser.getName());
 		System.out.println("ovo je novi user"+newUser.getSurname());
 		System.out.println("ovo je novi user"+newUser.getUsername());
@@ -57,6 +60,7 @@ public class LoginService {
 		System.out.println("ovo je novi user"+newUser.getRole());
 		System.out.println("ovo je novi user"+newUser.getGender());
 		request.getSession().setAttribute("user", newUser);
+		
 		return Response.status(200).build();
 	}
 	
@@ -65,13 +69,15 @@ public class LoginService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User login(User user, @Context HttpServletRequest request) {
+		System.out.println("DOSAO SAM U LOGIN");
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		System.out.println("dobar mi je user dao");
 		User loggedUser = userDao.findUser(user.getUsername(), user.getPassword());
-
+       
 		System.out.println("USPEO SAM login :)))  "+loggedUser.getRole());
-		if (loggedUser == null) {
+		if (loggedUser == null) 
 			return null;
-		}
+		
 		request.getSession().setAttribute("user", loggedUser);
 		return loggedUser;
 	}

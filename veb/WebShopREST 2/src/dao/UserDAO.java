@@ -1,15 +1,23 @@
 package dao;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.print.DocFlavor.URL;
 import javax.ws.rs.Path;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import beans.User;
@@ -18,18 +26,17 @@ import enums.Role;
 
 public class UserDAO {
     
-    private List<User> users=new ArrayList<User>();
-    private Gson gson=new Gson();
-    private String putanja;
+    private List<User> users;
+   
 
     public UserDAO() {}
     
     public UserDAO(String contextPath) {
-      //  loadUsers(contextPath);
-        users.add(new User("magdalena@gmail.com","a","Magdalena","Reljin",Gender.FEMALE,"",Role.ADMINISTRATOR));
-        users.add(new User("dajana@gmail.com","da","Dajana","Zlokapa",Gender.FEMALE,"",Role.ADMINISTRATOR));
-        putanja=contextPath;
-        
+    	users=new ArrayList<User>();
+    	for(User u:loadUsers(contextPath)) {
+            users.add(u);
+            System.out.println("user stigao"+u.getUsername());
+    	}
     }
     public List<User> findAll() {
         return users;
@@ -56,16 +63,28 @@ public class UserDAO {
   
 
 	public void saveUser(User newUser)  {
+		switch(newUser.getRole()) {
+			case MANAGER: saveManager(newUser);
+				break;
+			case DELIVERER: saveDeliverer(newUser);
+			    break;
+			case BUYER: saveBuyer(newUser);
+			    break;
+		}
+		newUser.setName("");
+		newUser.setBirthDate("");
+		newUser.setSurname("");
 		users.add(newUser);
 		BufferedWriter writer=null;
-		
+		 
 		 Gson gson = new Gson();
 		   String json = gson.toJson(users);  
 		   System.out.println(json);
 		   
 		 try {
 			 String s=new File("").getAbsolutePath();
-			 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json");
+			 
+			 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -83,9 +102,41 @@ public class UserDAO {
 			}
 		}
 		
-	  
-	
-
-		
 	}
+	
+private void saveDeliverer(User user) {
+		
+}
+private void saveBuyer(User user) {
+	
+}
+private void saveManager(User user) {
+	System.out.println("usao u save manager");
+}
+	private List<User> loadUsers(String contextPath) {
+		List<User> userss=new ArrayList<User>();
+		Gson gson = new Gson();
+		Reader in=null;
+		try {
+			String s=new File("").getAbsolutePath();
+			System.out.println("putanja u load "+s);
+			File file = new File("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
+			in=Files.newBufferedReader(Paths.get("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
+			userss=Arrays.asList(gson.fromJson(in, User[].class));
+		    
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if (in != null) {
+				try {
+					in.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+		for(User u: userss)
+			System.out.println("user "+u.getUsername());
+		return userss;
+	}
+	
 }

@@ -6,6 +6,7 @@ const ProfilePage = { template: '<profile></profile>' }
 const HomeLoggedInBuyerPage = { template: '<homeLoggedInBuyer></homeLoggedInBuyer>' }
 const AllUsersAdminPage = { template: '<allUsersAdmin></allUsersAdmin>' }
 const RestaurantsAdminPage = { template: '<restaurantsAdmin></restaurantsAdmin>' }
+const newManagerPage = { template: '<newManager></newManager>' }
 
 const router = new VueRouter({
     mode: 'hash',
@@ -18,6 +19,7 @@ const router = new VueRouter({
 		{ path: '/homeLoggedInBuyer/:id', component: HomeLoggedInBuyerPage},
 		{ path: '/allUsersAdmin/:id', component: AllUsersAdminPage},
 		{ path: '/restaurantsAdmin/:id', component: RestaurantsAdminPage},
+    { path: '/newManager/:id', component: newManagerPage},
 
       ]
 });

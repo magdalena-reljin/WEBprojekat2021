@@ -8,7 +8,9 @@ Vue.component("signup", {
         surname:'',
         gender: 0,
         birthDate: '',
-        role: 3
+        role: 3,
+        deleted: null,
+        blocked: null
 		  	},
       
         }
