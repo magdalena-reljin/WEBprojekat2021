@@ -1,10 +1,13 @@
 package beans;
 
+import com.google.gson.annotations.Expose;
+
 import enums.Gender;
 import enums.Role;
 
 public class User {
 
+	
     private String username;
     private String password;
     private String name;

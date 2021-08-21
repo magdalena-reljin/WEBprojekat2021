@@ -1,39 +1,18 @@
-Vue.component("newManager", {
+Vue.component("newDeliverer", {
     data: function () {
         return {
         id: this.$route.params.id,
-        manager: {
+        deliverer: {
 		    username: '',
 	    	password: '',
         name: '',
         surname:'',
         gender: 0,
         birthDate: '',
-        role: 1,
+        role: 2,
         deleted: false,
         blocked: false,
-        restaurant: 
-          {name:'',
-           restaurantType: 0,
-           items: null,
-           status: 0,
-           location: 
-           {
-            longitude: '',
-            latitude: '',
-            address:
-            
-              {
-                streetAndNumber: '',
-                town: '',
-                zipCode: ''
-              },
-           },
-
-           logo: '',
-           deleted: ''
-          
-          }
+        orders: []
         
 		}
       
@@ -52,43 +31,42 @@ Vue.component("newManager", {
   
   </nav>
   <br>
-  
   <div class="container">
   
   <div class="row justify-content-center">
   <div class="col-md-6">
   <div class="card">
   <header class="card-header">
-      <h4 class="card-title mt-2"> Register Manager</h4>
+      <h4 class="card-title mt-2"> Register Deliverer</h4>
   </header>
   <article class="card-body">
-  <form @submit="registerManager" method='post'>
+  <form @submit="registerDeliverer" method='post'>
       <div class="form-row">
           <div class="col form-group">
               <label>Name </label>   
-                <input v-model="manager.name" type="text" class="form-control" placeholder="">
+                <input v-model="deliverer.name" type="text" class="form-control" placeholder="">
           </div> 
           <div class="col form-group">
               <label>Surname</label>
-                <input v-model="manager.surname" type="text" class="form-control" placeholder=" ">
+                <input v-model="deliverer.surname" type="text" class="form-control" placeholder=" ">
           </div> 
       </div>
       <div class="form-group">
           <label>Username</label>
-          <input v-model="manager.username" type="text" class="form-control" placeholder="">
+          <input v-model="deliverer.username" type="text" class="form-control" placeholder="">
       </div>
       <div class="col form-group">
       <label>Password </label>   
-        <input v-model="manager.password" type="password" class="form-control" placeholder="">
+        <input v-model="deliverer.password" type="password" class="form-control" placeholder="">
   </div> 
       <br>
       <div class="form-group">
               <label class="form-check form-check-inline">
-            <input v-model="manager.gender" class="form-check-input" type="radio" name="gender" value="1">
+            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value="1">
             <span class="form-check-label"> Male </span>
           </label>
           <label class="form-check form-check-inline">
-            <input v-model="manager.gender" class="form-check-input" type="radio" name="gender" value=0>
+            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value=0>
             <span class="form-check-label"> Female</span>
           </label>
       </div> 
@@ -98,7 +76,7 @@ Vue.component("newManager", {
       <div class="col-12">
 <div class="form-group">
 <label >Birthday</label>
-<input v-model="manager.birthDate" type="date" name="bday" min="1000-01-01"
+<input v-model="deliverer.birthDate" type="date" name="bday" min="1000-01-01"
       max="3000-12-31" class="form-control">
 </div>
 <br>
@@ -122,11 +100,11 @@ Vue.component("newManager", {
  </div>
      `,
     methods: {
-        registerManager: function(event) {
+        registerDeliverer: function(event) {
             event.preventDefault();
   
        axios
-       .post('/WebShopREST/rest/managers/signup',this.manager)
+       .post('/WebShopREST/rest/deliverer/signup',this.deliverer)
        .then(response=> {
   
         this.$router.push("/allUsersAdmin/"+this.id)

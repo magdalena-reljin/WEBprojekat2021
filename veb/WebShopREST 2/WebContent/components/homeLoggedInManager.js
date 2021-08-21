@@ -1,4 +1,4 @@
-Vue.component("restaurantsAdmin", {
+Vue.component("homeLoggedInManager", {
     data: function () {
       return {
         id: this.$route.params.id,
@@ -8,7 +8,7 @@ Vue.component("restaurantsAdmin", {
   <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid" style="background-color: #ffa6c9;">
-            <a class="navbar-brand" @click="goToHome()">
+            <a class="navbar-brand" href="#">
               <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
             </a>
   
@@ -50,9 +50,7 @@ Vue.component("restaurantsAdmin", {
        </ul>
   
   
-            <h1>RESTAURANTS</h1>
-            <button @click="createRestaurant">Create Restaurant</button>
-
+            <h1>MANAGER!</h1>
   </div>
           `,
           methods: {
@@ -64,13 +62,7 @@ Vue.component("restaurantsAdmin", {
             },
             goToRestaurants: function(){
               this.$router.push("/restaurantsAdmin/"+this.id)
-            },
-            goToHome: function(){
-                this.$router.push("/homeLoggedIn/"+this.id)
-              },
-            createRestaurant: function(){
-              this.$router.push("/newRestaurant/"+this.id)
-              }            
+            }
           }
           
       

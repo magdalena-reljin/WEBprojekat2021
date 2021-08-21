@@ -44,12 +44,12 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(User newUser, @Context HttpServletRequest request) throws IOException {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 		System.out.println("USPEO SAM");
 		User user = userDao.getUserById(newUser.getUsername());
 		if (user != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
+		
 		userDao.saveUser(newUser);
 		
 		System.out.println("ovo je novi user"+newUser.getName());

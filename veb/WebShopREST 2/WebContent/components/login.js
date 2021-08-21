@@ -75,8 +75,12 @@ Vue.component("login", {
 
          if(response.data.role=='ADMINISTRATOR'){
          this.$router.push("/homeLoggedIn/"+this.user.username);
-         } else{
-         this.$router.push("/homeLoggedInBuyer/"+this.user.username);
+         } else if(response.data.role=='MANAGER'){
+         this.$router.push("/homeLoggedInManager/"+this.user.username);
+         }else if(response.data.role=='BUYER'){
+          this.$router.push("/homeLoggedInBuyer/"+this.user.username);
+         }else {
+          this.$router.push("/homeLoggedInDeliverer/"+this.user.username);
          }
         
      })

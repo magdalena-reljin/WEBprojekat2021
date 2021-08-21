@@ -63,14 +63,6 @@ public class UserDAO {
   
 
 	public void saveUser(User newUser)  {
-		switch(newUser.getRole()) {
-			case MANAGER: saveManager(newUser);
-				break;
-			case DELIVERER: saveDeliverer(newUser);
-			    break;
-			case BUYER: saveBuyer(newUser);
-			    break;
-		}
 		newUser.setName("");
 		newUser.setBirthDate("");
 		newUser.setSurname("");
@@ -104,15 +96,6 @@ public class UserDAO {
 		
 	}
 	
-private void saveDeliverer(User user) {
-		
-}
-private void saveBuyer(User user) {
-	
-}
-private void saveManager(User user) {
-	System.out.println("usao u save manager");
-}
 	private List<User> loadUsers(String contextPath) {
 		List<User> userss=new ArrayList<User>();
 		Gson gson = new Gson();
@@ -120,8 +103,7 @@ private void saveManager(User user) {
 		try {
 			String s=new File("").getAbsolutePath();
 			System.out.println("putanja u load "+s);
-			File file = new File("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
-			in=Files.newBufferedReader(Paths.get("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
+			in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 			userss=Arrays.asList(gson.fromJson(in, User[].class));
 		    
 		} catch (Exception ex) {

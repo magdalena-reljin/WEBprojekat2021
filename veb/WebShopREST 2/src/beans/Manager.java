@@ -1,8 +1,11 @@
 package beans;
+import com.google.gson.annotations.Expose;
+
 import enums.Gender;
 import enums.Role;
 
 public class Manager extends User {
+
      private Restaurant restaurant;
 
     public Restaurant getRestaurant() {

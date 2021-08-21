@@ -38,7 +38,7 @@ public class ManagerDAO {
 				String s=new File("").getAbsolutePath();
 				System.out.println("putanja u load "+s);
 				File file = new File("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
-				in=Files.newBufferedReader(Paths.get("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
+				in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json"));
 				managerss=Arrays.asList(gson.fromJson(in, Manager[].class));
 			    
 			} catch (Exception ex) {
@@ -67,7 +67,7 @@ public class ManagerDAO {
 			 try {
 				 String s=new File("").getAbsolutePath();
 				 
-				 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
+				 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json");
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -86,4 +86,27 @@ public class ManagerDAO {
 			}
 			
 		}
+	    
+	    public Manager getManagerById(String id) {
+	        for(Manager manager :managers) {
+	            if(manager.getUsername().equals(id)) 
+	                return manager;
+	        }
+	        return null;
+	    }
+
+		public List<String> findUnemployed() {
+			List<String> unemployedManagers=new ArrayList<String>();
+			for(Manager manager: managers) {
+				if(manager.getRestaurant().getName().equals("")) {
+					unemployedManagers.add(manager.getUsername());
+				}
+			}
+			return unemployedManagers;
+		}
+
+
+		
+
 }
+

@@ -12,7 +12,7 @@ public class Restaurant {
     private List<Item> items;
     private RestaurantStatus status;
     private Location location;
-    private Image logo;
+    private String logo;
     private boolean deleted;
     
     public boolean isDeleted() {
@@ -51,14 +51,14 @@ public class Restaurant {
     public void setLocation(Location location) {
         this.location = location;
     }
-    public Image getLogo() {
+    public String getLogo() {
         return logo;
     }
-    public void setLogo(Image logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
     public Restaurant(String name, RestaurantType restaurantType, List<Item> items, RestaurantStatus status,
-            Location location, Image logo) {
+            Location location, String logo) {
         super();
         this.name = name;
         this.restaurantType = restaurantType;

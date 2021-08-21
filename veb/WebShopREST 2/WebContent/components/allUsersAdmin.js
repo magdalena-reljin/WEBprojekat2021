@@ -46,10 +46,6 @@ Vue.component("allUsersAdmin", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRestaurants()">Restaurants</a>
         </li>
-
-        <li class="nav-item">
-        <a class="nav-link" @click="registerManager()">Managers</a>
-        </li>
          
        </ul>
   
@@ -57,7 +53,7 @@ Vue.component("allUsersAdmin", {
             <h1>USERS</h1>
             
             <button @click="registerDeliverer">Register deliverer</button>
-
+            <button @click="registerManager">Register managers</button>
             <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -97,7 +93,7 @@ Vue.component("allUsersAdmin", {
                 this.$router.push("/newManager/"+this.id)
               } ,
               registerDeliverer: function(){
-                this.$router.push("/homeLoggedIn/"+this.id)
+                this.$router.push("/newDeliverer/"+this.id)
               } 
           }
           

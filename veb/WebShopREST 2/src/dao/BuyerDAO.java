@@ -26,7 +26,7 @@ public class BuyerDAO {
 	        return buyers;
 	    }
 	 
-	    public User getBuyerById(String id) {
+	    public Buyer getBuyerById(String id) {
 	        for(Buyer buyer :buyers) {
 	            if(buyer.getUsername().equals(id)) 
 	                return buyer;

@@ -1,11 +1,34 @@
 Vue.component("homepage", { 
 	data: function () {
 	    return {
-	     homepage: null
-	    }
+			restaurant:[
+			 {
+				name: '',
+			   restaurantType: null,
+			   items: [],
+			   status: null,
+			   location: {
+				longitude: '',
+				latitude: '',
+				address:
+				
+				  {
+					streetAndNumber: '',
+					town: '',
+					zipCode: ''
+				  },
+			},
+			logo: '',
+			deleted: ''
+			
+			}
+		]
+
+
+		}
 	},
 	    template: ` 
-    	<div>
+    	<div style="background-image: url(components/images/pocetna.jpeg)" >
     	<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid" style="background-color: #ffa6c9;">
   <a class="navbar-brand" href="#">
@@ -30,11 +53,72 @@ Vue.component("homepage", {
   </div>
 
 </nav>
+
+<!-- Carousel wrapper -->
+<div
+  id="carouselMultiItemExample"
+  class="carousel slide carousel-dark text-center"
+  data-mdb-ride="carousel"
+>
+  <!-- Controls -->
+  <div class="d-flex justify-content-center mb-4">
+    <button
+      class="carousel-control-prev position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- Inner -->
+  <div class="carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <div class="container">
+        <div class="row">
+          <div  v-for="item in restaurant" class="col-lg-4">
+            <div class="card">
+			<img v-bind:src="item.logo"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <a href="#!" class="btn btn-primary">Button</a>
+              </div>
+            </div>
+          </div>
+  </div>
+  <!-- Inner -->
+  </div>
+  </div>
+  </div>
+</div>
+<!-- Carousel wrapper -->
+
+
     	</div>		  
     	`,
+		mounted(){
+			this.getAllRestaurants();
+		},
    
     methods: {
-		
+		getAllRestaurants: function () {
+			axios
+		  
+			.get('/WebShopREST/rest/restaurants/findAllRestaurants')
+			.then(response=> (this.restaurant=response.data))
+		},
     
     }
 	

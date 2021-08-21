@@ -7,6 +7,11 @@ const HomeLoggedInBuyerPage = { template: '<homeLoggedInBuyer></homeLoggedInBuye
 const AllUsersAdminPage = { template: '<allUsersAdmin></allUsersAdmin>' }
 const RestaurantsAdminPage = { template: '<restaurantsAdmin></restaurantsAdmin>' }
 const newManagerPage = { template: '<newManager></newManager>' }
+const newDelivererPage = { template: '<newDeliverer></newDeliverer>' }
+const newRestaurantPage = { template: '<newRestaurant></newRestaurant>' }
+const HomeLoggedInManager = { template: '<homeLoggedInManager></homeLoggedInManager>' }
+const HomeLoggedInDeliverer = { template: '<homeLoggedInDeliverer></homeLoggedInDeliverer>' }
+
 
 const router = new VueRouter({
     mode: 'hash',
@@ -20,6 +25,10 @@ const router = new VueRouter({
 		{ path: '/allUsersAdmin/:id', component: AllUsersAdminPage},
 		{ path: '/restaurantsAdmin/:id', component: RestaurantsAdminPage},
     { path: '/newManager/:id', component: newManagerPage},
+    { path: '/newRestaurant/:id', component: newRestaurantPage},
+    { path: '/newDeliverer/:id', component: newDelivererPage},
+    { path: '/homeLoggedInManager/:id', component: HomeLoggedInManager},
+    { path: '/homeLoggedInDeliverer/:id', component: HomeLoggedInDeliverer},
 
       ]
 });
