@@ -37,8 +37,9 @@ public class RestaurantDAO {
 		try {
 			String s=new File("").getAbsolutePath();
 			System.out.println("putanja u load "+s);
-		
-			in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json"));
+		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
+		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
+			in=Files.newBufferedReader(Paths.get(magdalena));
 			restaurantss=Arrays.asList(gson.fromJson(in, Restaurant[].class));
 		    
 		} catch (Exception ex) {
@@ -64,9 +65,10 @@ public class RestaurantDAO {
 		   System.out.println(json);
 		   
 		 try {
+			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
 			 String s=new File("").getAbsolutePath();
-			 
-			 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json");
+			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
+			 File file = new File(magdalena);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			

@@ -14,6 +14,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import beans.Manager;
+import beans.Restaurant;
 import beans.User;
 
 public class ManagerDAO {
@@ -37,8 +38,9 @@ public class ManagerDAO {
 			try {
 				String s=new File("").getAbsolutePath();
 				System.out.println("putanja u load "+s);
-				File file = new File("C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
-				in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json"));
+			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
+			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				managerss=Arrays.asList(gson.fromJson(in, Manager[].class));
 			    
 			} catch (Exception ex) {
@@ -65,9 +67,10 @@ public class ManagerDAO {
 			   System.out.println(json);
 			   
 			 try {
+				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
 				 String s=new File("").getAbsolutePath();
-				 
-				 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json");
+				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
+				 File file = new File(magdalena);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -103,6 +106,16 @@ public class ManagerDAO {
 				}
 			}
 			return unemployedManagers;
+		}
+
+		public Manager addRestaurant(Manager newManager) {
+			// TODO Auto-generated method stub
+			Manager oldManager=getManagerById(newManager.getUsername());
+			managers.remove(oldManager);
+			oldManager.setRestaurant(newManager.getRestaurant());
+			saveManager(oldManager);
+			return oldManager;
+			
 		}
 
 

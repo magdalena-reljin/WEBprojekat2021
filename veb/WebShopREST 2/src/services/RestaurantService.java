@@ -18,8 +18,10 @@ import javax.ws.rs.core.Response;
 
 
 import beans.Restaurant;
-
+import beans.User;
+import dao.ManagerDAO;
 import dao.RestaurantDAO;
+import dao.UserDAO;
 
 
 @Path("/restaurants")
@@ -49,6 +51,7 @@ public class RestaurantService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(Restaurant newRestaurant, @Context HttpServletRequest request) throws IOException {
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 		System.out.println("USPEO SAM");
 		Restaurant restaurant= restaurantDao.getRestaurantByName(newRestaurant.getName());
 		if (restaurant != null) {
@@ -71,7 +74,16 @@ public class RestaurantService {
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
 	    return restaurantDao.getAllRestaurants();
 	}
-
+	@POST
+	@Path("/findRestaurantData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant findUserData(Restaurant restaurant, @Context HttpServletRequest request) {
+		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		System.out.println("USPEO SAM u rest findData :)))");
+		Restaurant restaurantWithData = restaurantDao.getRestaurantByName(restaurant.getName());
+		return restaurantWithData;
+	}
 	
 	
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Manager;
+import beans.Restaurant;
 import beans.User;
 import dao.ManagerDAO;
 import dao.UserDAO;
@@ -74,6 +76,29 @@ import enums.RestaurantType;
 			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 		    return managerDao.findUnemployed();
 		}
-	
-
+		
+		@PUT
+		@Path("/update")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Manager update(Manager newManager, @Context HttpServletRequest request) {
+			System.out.println("pogodio update MANAGER");
+			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+			String logo=newManager.getRestaurant().getLogo().substring(12);
+			newManager.getRestaurant().setLogo("components/images/"+logo);
+			managerDao.addRestaurant(newManager);
+			return newManager;
+		}
+		
+		@POST
+		@Path("/findData")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Manager findData(Manager manager, @Context HttpServletRequest request) {
+			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+			System.out.println("USPEO SAM findData manager :)))");
+			Manager managerWithData = managerDao.getManagerById(manager.getUsername());
+			System.out.println("								"+ managerWithData.getRestaurant().getName());
+			return managerWithData;
+		}
 }

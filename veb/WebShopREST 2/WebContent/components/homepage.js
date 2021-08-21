@@ -22,14 +22,17 @@ Vue.component("homepage", {
 			deleted: ''
 			
 			}
-		]
+     
+		],
+    restaurantID: ''
+
 
 
 		}
 	},
 	    template: ` 
     	<div style="background-image: url(components/images/pocetna.jpeg)" >
-    	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    	<nav  class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid" style="background-color: #ffa6c9;">
   <a class="navbar-brand" href="#">
   <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
@@ -93,7 +96,7 @@ Vue.component("homepage", {
               />
               <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <a @click="saveRestaurantId(item.name)" class="btn btn-primary">Button</a>
               </div>
             </div>
           </div>
@@ -118,6 +121,10 @@ Vue.component("homepage", {
 		  
 			.get('/WebShopREST/rest/restaurants/findAllRestaurants')
 			.then(response=> (this.restaurant=response.data))
+		},
+    saveRestaurantId: function (id) {
+      this.$router.push("/restaurantInfo/"+id);
+			console.log("ovo je id rest"+id)
 		},
     
     }

@@ -11,7 +11,7 @@ public class Item {
      private Restaurant restaurant;
      private String quantity;
      private String description;
-     private Image image;
+     private String image;
      private boolean deleted;
      
     public boolean isDeleted() {
@@ -56,14 +56,14 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
-    public void setImage(Image image) {
+    public void setImage(String image) {
         this.image = image;
     }
     public Item(String name, double price, ItemType itemType, Restaurant restaurant, String quantity,
-            String description, Image image) {
+            String description, String image) {
         super();
         this.name = name;
         this.price = price;

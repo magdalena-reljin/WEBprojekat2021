@@ -41,27 +41,29 @@ Vue.component("homeLoggedInManager", {
         <ul class="nav justify-content-center">
   
         <li class="nav-item">
-        <a class="nav-link" @click="goToAllUsers()">Users</a>
+        <a class="nav-link" @click="goToRestaurant()">Restaurant</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" @click="goToRestaurants()">Restaurants</a>
+        <a class="nav-link" @click="goToOrders()">Orders</a>
         </li>
+        
          
        </ul>
   
-  
+       
             <h1>MANAGER!</h1>
+
   </div>
           `,
           methods: {
             redirect: function(){
               this.$router.push("/profile/"+this.id)
             },
-            goToAllUsers: function(){
-              this.$router.push("/allUsersAdmin/"+this.id)
+            goToRestaurant: function(){
+              this.$router.push("/restaurantManager/"+this.id)
             },
-            goToRestaurants: function(){
-              this.$router.push("/restaurantsAdmin/"+this.id)
+            goToOrders: function(){
+              this.$router.push("/ordersManager/"+this.id)
             }
           }
           

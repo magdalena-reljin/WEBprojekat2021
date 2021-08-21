@@ -6,7 +6,7 @@ Vue.component("newRestaurant", {
 		    name: '',
 	      restaurantType: null,
         items: [],
-        status: null,
+        status: 0,
         location: {
             longitude: '',
             latitude: '',
@@ -22,6 +22,42 @@ Vue.component("newRestaurant", {
         deleted: ''
         
 		},
+    selectedManagerID:'',
+    selectedManager: {
+      username: '',
+      password: '',
+      name: '',
+      surname:'',
+      gender: 0,
+      birthDate: '',
+      role: 1,
+      deleted: false,
+      blocked: false,
+      restaurant: 
+      {name:'',
+       restaurantType: 0,
+       items: null,
+       status: 0,
+       location: 
+       {
+        longitude: '',
+        latitude: '',
+        address:
+        
+          {
+            streetAndNumber: '',
+            town: '',
+            zipCode: ''
+          },
+       },
+
+       logo: '',
+       deleted: ''
+      
+      }
+    
+
+      },
     managers: [],
     newManager: {
         username: '',
@@ -59,7 +95,7 @@ Vue.component("newRestaurant", {
   
         },
         isHidden: true,
-        value: null
+        value: null,
       }
     
     },
@@ -136,7 +172,7 @@ Vue.component("newRestaurant", {
   <label>Select manager</label>
   <div class="input-group">
 
-  <select @click="getManagers()" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+  <select v-model="selectedManagerID" @click="getManagers()" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
     <option v-for="manager in managers">{{manager}}</option>
    
   </select>
@@ -251,14 +287,28 @@ Vue.component("newRestaurant", {
       },
       createRestaurant: function(event){
         event.preventDefault();
+        
         this.restaurant.logo= document.getElementById("formFile").value
+        this.selectedManager.restaurant=this.restaurant
+        this.selectedManager.username=this.selectedManagerID
         console.log("AAAA"+this.restaurant.logo);
         axios
         .post('/WebShopREST/rest/restaurants/addNewRestaurant',this.restaurant)
         .then(response=> {
           console.log("USPESNO"+response)
         })
-        .catch(err=>console.log("GRESKA"))
+        .catch(err=>console.log("GRESKA prvi axios"))
+
+       
+        axios
+        .put('/WebShopREST/rest/managers/update',this.selectedManager)
+        .then(response=> {
+          console.log("USPESNO put"+response)
+          this.$router.push("/homeLoggedIn/"+this.id)
+
+        })
+        .catch(err=>console.log("GRESKA drugi"))
+
      
       },
     registerManager: function(event) {

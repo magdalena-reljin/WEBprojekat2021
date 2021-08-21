@@ -74,9 +74,10 @@ public class UserDAO {
 		   System.out.println(json);
 		   
 		 try {
+			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
 			 String s=new File("").getAbsolutePath();
-			 
-			 File file = new File(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json");
+			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
+			 File file = new File(magdalena);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -103,7 +104,10 @@ public class UserDAO {
 		try {
 			String s=new File("").getAbsolutePath();
 			System.out.println("putanja u load "+s);
-			in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
+		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
+		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
+			in=Files.newBufferedReader(Paths.get(magdalena));
+			//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 			userss=Arrays.asList(gson.fromJson(in, User[].class));
 		    
 		} catch (Exception ex) {
