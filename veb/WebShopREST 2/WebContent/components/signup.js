@@ -1,7 +1,7 @@
 Vue.component("signup", {
     data: function () {
         return {
-        user: {
+        buyer: {
 		    username: '',
 		    password: '',
         name: '',
@@ -9,10 +9,17 @@ Vue.component("signup", {
         gender: 0,
         birthDate: '',
         role: 3,
-        deleted: null,
-        blocked: null,
-        
+        deleted: false,
+        blocked: false,
+        orders: [],
+        basket: {
+
+          items: [],
+          totalPrice: null
+        },
+        points: 0,
 		  	},
+       
       
         }
     },
@@ -42,29 +49,29 @@ Vue.component("signup", {
           <div class="form-row">
               <div class="col form-group">
                   <label>Name </label>   
-                    <input v-model="user.name" type="text" class="form-control" placeholder="">
+                    <input v-model="buyer.name" type="text" class="form-control" placeholder="">
               </div> 
               <div class="col form-group">
                   <label>Surname</label>
-                    <input v-model="user.surname" type="text" class="form-control" placeholder=" ">
+                    <input v-model="buyer.surname" type="text" class="form-control" placeholder=" ">
               </div> 
           </div>
           <div class="form-group">
               <label>Username</label>
-              <input v-model="user.username" type="text" class="form-control" placeholder="">
+              <input v-model="buyer.username" type="text" class="form-control" placeholder="">
           </div>
           <div class="col form-group">
           <label>Password </label>   
-            <input v-model="user.password" type="password" class="form-control" placeholder="">
+            <input v-model="buyer.password" type="password" class="form-control" placeholder="">
       </div> 
           <br>
           <div class="form-group">
                   <label class="form-check form-check-inline">
-                <input v-model="user.gender" class="form-check-input" type="radio" name="gender" value="1">
+                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value="1">
                 <span class="form-check-label"> Male </span>
               </label>
               <label class="form-check form-check-inline">
-                <input v-model="user.gender" class="form-check-input" type="radio" name="gender" value=0>
+                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value=0>
                 <span class="form-check-label"> Female</span>
               </label>
           </div> 
@@ -74,7 +81,7 @@ Vue.component("signup", {
           <div class="col-12">
   <div class="form-group">
    <label >Birthday</label>
-   <input v-model="user.birthDate" type="date" name="bday" min="1000-01-01"
+   <input v-model="buyer.birthDate" type="date" name="bday" min="1000-01-01"
           max="3000-12-31" class="form-control">
   </div>
     <br>
@@ -102,13 +109,12 @@ Vue.component("signup", {
             event.preventDefault();
   
        axios
-       .post('/WebShopREST/rest/users/signup',this.user)
+       .post('/WebShopREST/rest/buyers/signup',this.buyer)
        .then(response=> {
   
         this.$router.push("/login")
          console.log("USPESNO"+response)
        })
-       .catch(err=>console.log("GRESKA"))
     }
 
   }

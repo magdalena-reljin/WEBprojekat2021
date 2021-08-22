@@ -157,19 +157,11 @@ Vue.component("createItemManager", {
             event.preventDefault();
             this.item.restaurant=this.selectedManager.restaurant
             this.item.image= document.getElementById("formFile").value
-            console.log("restoran"+this.item.restaurant.name)
-            console.log("fajl"+this.item.image)
-            console.log("fajl"+this.item.name)
-            console.log("fajl"+this.item.price)
-            console.log("fajl"+this.item.quantity)
-            console.log("fajl"+this.item.description)
-            console.log("type"+this.item.itemType)
-            console.log("manager"+this.selectedManager.username)
 
        axios
        .post('/WebShopREST/rest/items/add',this.item)
        .then(response=> {
-  
+        this.$router.push("/restaurantManager/"+this.id)
       })
      
     },

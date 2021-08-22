@@ -10,7 +10,6 @@ public class Buyer extends User {
     private Basket basket;
     private int points;
     
-    
 	
     public Buyer(String username, String password, String name, String surname, Gender gender, String birthDate,
 			Role role, boolean deleted, boolean blocked, List<Order> orders, Basket basket, int points) {

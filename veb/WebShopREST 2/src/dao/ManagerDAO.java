@@ -40,7 +40,7 @@ public class ManagerDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
-				in=Files.newBufferedReader(Paths.get(dajana));
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				managerss=Arrays.asList(gson.fromJson(in, Manager[].class));
 			    
 			} catch (Exception ex) {
@@ -70,7 +70,7 @@ public class ManagerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\managers.json";
-				 File file = new File(dajana);
+				 File file = new File(magdalena);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -116,6 +116,15 @@ public class ManagerDAO {
 			saveManager(oldManager);
 			return oldManager;
 			
+		}
+
+
+		public String getManagerByRestaurantName(String r) {
+			for(Manager manager: managers) {
+		    	if(manager.getRestaurant().getName().equals(r))
+		    		return manager.getUsername();
+		    }
+		    return "";
 		}
 
 

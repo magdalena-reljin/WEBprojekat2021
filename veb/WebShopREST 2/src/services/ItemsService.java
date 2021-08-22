@@ -7,9 +7,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -19,6 +22,7 @@ import javax.ws.rs.core.Response;
 import beans.Item;
 import beans.Manager;
 import beans.Restaurant;
+import beans.User;
 import dao.ItemDAO;
 import dao.ManagerDAO;
 import dao.RestaurantDAO;
@@ -94,6 +98,43 @@ public class ItemsService {
 		itemInRestaurant= itemDao.findAllItemsInRestaurant(restaurant);
 		return itemInRestaurant;
 	}
+	@PUT
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item update(Item item, @Context HttpServletRequest request) {
+		System.out.println("pogodio update item");
+		if(!item.getImage().startsWith("components")) {
+		String str=item.getImage().substring(12);
+		item.setImage("components/images/"+str);
+		}
+		ItemDAO itemDao = (ItemDAO) ctx.getAttribute("itemDAO");
+		itemDao.updateItem(item);
+		return item;
+	}
+	@POST
+	@Path("/findDataManager")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findDataManager(Item item, @Context HttpServletRequest request) {
+		ItemDAO itemDao = (ItemDAO) ctx.getAttribute("itemDAO");
+		ManagerDAO managerDao=(ManagerDAO) ctx.getAttribute("managerDAO");
+		String m=managerDao.getManagerByRestaurantName(item.getRestaurant().getName());
+		System.out.println("aaaaaaaaaaao "+item.getRestaurant().getName());
+		System.out.println("aaaaaaaaaaao "+m);
+		return m;
+	}
+	
+	@POST
+	@Path("/deleteItem")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item deleteItem(Item item, @Context HttpServletRequest request) {
+		ItemDAO itemDao = (ItemDAO) ctx.getAttribute("itemDAO");
+		itemDao.deleteItem(item.getName());
+		return null;
+	}
+	
 	
 	
 }

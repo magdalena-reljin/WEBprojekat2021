@@ -2,6 +2,7 @@ Vue.component("restaurantManager", {
     data: function () {
       return {
         id: this.$route.params.id,
+        itemsPom: [],
         selectedManager: {
             username: '',
             password: '',
@@ -184,13 +185,14 @@ Vue.component("restaurantManager", {
     <div class="carousel-item active">
       <div class="container">
         <div class="row">
-          <div  v-for="item in items" class="col-lg-4">
-            <div class="card">
+          <div  v-for="item in items" class="col-lg-3">
+            <div class="card" style="width: 18rem;">
 			<img v-bind:src="item.image"
               />
               <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>
-              
+                <a @click="editItem(item.name)" class="btn btn-primary">Edit</a>
+                <a @click="deleteItem(item)" class="btn btn-primary">Delete</a>
               </div>
             </div>
           </div>
@@ -232,6 +234,21 @@ Vue.component("restaurantManager", {
             },
             createItem: function(){
                 this.$router.push("/createItemManager/"+this.id)
+            },
+            editItem: function(name){
+              this.$router.push("/editItemManager/"+name)
+            },
+           deleteItem: function(item){
+              console.log("jkdsnfkds  "+item.name)
+              axios
+              .post('/WebShopREST/rest/items/deleteItem',item)
+              .then(response=> {
+
+                alert("Item deleted");
+                location.reload()
+              })
+              
+              
             }
            
           }

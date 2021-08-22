@@ -14,7 +14,7 @@ public class Item {
      private String image;
      private boolean deleted;
      
-    public boolean isDeleted() {
+    public boolean getDeleted() {
 		return deleted;
 	}
 	public void setDeleted(boolean deleted) {

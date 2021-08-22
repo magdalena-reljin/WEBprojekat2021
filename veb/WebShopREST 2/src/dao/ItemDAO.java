@@ -25,9 +25,10 @@ public class ItemDAO {
 	    public ItemDAO(String contextPath) {
 	    	System.out.println("BIO SAM OVDE ITEM DAO");
 	    	items=new ArrayList<Item>();
+	    	
 	    	for(Item i:loadItems(contextPath)) {
+	    		if(i.getDeleted()==false)
 	            items.add(i);
-	            System.out.println("item stigao"+i.getName());
 	            
 	    	}
 	    	System.out.println("BIO SAM OVDE ITEM DAO kraj");
@@ -57,7 +58,7 @@ public class ItemDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				 File file = new File(dajana);
+				 File file = new File(magdalena);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -79,6 +80,7 @@ public class ItemDAO {
 		
 		private List<Item> loadItems(String contextPath) {
 			List<Item> itemss=new ArrayList<Item>();
+			List<Item> currentItemss=new ArrayList<Item>();
 			Gson gson = new Gson();
 			Reader in=null;
 			try {
@@ -86,7 +88,7 @@ public class ItemDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				in=Files.newBufferedReader(Paths.get(dajana));
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				itemss=Arrays.asList(gson.fromJson(in, Item[].class));
 			    
@@ -100,9 +102,12 @@ public class ItemDAO {
 					catch (Exception e) { }
 				}
 			}
-			for(Item u: itemss)
-				System.out.println("item "+u.getName());
-			return itemss;
+			for(Item i: itemss) {
+				if(i.getDeleted()==false) {
+					currentItemss.add(i);
+				}
+			}
+			return currentItemss;
 		}
 
 		
@@ -111,12 +116,31 @@ public class ItemDAO {
 			List<Item> itemsInRestaurant=new ArrayList<Item>();
 			System.out.println("AAAAAA"+r.getName());
 			for(Item item:items) {
-				if(item.getRestaurant().getName().equals(r.getName()))
+				if(item.getRestaurant().getName().equals(r.getName()) && item.getDeleted()==false)
 					itemsInRestaurant.add(item);
 			}
 			return itemsInRestaurant;
 		}
 
-		
-		
+		public Item updateItem(Item item) {
+			Item oldItem= getItemByName(item.getName());
+			items.remove(oldItem);
+			saveItem(item);
+			return item;
+		}
+
+		public String getRestaurant(String name) {
+			Item item=getItemByName(name);
+			return item.getRestaurant().getName();
+		}
+
+		public void deleteItem(String item) {
+			// TODO Auto-generated method stub
+			Item itemToDelete=getItemByName(item);
+			items.remove(itemToDelete);
+			itemToDelete.setDeleted(true);
+			saveItem(itemToDelete);
+			
+		}
+
 }

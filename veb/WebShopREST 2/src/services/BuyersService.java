@@ -12,9 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import beans.Buyer;
-import beans.User;
 import dao.BuyerDAO;
 import dao.UserDAO;
 
@@ -38,23 +36,24 @@ public class BuyersService {
 			ctx.setAttribute("buyerDAO", new BuyerDAO(contextPath));
 		}
 	}
+
 	@POST
 	@Path("/signup")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(Buyer newBuyer, @Context HttpServletRequest request) throws IOException {
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
-		System.out.println("USPEO SAM");
-		Buyer buyer= buyerDao.getBuyerById(newBuyer.getUsername());
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		System.out.println("USPEO SAM buyer isgnup");
+		Buyer buyer = buyerDao.getBuyerById(newBuyer.getUsername());
 		if (buyer != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
-		
-		userDao.saveUser(newBuyer);
 		buyerDao.saveBuyer(newBuyer);
+		userDao.saveUser(newBuyer);
 		
-		request.getSession().setAttribute("user", newBuyer);
+	
+		request.getSession().setAttribute("buyer", newBuyer);
 		
 		return Response.status(200).build();
 	}
