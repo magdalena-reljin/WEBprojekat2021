@@ -19,6 +19,18 @@ Vue.component("signup", {
         },
         points: 0,
 		  	},
+
+        user: {
+          username: '',
+          password: '',
+          name: '',
+          surname: '',
+          gender: 0,
+          birthDate: '',
+          role: 3,
+          deleted: false,
+          blocked: false
+          },
        
       
         }
@@ -111,9 +123,20 @@ Vue.component("signup", {
        axios
        .post('/WebShopREST/rest/buyers/signup',this.buyer)
        .then(response=> {
+         console.log("USPESNO buyer"+response)
+       })
+
+       this.user.name=this.buyer.name;
+       this.user.surname=this.buyer.surname;
+       this.user.username=this.buyer.username;
+       this.user.password=this.buyer.password;
+       this.user.birthDate=this.buyer.birthDate;
+       axios
+       .post('/WebShopREST/rest/users/signup',this.user)
+       .then(response=> {
   
         this.$router.push("/login")
-         console.log("USPESNO"+response)
+         console.log("USPESNO user"+response)
        })
     }
 

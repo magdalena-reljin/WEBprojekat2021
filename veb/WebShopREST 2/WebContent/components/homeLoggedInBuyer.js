@@ -55,10 +55,8 @@ Vue.component("homeLoggedInBuyer", {
           `,
           methods: {
             redirect: function(){
-              this.$router.push("/profile/"+this.id)
             },
             goToAllUsers: function(){
-              this.$router.push("/allUsersAdmin/"+this.id)
             },
             goToRestaurants: function(){
               this.$router.push("/restaurantsAdmin/"+this.id)

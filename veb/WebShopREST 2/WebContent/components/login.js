@@ -21,7 +21,7 @@ Vue.component("login", {
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid" style="background-color: #ffa6c9;">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" @click="goToHome()>
         <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
       </a>
       
@@ -91,6 +91,9 @@ Vue.component("login", {
 	},
   goToRegister: function(){
     this.$router.push("/signup")	
+  },
+  goToHome: function(){
+    this.$router.push("/")	
   }
 
   }

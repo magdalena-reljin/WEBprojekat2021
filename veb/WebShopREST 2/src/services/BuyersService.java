@@ -43,16 +43,12 @@ public class BuyersService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(Buyer newBuyer, @Context HttpServletRequest request) throws IOException {
 		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		System.out.println("USPEO SAM buyer isgnup");
 		Buyer buyer = buyerDao.getBuyerById(newBuyer.getUsername());
 		if (buyer != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
 		buyerDao.saveBuyer(newBuyer);
-		userDao.saveUser(newBuyer);
-		
-	
 		request.getSession().setAttribute("buyer", newBuyer);
 		
 		return Response.status(200).build();

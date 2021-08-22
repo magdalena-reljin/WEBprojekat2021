@@ -22,15 +22,47 @@ Vue.component("restaurantInfo", {
 			logo: '',
 			deleted: ''
 			
-			}
+			},
+      items:
+      [{
+        name:'',
+        price: null,
+        itemType: null,
+        restaurant: {
+          name: '',
+          restaurantType: null,
+          items: [],
+          status: 0,
+          location: {
+              longitude: '',
+              latitude: '',
+              address:
+              
+                {
+                  streetAndNumber: '',
+                  town: '',
+                  zipCode: ''
+                },
+          },
+          logo: '',
+          deleted: ''
+          
+      },
+       quantity: '',
+       description: '',
+       image: '',
+       deleted: false
+
+      }
+    ]
 		
 
 
 		}
 	},
 	    template: ` 
-    	<div style="background-image: url(components/images/pocetna.jpeg)" >
-    	<nav  class="navbar navbar-expand-lg navbar-light bg-light">
+    	<div  >
+    	<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid" style="background-color: #ffa6c9;">
   <a class="navbar-brand" href="#">
   <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
@@ -59,8 +91,6 @@ Vue.component("restaurantInfo", {
 
 
 <header>
-  
-
   <!-- Background image -->
   <div
     class="p-5 text-center bg-image"
@@ -84,34 +114,94 @@ Vue.component("restaurantInfo", {
         
         
         </div>
-        <div class="text-white" class="col">
+        <div  class="col">
           <h1 style="color:white;" class="mb-3">{{restaurant.name}}</h1>
           <h4 style="color:white;" class="mb-3">{{restaurant.restaurantType}}</h4>
           <h5 style="color:white;" class="mb-3">{{restaurant.status}}</h5>
+          
         </div>
         
       </div>
     </div>
   </div>
   <!-- Background image -->
+  </div>
 </header>
+
+  <!-- Controls -->
+  <div class="d-flex justify-content-center mb-4">
+    <button
+      class="carousel-control-prev position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- Inner -->
+  <div class="carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <div class="container">
+        <div class="row">
+          <div  v-for="item in items" class="col-lg-3">
+            <div class="card" style="width: 18rem;">
+			<img v-bind:src="item.image"
+              />
+              <div class="card-body">
+              <div class="row">
+
+                
+                <h3 class="card-title">{{item.name}} </h3>
+               
+             
+                <h6 class="card-title" style="color:gray;">  price: {{item.price}}</h6>
+              
+                
+              </div>
+              <h5 class="card-title">{{item.description}}</h5>
+            </div>
+          </div>
+  </div>
+  <!-- Inner -->
+  </div>
+  </div>
+  </div>
 
 
     	</div>		  
     	`,
-	
-   
-        mounted () {
-            this.refreshData();
-              
-        },
+      mounted () {
+        this.loadData();
+    
+          
+    },
         methods: {
-            refreshData: function () {
-                this.restaurant.name=this.id,
+            
+            loadData: function(){
+             
+              this.restaurant.name=this.id,
                 axios
                 .post('/WebShopREST/rest/restaurants/findRestaurantData',this.restaurant)
                 .then(response=> (this.restaurant=response.data))
-            }
+
+                
+              axios
+              .post('/WebShopREST/rest/items/findAllItemsInRestaurant',this.restaurant)
+              .then(response=> {this.items=response.data})
+              
+          },
         }
 	
 });
