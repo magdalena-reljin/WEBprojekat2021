@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 
 import beans.Item;
 import beans.Restaurant;
-import beans.User;
 
 public class ItemDAO {
 	 private List<Item> items;
@@ -47,7 +46,7 @@ public class ItemDAO {
 	  
 
 		public void saveItem(Item newItem)  {
-			
+			items.add(newItem);
 			BufferedWriter writer=null;
 			 
 			 Gson gson = new Gson();
@@ -58,7 +57,7 @@ public class ItemDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -87,7 +86,7 @@ public class ItemDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				itemss=Arrays.asList(gson.fromJson(in, Item[].class));
 			    
@@ -110,10 +109,14 @@ public class ItemDAO {
 
 		public List<Item> findAllItemsInRestaurant(Restaurant r) {
 			List<Item> itemsInRestaurant=new ArrayList<Item>();
+			System.out.println("AAAAAA"+r.getName());
 			for(Item item:items) {
 				if(item.getRestaurant().getName().equals(r.getName()))
 					itemsInRestaurant.add(item);
 			}
 			return itemsInRestaurant;
 		}
+
+		
+		
 }

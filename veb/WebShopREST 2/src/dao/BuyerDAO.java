@@ -47,7 +47,7 @@ public class BuyerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				

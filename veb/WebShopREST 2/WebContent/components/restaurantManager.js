@@ -37,6 +37,38 @@ Vue.component("restaurantManager", {
           
       
             },
+            items:
+            [{
+              name:'',
+              price: null,
+              itemType: null,
+              restaurant: {
+                name: '',
+                restaurantType: null,
+                items: [],
+                status: 0,
+                location: {
+                    longitude: '',
+                    latitude: '',
+                    address:
+                    
+                      {
+                        streetAndNumber: '',
+                        town: '',
+                        zipCode: ''
+                      },
+                },
+                logo: '',
+                deleted: ''
+                
+            },
+             quantity: '',
+             description: '',
+             image: '',
+             deleted: false
+  
+            }
+          ]
       }
     },
     template: ` 
@@ -124,13 +156,55 @@ Vue.component("restaurantManager", {
   <!-- Background image -->
   </div>
 </header>
-  
-  
-            <h1>MANAGER!</h1>
+
+  <!-- Controls -->
+  <div class="d-flex justify-content-center mb-4">
+    <button
+      class="carousel-control-prev position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next position-relative"
+      type="button"
+      data-mdb-target="#carouselMultiItemExample"
+      data-mdb-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
+  <!-- Inner -->
+  <div class="carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <div class="container">
+        <div class="row">
+          <div  v-for="item in items" class="col-lg-4">
+            <div class="card">
+			<img v-bind:src="item.image"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+              
+              </div>
+            </div>
+          </div>
+  </div>
+  <!-- Inner -->
+  </div>
+  </div>
+  </div>
+</div>
+
           `,
           mounted () {
             this.loadData();
+        
               
         },
 
@@ -148,11 +222,18 @@ Vue.component("restaurantManager", {
                 this.selectedManager.username=this.id;
                 axios
                 .post('/WebShopREST/rest/managers/findData',this.selectedManager)
-                .then(response=> (this.selectedManager=response.data))
+                .then(response=> {
+                  this.selectedManager=response.data
+                  axios
+                  .post('/WebShopREST/rest/items/findAllItemsInRestaurant',this.selectedManager.restaurant)
+                  .then(response=> (this.items=response.data))
+                })
+                
             },
             createItem: function(){
                 this.$router.push("/createItemManager/"+this.id)
             }
+           
           }
           
       

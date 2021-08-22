@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,8 +17,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Item;
+import beans.Manager;
 import beans.Restaurant;
 import dao.ItemDAO;
+import dao.ManagerDAO;
+import dao.RestaurantDAO;
+import dao.UserDAO;
 
 @Path("/items")
 public class ItemsService {
@@ -55,9 +60,16 @@ public class ItemsService {
 		}
 	String str=newItem.getImage().substring(12);
 	newItem.setImage("components/images/"+str);
+	System.out.println("AAAAAAA"+newItem.getDescription());
+	System.out.println("AAAAAAA"+newItem.getImage());
+	System.out.println("AAAAAAA"+newItem.getName());
+	System.out.println("AAAAAAA"+newItem.getPrice());
+	System.out.println("AAAAAAA"+newItem.getQuantity());
+	System.out.println("AAAAAAA"+newItem.getRestaurant().getName());
 	itemDao.saveItem(newItem);
 		return Response.status(200).build();
 	}
+
 
 	@POST
 	@Path("/findData")
@@ -68,6 +80,19 @@ public class ItemsService {
 		System.out.println("USPEO SAM u rest findData :)))");
 		Item itemWithData = itemDao.getItemByName(item.getName());
 		return itemWithData;
+	}
+	
+	@POST
+	@Path("/findAllItemsInRestaurant")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Item> findData(Restaurant restaurant, @Context HttpServletRequest request) {
+		List<Item>itemInRestaurant=new ArrayList<Item>();
+		ItemDAO itemDao = (ItemDAO) ctx.getAttribute("itemDAO");
+		System.out.println("USPEO SAM u rest findAllItemsInRestaurant :)))");
+		System.out.println("imeee rest"+restaurant.getName());
+		itemInRestaurant= itemDao.findAllItemsInRestaurant(restaurant);
+		return itemInRestaurant;
 	}
 	
 	

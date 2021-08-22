@@ -5,7 +5,38 @@ Vue.component("newRestaurant", {
         restaurant: {
 		    name: '',
 	      restaurantType: null,
-        items: [],
+        items: [
+          {
+              name:'',
+              price: null,
+              itemType: null,
+              restaurant: {
+                name: '',
+                restaurantType: null,
+                items: [],
+                status: 0,
+                location: {
+                    longitude: '',
+                    latitude: '',
+                    address:
+                    
+                      {
+                        streetAndNumber: '',
+                        town: '',
+                        zipCode: ''
+                      },
+                },
+                logo: '',
+                deleted: ''
+                
+            },
+             quantity: '',
+             description: '',
+             image: '',
+             deleted: false
+  
+            },
+        ],
         status: 0,
         location: {
             longitude: '',

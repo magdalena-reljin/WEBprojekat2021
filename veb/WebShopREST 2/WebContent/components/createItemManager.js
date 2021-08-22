@@ -2,73 +2,72 @@ Vue.component("createItemManager", {
     data: function () {
         return {
         id: this.$route.params.id,
-        item: {
-           name: '',
-           price: null,
-           itemType: null,
-           restaurant:
-			 {
-				name: '',
-			   restaurantType: null,
-			   items: [],
-			   status: null,
-			   location: {
-				longitude: '',
-				latitude: '',
-				address:
-				
-				  {
-					streetAndNumber: '',
-					town: '',
-					zipCode: ''
-				  },
-		            	},
-			      logo: '',
-			    deleted: false
-			
-			},
-            quantity: '',
-            description: '',
-            image: '',
-            deleted: false
-
-        },
-        selectedManager: {
-            username: '',
-            password: '',
-            name: '',
-            surname:'',
-            gender: 0,
-            birthDate: '',
-            role: 1,
-            deleted: false,
-            blocked: false,
-            restaurant: 
-            {name:'',
-             restaurantType: 0,
-             items: null,
-             status: 0,
-             location: 
-             {
-              longitude: '',
-              latitude: '',
-              address:
+          item:{
+            name:'',
+            price: null,
+            itemType: null,
+            restaurant: {
+              name: '',
+              restaurantType: null,
+              items: [],
+              status: 0,
+              location: {
+                  longitude: '',
+                  latitude: '',
+                  address:
+                  
+                    {
+                      streetAndNumber: '',
+                      town: '',
+                      zipCode: ''
+                    },
+              },
+              logo: '',
+              deleted: ''
               
-                {
-                  streetAndNumber: '',
-                  town: '',
-                  zipCode: ''
-                },
-             },
-      
-             logo: '',
-             deleted: ''
+          },
+           quantity: '',
+           description: '',
+           image: '',
+           deleted: false
+
+          },
+        selectedManager: {
+          username: '',
+          password: '',
+          name: '',
+          surname:'',
+          gender: 0,
+          birthDate: '',
+          role: 1,
+          deleted: false,
+          blocked: false,
+          restaurant: 
+          {name:'',
+           restaurantType: 0,
+           items: null,
+           status: 0,
+           location: 
+           {
+            longitude: '',
+            latitude: '',
+            address:
             
-            }
+              {
+                streetAndNumber: '',
+                town: '',
+                zipCode: ''
+              },
+           },
+    
+           logo: '',
+           deleted: ''
           
-      
-            },
-    }
+          }
+        
+    
+          },
+        }
     },
     template: ` 
     <div>
@@ -114,7 +113,7 @@ Vue.component("createItemManager", {
 
           <div class="col form-group">
               <label>Quantity [g/ml] </label>   
-                <input v-model="item.quantity" type="text" class="form-control">
+                <input  v-model="item.quantity" type="text" class="form-control">
           </div> 
 
           <div class="col form-group">
@@ -166,13 +165,13 @@ Vue.component("createItemManager", {
             console.log("fajl"+this.item.description)
             console.log("type"+this.item.itemType)
             console.log("manager"+this.selectedManager.username)
-            
+
        axios
        .post('/WebShopREST/rest/items/add',this.item)
        .then(response=> {
   
-       })
-      
+      })
+     
     },
     data: function(){
         document.getElementById("formFile").onchange = function () {

@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Item;
 import beans.Manager;
 import beans.Restaurant;
 
@@ -39,7 +40,7 @@ public class RestaurantDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
-			in=Files.newBufferedReader(Paths.get(magdalena));
+			in=Files.newBufferedReader(Paths.get(dajana));
 			restaurantss=Arrays.asList(gson.fromJson(in, Restaurant[].class));
 		    
 		} catch (Exception ex) {
@@ -68,7 +69,7 @@ public class RestaurantDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -100,6 +101,21 @@ public class RestaurantDAO {
     	return restaurants;
     }
     
+    public Restaurant addNewItemInRestaurant(Restaurant newRestaurant) {
+		// TODO Auto-generated method stub
+		Restaurant oldRestaurant=getRestaurantByName(newRestaurant.getName());
+		restaurants.remove(oldRestaurant);
 	
+		saveRestaurant(newRestaurant);
+		System.out.println("newrest"+newRestaurant.getItems().get(1).getName());
+		return oldRestaurant;
+		
+	}
+
+	public void saveNewItem(Item newItem) {
+		// TODO Auto-generated method stub
+		
+		
+	}
 	
 }

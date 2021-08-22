@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
+import beans.Manager;
 import beans.Restaurant;
 import beans.User;
 import dao.ManagerDAO;
@@ -51,7 +52,7 @@ public class RestaurantService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(Restaurant newRestaurant, @Context HttpServletRequest request) throws IOException {
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
-		ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+		
 		System.out.println("USPEO SAM");
 		Restaurant restaurant= restaurantDao.getRestaurantByName(newRestaurant.getName());
 		if (restaurant != null) {
@@ -83,6 +84,16 @@ public class RestaurantService {
 		System.out.println("USPEO SAM u rest findData :)))");
 		Restaurant restaurantWithData = restaurantDao.getRestaurantByName(restaurant.getName());
 		return restaurantWithData;
+	}
+	@PUT
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant update(Restaurant newRestaurant, @Context HttpServletRequest request) {
+		System.out.println("pogodio update Restaurant");
+		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		restaurantDao.addNewItemInRestaurant(newRestaurant);
+		return newRestaurant;
 	}
 	
 	
