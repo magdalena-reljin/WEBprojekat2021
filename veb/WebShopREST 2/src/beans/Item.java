@@ -12,9 +12,17 @@ public class Item {
      private String quantity;
      private String description;
      private String image;
+     private int numberInOrder;
      private boolean deleted;
      
-    public boolean getDeleted() {
+     
+    public int getNumberInOrder() {
+		return numberInOrder;
+	}
+	public void setNumberInOrder(int numberInOrder) {
+		this.numberInOrder = numberInOrder;
+	}
+	public boolean getDeleted() {
 		return deleted;
 	}
 	public void setDeleted(boolean deleted) {
@@ -63,7 +71,7 @@ public class Item {
         this.image = image;
     }
     public Item(String name, double price, ItemType itemType, Restaurant restaurant, String quantity,
-            String description, String image) {
+            String description, String image,int numberInOrder) {
         super();
         this.name = name;
         this.price = price;
@@ -73,6 +81,7 @@ public class Item {
         this.description = description;
         this.image = image;
         this.deleted=false;
+        this.numberInOrder=1;
     }
     public Item() {} 
 }

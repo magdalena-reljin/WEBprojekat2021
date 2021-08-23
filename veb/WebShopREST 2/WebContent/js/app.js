@@ -16,6 +16,8 @@ const RestaurantManagerPage = { template: '<restaurantManager></restaurantManage
 const OrdersManagerPage = { template: '<ordersManager></ordersManager>' }
 const CreateItemPage = { template: '<createItemManager></createItemManager>' }
 const EditItemManagerPage = { template: '<editItemManager></editItemManager>' }
+const RestaurantInfoBuyerPage = { template: '<restaurantInfoBuyers></restaurantInfoBuyers>' }
+const Basket = { template: '<basket></basket>' }
 
 
 const router = new VueRouter({
@@ -40,6 +42,8 @@ const router = new VueRouter({
     { path: '/createItemManager/:id', component: CreateItemPage},
     { path: '/createItemManager/:id', component: CreateItemPage},
     { path: '/editItemManager/:id', component: EditItemManagerPage},
+    { path: '/restaurantInfoBuyers/:idRest/:id', component: RestaurantInfoBuyerPage},
+    { path: '/basket/:idRest/:id', component: Basket},
 
       ]
 });

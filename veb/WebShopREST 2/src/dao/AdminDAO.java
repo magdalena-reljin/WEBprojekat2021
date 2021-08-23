@@ -4,11 +4,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Item;
 import beans.User;
 import enums.Gender;
 import enums.Role;
@@ -39,7 +44,7 @@ public class AdminDAO {
 	        return null;
 	    }
 	  
-
+	   
 		public void saveAdmin(User newUser)  {
 			admins.add(newUser);
 			BufferedWriter writer=null;
@@ -52,7 +57,7 @@ public class AdminDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
