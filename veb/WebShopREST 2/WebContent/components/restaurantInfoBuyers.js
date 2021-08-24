@@ -280,10 +280,10 @@ Vue.component("restaurantInfoBuyers", {
               
           },
           addItemToBasket: function(item){
-           
+             if(this.restaurant.status=='OPEN'){
              this.basket.buyer.username=this.id
              this.basket.items.push(item);
-            
+             
 
              axios
               .post('/WebShopREST/rest/buyers/addItemInBasket',this.basket)
@@ -291,6 +291,9 @@ Vue.component("restaurantInfoBuyers", {
                 location.reload()
                
               })
+            }else{
+              alert("Restaurant is closed!")
+            }
             
         },
         removeFromBasket: function(item){

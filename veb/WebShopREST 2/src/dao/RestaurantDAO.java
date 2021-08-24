@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import beans.Item;
 import beans.Manager;
 import beans.Restaurant;
+import enums.RestaurantStatus;
 
 public class RestaurantDAO {
 
@@ -40,7 +41,7 @@ public class RestaurantDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
-			in=Files.newBufferedReader(Paths.get(dajana));
+			in=Files.newBufferedReader(Paths.get(magdalena));
 			restaurantss=Arrays.asList(gson.fromJson(in, Restaurant[].class));
 		    
 		} catch (Exception ex) {
@@ -69,7 +70,7 @@ public class RestaurantDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\restaurants.json";
-			 File file = new File(dajana);
+			 File file = new File(magdalena);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -98,7 +99,16 @@ public class RestaurantDAO {
     }
 
     public List<Restaurant> getAllRestaurants(){
-    	return restaurants;
+    	List<Restaurant> sortedByStatus=new ArrayList<Restaurant>();
+    	for(Restaurant rest1: restaurants) {
+    		if(rest1.getStatus().equals(RestaurantStatus.OPEN))
+    			sortedByStatus.add(rest1);
+    	}
+    	for(Restaurant rest2: restaurants) {
+    		if(rest2.getStatus().equals(RestaurantStatus.CLOSED))
+    			sortedByStatus.add(rest2);
+    	}
+    	return sortedByStatus;
     }
     
     public Restaurant addNewItemInRestaurant(Restaurant newRestaurant) {

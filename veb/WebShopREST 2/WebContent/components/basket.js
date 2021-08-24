@@ -228,11 +228,19 @@ Vue.component("basket", {
                 this.order.cena= this.totalPrice
                 this.order.buyer.username=this.id
                 this.order.buyer.points=this.totalPrice/1000*133
-
+         
                 axios
                 .post('/WebShopREST/rest/orders/createOrder',this.order)
                 .then(response=>{
                     console.log("USPEOOOO SAM")
+                
+                    axios
+                    .post('/WebShopREST/rest/buyers/clearBasketAfterOrdering',this.basketDto)
+                    .then(response=>{
+                        console.log("USPEOOOO SAM da obrisem posle narucivanja")
+                    })
+    
+
                 })
 
                 })

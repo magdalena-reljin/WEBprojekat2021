@@ -8,11 +8,11 @@ import enums.Role;
 public class Buyer extends User {
     private List<Order> orders;
     private Basket basket;
-    private int points;
+    private double points;
     
 	
     public Buyer(String username, String password, String name, String surname, Gender gender, String birthDate,
-			Role role, boolean deleted, boolean blocked, List<Order> orders, Basket basket, int points) {
+			Role role, boolean deleted, boolean blocked, List<Order> orders, Basket basket, double points) {
 		super(username, password, name, surname, gender, birthDate, role, deleted, blocked);
 		this.orders = orders;
 		this.basket = basket;
@@ -30,10 +30,10 @@ public class Buyer extends User {
     public void setBasket(Basket basket) {
         this.basket = basket;
     }
-    public int getPoints() {
+    public double getPoints() {
         return points;
     }
-    public void setPoints(int points) {
+    public void setPoints(double points) {
         this.points = points;
     }
     public Buyer() {}

@@ -155,6 +155,16 @@ public class BuyersService {
 		System.out.println("AAAAAAAAAAA JA SAM VRATIOOOO TU SAM BIOOO ++++++++"+ buyerBasket.getIdBuyer() + "yyyyyy"+ buyerBasket.getIdRest());
 		return buyerDao.findItemInBuyerBasket(buyerBasket);
 	}
+
+	@POST
+	@Path("/clearBasketAfterOrdering")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void clearBasketAfterOrdering( BasketDTO buyerBasket, @Context HttpServletRequest request) throws IOException {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		buyerDao.clearBasketAfterOrdering(buyerBasket);
+		System.out.println("usao sam u CLEAAAAAAAAAAAAAAAAAAAAAAAAAAAAR BASKET");
+	}
 	
 
 	

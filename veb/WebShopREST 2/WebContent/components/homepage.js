@@ -75,8 +75,10 @@ Vue.component("homepage", {
 			<img v-bind:src="item.logo"
               />
               <div class="card-body">
-                <h5 class="card-title">{{item.name}}</h5>
-                <a @click="saveRestaurantId(item.name)" class="btn btn-primary">Button</a>
+                <h4 class="card-title">{{item.name}}</h4>
+				<h6 v-if="item.status === 'OPEN'" style="color: green;">{{item.status}}</h6>
+                <h6 v-else style="color: red;">{{item.status}}</h6>
+				<button @click="saveRestaurantId(item.name)" type="button" class="btn btn-outline-dark">SEE ITEMS</button>
               </div>
             </div>
           </div>

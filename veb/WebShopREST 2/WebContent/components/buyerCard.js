@@ -1,4 +1,4 @@
-Vue.component("homeLoggedInBuyer", {
+Vue.component("buyerCard", {
     data: function () {
       return {
         id: this.$route.params.id,
@@ -67,51 +67,21 @@ Vue.component("homeLoggedInBuyer", {
         <a class="nav-link" @click="goToRestaurants()">Restaurants</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" @click="goToAllOrders()">Orders</a>
+        <a class="nav-link" @click="goToAllUsers()">Orders</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" @click="goToBuyerCard()">BuyerCard</a>
+        <a class="nav-link" @click="goToBuyerCard()">Buyer card</a>
         </li>
          
        </ul>
   
 
-        <!-- Carousel wrapper -->
-<div
-  id="carouselMultiItemExample"
-  class="carousel slide carousel-dark text-center"
-  data-mdb-ride="carousel"
->
-
-  <!-- Inner -->
-  <div class="carousel-inner py-4">
-    <!-- Single item -->
-    <div class="carousel-item active">
-      <div class="container">
-        <div class="row">
-          <div v-for="item in restaurant" class="col-lg-4">
-            <div class="card">
-			<img v-bind:src="item.logo"
-              />
-              <div class="card-body">
-                <h4 class="card-title">{{item.name}}</h4>
-                <h6 v-if="item.status === 'OPEN'" style="color: green;">{{item.status}}</h6>
-                <h6 v-else style="color: red;">{{item.status}}</h6>
-                <button @click="saveRestaurantId(item.name)" type="button" class="btn btn-outline-dark">SEE ITEMS</button>
-              </div>
-            </div>
-          </div>
-  </div>
-  <!-- Inner -->
-  </div>
-  </div>
-  </div>
-</div>
+    
 
 
      
   
-            <h1>kupac!</h1>
+            <h1>OVO JE BUYER CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARD!</h1>
   </div>
           `,
           mounted(){
@@ -121,21 +91,14 @@ Vue.component("homeLoggedInBuyer", {
             redirect: function(){
             },
             goToAllOrders: function(){
-              this.$router.push("/ordersBuyer/"+this.id);
+                this.$router.push("/ordersBuyer/"+this.id);
+            },
+            goToRestaurants: function(){
+                this.$router.push("/homeLoggedInBuyer/"+this.id);
             },
             goToBuyerCard: function(){
-              this.$router.push("/buyerCard/"+this.id);
-            },
-            getAllRestaurants: function () {
-              axios
-              
-              .get('/WebShopREST/rest/restaurants/findAllRestaurants')
-              .then(response=> (this.restaurant=response.data))
-            },
-            saveRestaurantId: function (idRest) {
-              this.$router.push("/restaurantInfoBuyers/"+idRest+"/"+this.id);
-           
-            },
+                location.reload();
+            }
           }
           
       

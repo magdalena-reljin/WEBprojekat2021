@@ -56,7 +56,7 @@ public class BuyerDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(dajana));
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				buyerss=Arrays.asList(gson.fromJson(in, Buyer[].class));
 			    
@@ -93,7 +93,7 @@ public class BuyerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				 File file = new File(dajana);
+				 File file = new File(magdalena);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -227,6 +227,23 @@ public class BuyerDAO {
 			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
 			
+		}
+
+		
+
+		public void clearBasketAfterOrdering(BasketDTO buyerBasket) {
+			// TODO Auto-generated method stub
+			Buyer currentBuyer=getBuyerById(buyerBasket.getIdBuyer());
+			List<Item> newBasket=new ArrayList<Item>();
+			for(Item item: currentBuyer.getBasket().getItems()) {
+				if(item.getRestaurant().getName().equals(buyerBasket.getIdRest()) && item.getDeleted()==false)
+						item.setDeleted(true);
+						
+				newBasket.add(item);
+			}
+			currentBuyer.getBasket().setItems(newBasket);
+			buyers.remove(currentBuyer);
+			saveBuyer(currentBuyer);
 		}
 			
 		

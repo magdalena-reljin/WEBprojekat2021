@@ -49,7 +49,7 @@ public class DelivererDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(dajana));
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				delivererss=Arrays.asList(gson.fromJson(in, Deliverer[].class));
 			    
@@ -85,7 +85,7 @@ public class DelivererDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
-			 File file = new File(dajana);
+			 File file = new File(magdalena);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
