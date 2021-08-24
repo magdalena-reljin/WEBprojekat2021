@@ -41,6 +41,11 @@ Vue.component("basket", {
         
                 ],
                 totalPrice: 0
+              },  
+              basketDto:{
+                idBuyer: '',
+                idItem: ''
+  
               },
         }
     },
@@ -103,7 +108,7 @@ Vue.component("basket", {
                                     <div class="price-wrap"> <var class="price">{{item.price}} $</var> </div>
                                 </td>
                                 <td >
-                                 <a  class="btn btn-light" data-abc="true"> Remove</a> </td>
+                                 <a @click="removeFromBasket(item)" class="btn btn-light"> Remove</a> </td>
                             </tr>
                             
                         </tbody>
@@ -145,7 +150,20 @@ Vue.component("basket", {
               axios
               .post('/WebShopREST/rest/buyers/findBasket',this.basket.buyer)
               .then(response=> (  this.basket=response.data))
-        },
+        },   removeFromBasket: function(item){
+            this.basketDto.idBuyer=this.id
+            this.basketDto.idItem=item.name
+
+                axios
+                .post('/WebShopREST/rest/buyers/removeFromBasket',this.basketDto)
+                .then(response=>{
+                  alert("Item removed!")
+                 location.reload()
+                 
+                })
+         
+  
+          },
 
   }
 
