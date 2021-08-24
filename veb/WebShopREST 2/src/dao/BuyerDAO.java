@@ -205,6 +205,29 @@ public class BuyerDAO {
 				}
 			return totalPrice;
 		}
+
+		public List<Item> findItemInBuyerBasket(BasketDTO buyerBasket) {
+			// TODO Auto-generated method stub
+			List<Item>itemsInBasket=new ArrayList<Item>();
+			 Buyer currentBuyer=getBuyerById(buyerBasket.getIdBuyer());
+			 for(Item item: currentBuyer.getBasket().getItems()) {
+					if(item.getDeleted()==false && item.getRestaurant().getName().equals(buyerBasket.getIdRest())){
+						itemsInBasket.add(item);
+					}
+		}
+			
+			
+			return itemsInBasket;
+		}
+
+		public void updateBuyerPoints(Buyer buyer) {
+			// TODO Auto-generated method stub
+			Buyer currentBuyer=getBuyerById(buyer.getUsername());
+			currentBuyer.setPoints(buyer.getPoints());
+			buyers.remove(currentBuyer);
+			saveBuyer(currentBuyer);
+			
+		}
 			
 		
 			

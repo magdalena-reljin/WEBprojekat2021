@@ -48,9 +48,28 @@ Vue.component("basket", {
                 idBuyer: '',
                 idItem: '',
                 numOfOrder: '',
-                idRest: ''
+                idRest: '',
+                points: ''
   
               },
+              order: {
+                   id: '',
+                   items: [
+
+                   ],
+                 restaurant:{
+                     name: ''
+
+                 } ,
+                 dateAndTime: null,
+                  cena: 0,
+                  buyer: {
+                      username: '',
+                      points: 0
+                  },
+                  status: 1
+
+              }
         }
     },
     template: ` 
@@ -135,7 +154,7 @@ Vue.component("basket", {
                         <dt>Total:</dt>
                         <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
                     </dl>
-                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a  href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a @click="createOrder()"  href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
                 </div>
             </div>
         </aside>
@@ -187,7 +206,40 @@ Vue.component("basket", {
             location.reload()
            
           })
-        }
+        },
+        createOrder: function(){
+
+                this.basketDto.idBuyer=this.id
+                this.basketDto.idRest=this.idRest
+
+                axios
+                .post('/WebShopREST/rest/buyers/findItemInBuyerBasket',this.basketDto)
+                .then(response=>{
+                    console.log("USPEOOOO SAM")
+                 
+                this.order.id= Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+                this.order.items=response.data
+                this.order.restaurant.name=this.idRest
+                const today = new Date();
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                const dateTime = date +' '+ time;
+                this.order.dateAndTime= dateTime
+                this.order.cena= this.totalPrice
+                this.order.buyer.username=this.id
+                this.order.buyer.points=this.totalPrice/1000*133
+
+                axios
+                .post('/WebShopREST/rest/orders/createOrder',this.order)
+                .then(response=>{
+                    console.log("USPEOOOO SAM")
+                })
+
+                })
+
+               
+        },
+
 
   }
 

@@ -1,6 +1,6 @@
 package beans;
 
-import java.util.Date;
+
 import java.util.List;
 
 import enums.OrderStatus;
@@ -9,7 +9,7 @@ public class Order {
      private String id;
      private List<Item> items;
      private Restaurant restaurant;
-     private Date dateAndTime;
+     private String dateAndTime;
      private double cena;
      private Buyer buyer;
      private OrderStatus status;
@@ -31,10 +31,10 @@ public class Order {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-    public Date getDateAndTime() {
+    public String getDateAndTime() {
         return dateAndTime;
     }
-    public void setDateAndTime(Date dateAndTime) {
+    public void setDateAndTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
     public double getCena() {
@@ -55,7 +55,7 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-    public Order(String id, List<Item> items, Restaurant restaurant, Date dateAndTime, double cena, Buyer buyer,
+    public Order(String id, List<Item> items, Restaurant restaurant, String dateAndTime, double cena, Buyer buyer,
             OrderStatus status) {
         super();
         this.id = id;

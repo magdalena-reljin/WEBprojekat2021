@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -142,5 +144,18 @@ public class BuyersService {
 		return buyerDao.totalPrice(buyerBasket);
 	}
 	
+
+	@POST
+	@Path("/findItemInBuyerBasket")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Item> findItemInBuyerBasket( BasketDTO buyerBasket, @Context HttpServletRequest request) throws IOException {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		
+		System.out.println("AAAAAAAAAAA JA SAM VRATIOOOO TU SAM BIOOO ++++++++"+ buyerBasket.getIdBuyer() + "yyyyyy"+ buyerBasket.getIdRest());
+		return buyerDao.findItemInBuyerBasket(buyerBasket);
+	}
+	
+
 	
 }
