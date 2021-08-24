@@ -68,4 +68,18 @@ public class OrdersService {
 			System.out.println("USPEO SAM get orders by buyer id -----------------------");
 			return orderDao.getOrdersByBuyerID(buyer.getUsername());
 		}
+		
+		@POST
+		@Path("/buyerCancelsOrder")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public double buyerCancelsOrder(Order order, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+			System.out.println("pogodio canceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeel"+order.getId());
+			orderDao.buyerCancelsOrder(order);
+			double points= buyerDao.setPointsAfterCancelingOrder(order);
+			System.out.println("poooooooooooooooooooooooooooooooooooooooooooooooooooints"+points);
+			return points;
+		}
 }

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import beans.Basket;
 import beans.Buyer;
 import beans.Item;
+import beans.Order;
 import beans.User;
 import dto.BasketDTO;
 
@@ -244,6 +245,21 @@ public class BuyerDAO {
 			currentBuyer.getBasket().setItems(newBasket);
 			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
+		}
+
+		public double setPointsAfterCancelingOrder(Order order) {
+			// TODO Auto-generated method stub
+			System.out.println("ovo je name od buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuyera"+order.getBuyer().getUsername());
+			Buyer buyer=getBuyerById(order.getBuyer().getUsername());
+			double currentPoints=buyer.getPoints();
+			double lostPoints=order.getCena()/1000*133*4;
+			double newPoints=currentPoints-lostPoints;
+			if(newPoints<0)
+				newPoints=0;
+			buyers.remove(buyer);
+			buyer.setPoints(newPoints);
+			saveBuyer(buyer);
+			return lostPoints;
 		}
 			
 		

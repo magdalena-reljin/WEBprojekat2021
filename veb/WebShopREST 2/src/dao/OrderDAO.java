@@ -111,4 +111,12 @@ public List<Order> getOrdersByBuyerID(String username) {
 	return activeOrders;
 }
 
+public void buyerCancelsOrder(Order order) {
+	// TODO Auto-generated method stub
+	Order orderForCanceling=getOrderById(order.getId());
+	orders.remove(order);
+	orderForCanceling.setStatus(OrderStatus.CANCELED);
+	saveOrders(orderForCanceling);
+}
+
 }

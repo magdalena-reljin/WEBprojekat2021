@@ -119,6 +119,7 @@ Vue.component("homeLoggedInBuyer", {
           },
           methods: {
             redirect: function(){
+              this.$router.push("/profile/"+this.id);
             },
             goToAllOrders: function(){
               this.$router.push("/ordersBuyer/"+this.id);

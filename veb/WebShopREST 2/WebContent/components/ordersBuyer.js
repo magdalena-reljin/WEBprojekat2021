@@ -135,7 +135,7 @@ Vue.component("ordersBuyer", {
                                        <span class="label label-default">{{order.restaurant.name}}</span>
                                     </td>
                                     <td style="width: 20%;">
-                                      <button v-if="order.status === 'INPREPARATION'"  type="button" class="btn btn-outline-danger">CANCEL</button>
+                                      <button @click="cancelOrder(order)" v-if="order.status === 'INPREPARATION'"  type="button" class="btn btn-outline-danger">CANCEL</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>CANCEL</button>
                                     </td>
                                 </tr>
@@ -159,6 +159,7 @@ Vue.component("ordersBuyer", {
           },
           methods: {
             redirect: function(){
+              this.$router.push("/profile/"+this.id);
             },
             goToAllOrders: function(){
                 location.reload();
@@ -178,11 +179,20 @@ Vue.component("ordersBuyer", {
                   console.log("USPESNO"+response)
                  })
                 .catch(err=>console.log("GRESKA"))
-                },
+            },
+            cancelOrder: function(orderForCanceling){
+              axios
+              .post('/WebShopREST/rest/orders/buyerCancelsOrder',orderForCanceling)
+              .then(response=> {
+                  console.log("USPESNO otkazao")
+                  alert("Lost points: "+response.data)
+                  location.reload();
+              })
             
+            }
 
 
-          }
+          },
           
       
       

@@ -238,6 +238,8 @@ Vue.component("basket", {
                     .post('/WebShopREST/rest/buyers/clearBasketAfterOrdering',this.basketDto)
                     .then(response=>{
                         console.log("USPEOOOO SAM da obrisem posle narucivanja")
+
+                        this.$router.push("/ordersBuyer/"+this.id);
                     })
     
 

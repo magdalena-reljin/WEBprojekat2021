@@ -67,7 +67,7 @@ Vue.component("buyerCard", {
         <a class="nav-link" @click="goToRestaurants()">Restaurants</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" @click="goToAllUsers()">Orders</a>
+        <a class="nav-link" @click="goToAllOrders()">Orders</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" @click="goToBuyerCard()">Buyer card</a>
@@ -89,6 +89,7 @@ Vue.component("buyerCard", {
           },
           methods: {
             redirect: function(){
+              this.$router.push("/profile/"+this.id);
             },
             goToAllOrders: function(){
                 this.$router.push("/ordersBuyer/"+this.id);

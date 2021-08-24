@@ -46,7 +46,7 @@ Vue.component("profile", {
 
 </nav>
 
-  
+  <br>
   <div class="container">
   <div class="main-body">
 
