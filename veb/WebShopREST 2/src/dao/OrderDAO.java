@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import beans.Order;
 import beans.Restaurant;
+import enums.OrderStatus;
 
 public class OrderDAO {
 
@@ -96,5 +97,18 @@ public class OrderDAO {
      }
      return null;
  }
+
+public List<Order> getOrdersByBuyerID(String username) {
+	List<Order> activeOrders=new ArrayList<Order>();
+	for(Order order: orders) {
+		if(order.getBuyer().getUsername().equals(username) && 
+				!order.getStatus().equals(OrderStatus.CANCELED) &&
+				!order.getStatus().equals(OrderStatus.DELIVERED)
+				) {
+			activeOrders.add(order);
+		}
+	}
+	return activeOrders;
+}
 
 }

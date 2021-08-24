@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Buyer;
 import beans.Order;
 import beans.Restaurant;
 import dao.BuyerDAO;
@@ -55,5 +57,15 @@ public class OrdersService {
 			orderDao.saveOrders(newOrder);
 			return true;
 		}
-	
+		
+		
+		@POST
+		@Path("/getOrdersByBuyerID")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public List<Order> getOrdersByBuyerID(Buyer buyer, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			System.out.println("USPEO SAM get orders by buyer id -----------------------");
+			return orderDao.getOrdersByBuyerID(buyer.getUsername());
+		}
 }

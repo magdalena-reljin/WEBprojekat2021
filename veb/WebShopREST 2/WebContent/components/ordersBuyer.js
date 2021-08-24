@@ -2,29 +2,46 @@ Vue.component("ordersBuyer", {
     data: function () {
       return {
         id: this.$route.params.id,
-        restaurant:[
-          {
-           name: '',
-            restaurantType: null,
-            items: [],
-            status: null,
-            location: {
-           longitude: '',
-           latitude: '',
-           address:
-           
-             {
-             streetAndNumber: '',
-             town: '',
-             zipCode: ''
-             },
-         },
-         logo: '',
-         deleted: ''
-         
-         }
-        
-       ],
+        orders:[
+           {
+            id: '',
+            items: [
+
+            ],
+          restaurant:{
+              name: ''
+
+          } ,
+          dateAndTime: null,
+           cena: 0,
+           buyer: {
+               username: '',
+               points: 0
+           },
+           status: 1
+
+       }
+      ],
+      buyer: {
+		    username: '',
+		    password: '',
+        name: '',
+        surname:'',
+        gender: 0,
+        birthDate: '',
+        role: 3,
+        deleted: false,
+        blocked: false,
+        orders: [],
+        basket: {
+          buyer: null,
+          items: [],
+          totalPrice: null
+        },
+        points: 0,
+		  	}
+
+
       }
     },
     template: ` 
@@ -78,11 +95,67 @@ Vue.component("ordersBuyer", {
 
      
   
-            <h1>Current orders</h1>
+            <h1 style="text-align:center;">Current orders</h1>
+
+
+
+            <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                <th><span>OrderID</span></th>
+                                <th><span>Created</span></th>
+                                <th class="text-center"><span>Status</span></th>
+                                <th><span>Restaurant</span></th>
+                                <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr   v-for="order in orders">
+                                    <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                                  </svg>
+                                        
+                                        <span class="user-subhead">{{order.id}}</span>
+                                    </td>
+                                    <td>{{order.dateAndTime}}</td>
+                                    <td class="text-center">
+                                        <span v-if="order.status === 'INPREPARATION'" style ="color: green;"  class="label label-default">{{order.status}}</span>
+                                        <span v-else style ="color: red;" class="label label-default">{{order.status}}</span>
+                                    </td>
+                                    <td>
+                                       <span class="label label-default">{{order.restaurant.name}}</span>
+                                    </td>
+                                    <td style="width: 20%;">
+                                      <button v-if="order.status === 'INPREPARATION'"  type="button" class="btn btn-outline-danger">CANCEL</button>
+                                      <button v-else  type="button" class="btn btn-outline-danger" disabled>CANCEL</button>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
   </div>
           `,
           mounted(){
-            this.getAllRestaurants();
+            this.getAllOrders();
           },
           methods: {
             redirect: function(){
@@ -95,7 +168,20 @@ Vue.component("ordersBuyer", {
             },
             goToBuyerCard: function(){
                 this.$router.push("/buyerCard/"+this.id);
-            }
+            },
+            getAllOrders: function(){
+                this.buyer.username=this.id
+                  axios
+                 .post('/WebShopREST/rest/orders/getOrdersByBuyerID',this.buyer)
+                 .then(response=> {
+                  this.orders=response.data
+                  console.log("USPESNO"+response)
+                 })
+                .catch(err=>console.log("GRESKA"))
+                },
+            
+
+
           }
           
       
