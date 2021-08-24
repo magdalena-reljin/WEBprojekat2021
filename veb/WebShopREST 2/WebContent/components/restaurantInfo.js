@@ -51,7 +51,7 @@ Vue.component("restaurantInfo", {
        quantity: '',
        description: '',
        image: '',
-       numberInOrder: 0,
+       numberInOrder: 1,
        deleted: false
 
       }

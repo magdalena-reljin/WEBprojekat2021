@@ -173,6 +173,27 @@ public class BuyerDAO {
 			}
 			return number;
 		}
+
+		public void updateNumberInOrder(BasketDTO buyerBasket) {
+			// TODO Auto-generated method stub
+			List<Item>items=new ArrayList<Item>();
+			List<Item>itemss=new ArrayList<Item>();
+			 Buyer currentBuyer=getBuyerById(buyerBasket.getIdBuyer());
+			 buyers.remove(currentBuyer);
+			 
+			 items.addAll(currentBuyer.getBasket().getItems());
+				for(Item it:items) {
+					if(it.getName().equals(buyerBasket.getIdItem())) {
+						it.setNumberInOrder(buyerBasket.getNumOfOrder());
+						
+				}
+					itemss.add(it);
+			}
+				currentBuyer.getBasket().setItems(itemss);
+				saveBuyer(currentBuyer);
+			}
+			
+		
 			
 		
 }

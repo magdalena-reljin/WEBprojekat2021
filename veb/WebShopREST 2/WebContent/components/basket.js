@@ -35,6 +35,7 @@ Vue.component("basket", {
                        quantity: '',
                        description: '',
                        image: '',
+                       numberInOrder: '',
                        deleted: false
                 
                       }
@@ -44,7 +45,8 @@ Vue.component("basket", {
               },  
               basketDto:{
                 idBuyer: '',
-                idItem: ''
+                idItem: '',
+                numOfOrder: ''
   
               },
         }
@@ -103,7 +105,7 @@ Vue.component("basket", {
                                     </figure>
                                 </td>
                                 <td> 
-                                <input  v-model="item.numberInOrder" type="number" value="1" min="1" max="1000" step="1"/>
+                                <input  @click="updateNumberInOrder(item)" v-model="item.numberInOrder" type="number" value="1" min="1" max="1000" step="1"/>
                                 <td>
                                     <div class="price-wrap"> <var class="price">{{item.price}} $</var> </div>
                                 </td>
@@ -131,7 +133,7 @@ Vue.component("basket", {
                         <dt>Total:</dt>
                         <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
                     </dl>
-                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a  href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
                 </div>
             </div>
         </aside>
@@ -150,7 +152,8 @@ Vue.component("basket", {
               axios
               .post('/WebShopREST/rest/buyers/findBasket',this.basket.buyer)
               .then(response=> (  this.basket=response.data))
-        },   removeFromBasket: function(item){
+        },  
+         removeFromBasket: function(item){
             this.basketDto.idBuyer=this.id
             this.basketDto.idItem=item.name
 
@@ -164,6 +167,17 @@ Vue.component("basket", {
          
   
           },
+          updateNumberInOrder: function(item){
+            this.basketDto.idBuyer=this.id
+            this.basketDto.idItem=item.name
+            this.basketDto.numOfOrder=item.numberInOrder
+          axios
+          .post('/WebShopREST/rest/buyers/updateNumberInOrder',this.basketDto)
+          .then(response=>{
+            location.reload()
+           
+          })
+        }
 
   }
 

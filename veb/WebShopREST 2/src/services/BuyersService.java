@@ -122,4 +122,15 @@ public class BuyersService {
 		return buyerDao.numOfItemsInBasket(basket);
 	}
 	
+	@POST
+	@Path("/updateNumberInOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void updateNuberInOrder(BasketDTO buyerBasket, @Context HttpServletRequest request) throws IOException {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		
+		buyerDao.updateNumberInOrder(buyerBasket);
+	}
+	
+	
 }

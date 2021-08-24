@@ -5,6 +5,14 @@ import beans.Buyer;
 public class BasketDTO {
 	private String idBuyer;
 	private String idItem;
+	private int numOfOrder;
+	
+	public int getNumOfOrder() {
+		return numOfOrder;
+	}
+	public void setNumOfOrder(int numOfOrder) {
+		this.numOfOrder = numOfOrder;
+	}
 	public String getIdBuyer() {
 		return idBuyer;
 	}
