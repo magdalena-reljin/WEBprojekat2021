@@ -9,7 +9,8 @@ Vue.component("restaurantInfoBuyers", {
             numberOfItems: 0,
             basketDto:{
               idBuyer: '',
-              idItem: ''
+              idItem: '',
+              idRest: ''
 
             },
 			restaurant:
@@ -323,6 +324,7 @@ Vue.component("restaurantInfoBuyers", {
         },
         numOfItems(){
           this.basketDto.idBuyer=this.id
+          this.basketDto.idRest=this.idRest
           axios
               .post('/WebShopREST/rest/buyers/numOfItems',this.basketDto)
               .then(response=>{

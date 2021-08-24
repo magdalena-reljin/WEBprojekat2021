@@ -165,9 +165,10 @@ public class BuyerDAO {
 		public int numOfItemsInBasket(BasketDTO basket) {
 			// TODO Auto-generated method stub
 			int number=0;
+			
 			Buyer currentBuyer=getBuyerById(basket.getIdBuyer());
 			for(Item item: currentBuyer.getBasket().getItems()) {
-				if(item.getDeleted()==false){
+				if(item.getDeleted()==false && item.getRestaurant().getName().equals(basket.getIdRest())){
 					number++;
 				}
 			}
