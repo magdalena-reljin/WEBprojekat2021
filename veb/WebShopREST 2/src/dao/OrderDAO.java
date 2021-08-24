@@ -119,4 +119,13 @@ public void buyerCancelsOrder(Order order) {
 	saveOrders(orderForCanceling);
 }
 
+public List<Order> getOrdersForManager(String idRest) {
+	List<Order> ordersForManager=new ArrayList<Order>();
+	for(Order order: orders) {
+		if(order.getRestaurant().getName().equals(idRest) && order.getStatus().equals(OrderStatus.INPREPARATION))
+			ordersForManager.add(order);
+	}
+	return ordersForManager;
+}
+
 }

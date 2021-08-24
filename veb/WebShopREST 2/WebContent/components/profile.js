@@ -57,7 +57,10 @@ Vue.component("profile", {
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                  <img v-if="user.role === 'ADMINISTRATOR'" src="components/images/admin.png"  class="rounded-circle" width="150">
+                  <img v-else-if="user.role === 'MANAGER'" src="components/images/manager.png"  class="rounded-circle" width="150">
+                  <img v-else-if="user.role === 'BUYER'" src="components/images/buyer.png"  class="rounded-circle" width="150">
+                  <img v-else src="components/images/deliverer.png" class="rounded-circle" width="150">
                   <div class="mt-3">
                     <h4>{{user.username}}</h4>
                     <p class="text-secondary mb-1">{{user.role}}</p>

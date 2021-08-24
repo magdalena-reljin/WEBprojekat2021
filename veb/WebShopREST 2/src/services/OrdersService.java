@@ -19,6 +19,7 @@ import beans.Order;
 import beans.Restaurant;
 import dao.BuyerDAO;
 import dao.OrderDAO;
+import dto.BasketDTO;
 
 
 @Path("/orders")
@@ -81,5 +82,16 @@ public class OrdersService {
 			double points= buyerDao.setPointsAfterCancelingOrder(order);
 			System.out.println("poooooooooooooooooooooooooooooooooooooooooooooooooooints"+points);
 			return points;
+		}
+		
+
+		@POST
+		@Path("/getOrdersForManager")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public List<Order> getOrdersForManager(BasketDTO basketDto, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			System.out.println("													stiglo ime restorana"+basketDto.getIdRest());
+			return orderDao.getOrdersForManager(basketDto.getIdRest());
 		}
 }

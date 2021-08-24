@@ -22,6 +22,7 @@ const OrdersBuyerPage = { template: '<ordersBuyer></ordersBuyer>' }
 const BuyerCardPage = { template: '<buyerCard></buyerCard>' }
 
 
+
 const router = new VueRouter({
     mode: 'hash',
       routes: [
@@ -39,7 +40,7 @@ const router = new VueRouter({
     { path: '/homeLoggedInManager/:id', component: HomeLoggedInManager},
     { path: '/homeLoggedInDeliverer/:id', component: HomeLoggedInDeliverer},
     { path: '/restaurantInfo/:id', component: RestaurantInfoPage},
-    { path: '/restaurantManager/:id', component: RestaurantManagerPage},
+    { path: '/restaurantManager/:id/:idRest', component: RestaurantManagerPage},
     { path: '/ordersManager/:id', component: OrdersManagerPage},
     { path: '/createItemManager/:id', component: CreateItemPage},
     { path: '/createItemManager/:id', component: CreateItemPage},
