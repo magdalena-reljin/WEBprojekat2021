@@ -192,6 +192,18 @@ public class BuyerDAO {
 				currentBuyer.getBasket().setItems(itemss);
 				saveBuyer(currentBuyer);
 			}
+
+		public int totalPrice(BasketDTO buyerBasket) {
+			// TODO Auto-generated method stub
+			int totalPrice=0;
+			 Buyer currentBuyer=getBuyerById(buyerBasket.getIdBuyer());
+			 for(Item item: currentBuyer.getBasket().getItems()) {
+					if(item.getDeleted()==false && item.getRestaurant().getName().equals(buyerBasket.getIdRest())){
+						totalPrice+=item.getNumberInOrder()*item.getPrice();
+					}
+				}
+			return totalPrice;
+		}
 			
 		
 			

@@ -3,6 +3,7 @@ Vue.component("basket", {
         return {
             idRest: this.$route.params.idRest,
             id: this.$route.params.id,
+            totalPrice:  0,
             basket: {
                 buyer: {
                     username:''
@@ -46,7 +47,8 @@ Vue.component("basket", {
               basketDto:{
                 idBuyer: '',
                 idItem: '',
-                numOfOrder: ''
+                numOfOrder: '',
+                idRest: ''
   
               },
         }
@@ -123,7 +125,7 @@ Vue.component("basket", {
                 <div class="card-body">
                     <dl class="dlist-align">
                         <dt>Total price:</dt>
-                        <dd class="text-right ml-3">$69.97</dd>
+                        <dd class="text-right ml-3">{{totalPrice}}$</dd>
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
@@ -151,7 +153,15 @@ Vue.component("basket", {
             this.basket.buyer.username=this.id
               axios
               .post('/WebShopREST/rest/buyers/findBasket',this.basket.buyer)
-              .then(response=> (  this.basket=response.data))
+              .then(response=> {this.basket=response.data
+                
+             this.basketDto.idBuyer=this.id
+             this.basketDto.idRest=this.idRest
+                axios
+                .post('/WebShopREST/rest/buyers/totalPrice',this.basketDto)
+                .then(response=> this.totalPrice=response.data)
+        })
+
         },  
          removeFromBasket: function(item){
             this.basketDto.idBuyer=this.id

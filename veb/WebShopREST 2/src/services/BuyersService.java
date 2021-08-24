@@ -132,5 +132,15 @@ public class BuyersService {
 		buyerDao.updateNumberInOrder(buyerBasket);
 	}
 	
+	@POST
+	@Path("/totalPrice")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int totalPrice(BasketDTO buyerBasket, @Context HttpServletRequest request) throws IOException {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		System.out.println("USPEOOOOO TOTALL -*********-");
+		return buyerDao.totalPrice(buyerBasket);
+	}
+	
 	
 }
