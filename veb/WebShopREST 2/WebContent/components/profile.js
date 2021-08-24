@@ -47,6 +47,7 @@ Vue.component("profile", {
 </nav>
 
   <br>
+  <br>
   <div class="container">
   <div class="main-body">
 
@@ -105,7 +106,7 @@ Vue.component("profile", {
                 <div class="row">
                   <div class="col-sm-12">
                     <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit profile</a>
-                    <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Update picture</a>
+               
                     <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Change password</a>
                   </div>
                   

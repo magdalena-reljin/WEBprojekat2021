@@ -4,6 +4,9 @@ Vue.component("basket", {
             idRest: this.$route.params.idRest,
             id: this.$route.params.id,
             totalPrice:  0,
+            discount: 0,
+            totalDiscount: 0,
+            total: 0,
             basket: {
                 buyer: {
                     username:''
@@ -148,13 +151,13 @@ Vue.component("basket", {
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
-                        <dd class="text-right text-danger ml-3">- $10.00</dd>
+                        <dd class="text-right text-danger ml-3">{{totalDiscount}}$</dd>
                     </dl>
                     <dl class="dlist-align">
                         <dt>Total:</dt>
-                        <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+                        <dd class="text-right text-dark b ml-3"><strong>{{total}}$</strong></dd>
                     </dl>
-                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a @click="createOrder()"  href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+                    <hr> <a @click="createOrder()"  href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Finish order </a>
                 </div>
             </div>
         </aside>
@@ -178,7 +181,17 @@ Vue.component("basket", {
              this.basketDto.idRest=this.idRest
                 axios
                 .post('/WebShopREST/rest/buyers/totalPrice',this.basketDto)
-                .then(response=> this.totalPrice=response.data)
+                .then(response=> {this.totalPrice=response.data
+                
+                    axios
+                    .post('/WebShopREST/rest/buyers/discount',this.basketDto)
+                    .then(response=> {this.discount=response.data
+                        this.totalDiscount= this.discount/100*this.totalPrice
+                        this.total=this.totalPrice-this.totalDiscount
+                
+                })
+
+            })
         })
 
         },  
@@ -217,7 +230,7 @@ Vue.component("basket", {
                 .then(response=>{
                     console.log("USPEOOOO SAM")
                  
-                this.order.id= Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+                this.order.id= Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
                 this.order.items=response.data
                 this.order.restaurant.name=this.idRest
                 const today = new Date();
@@ -225,7 +238,7 @@ Vue.component("basket", {
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date +' '+ time;
                 this.order.dateAndTime= dateTime
-                this.order.cena= this.totalPrice
+                this.order.cena= this.total;
                 this.order.buyer.username=this.id
                 this.order.buyer.points=this.totalPrice/1000*133
          

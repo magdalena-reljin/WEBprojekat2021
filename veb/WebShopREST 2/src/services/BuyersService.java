@@ -21,7 +21,9 @@ import beans.Buyer;
 import beans.Item;
 import beans.User;
 import dao.BuyerDAO;
+import dao.UserDAO;
 import dto.BasketDTO;
+import enums.BuyerTitle;
 
 @Path("/buyers")
 public class BuyersService {
@@ -55,6 +57,9 @@ public class BuyersService {
 		if (buyer != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
+		newBuyer.getType().setTitle(BuyerTitle.BRONZE);
+		newBuyer.getType().setDiscount(0);
+		newBuyer.getType().setPoints(3000);
 		buyerDao.saveBuyer(newBuyer);
 		request.getSession().setAttribute("buyer", newBuyer);
 		
@@ -166,6 +171,23 @@ public class BuyersService {
 		System.out.println("usao sam u CLEAAAAAAAAAAAAAAAAAAAAAAAAAAAAR BASKET");
 	}
 	
-
+	@POST
+	@Path("/findData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Buyer findData(Buyer buyer, @Context HttpServletRequest request) {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		System.out.println("USPEO SAM findData buyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer :)))");
+		return buyerDao.getBuyerById(buyer.getUsername());
+	}
 	
+	@POST
+	@Path("/discount")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int discount(BasketDTO basket, @Context HttpServletRequest request) {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		System.out.println("USPEO SAM findData BASKET DISCOUNT :)))");
+		return buyerDao.getDiscount(basket);
+	}
 }

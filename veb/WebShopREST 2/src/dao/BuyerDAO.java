@@ -19,6 +19,7 @@ import beans.Item;
 import beans.Order;
 import beans.User;
 import dto.BasketDTO;
+import enums.BuyerTitle;
 
 public class BuyerDAO {
 		private List<Buyer> buyers=new ArrayList<Buyer>();
@@ -224,7 +225,22 @@ public class BuyerDAO {
 		public void updateBuyerPoints(Buyer buyer) {
 			// TODO Auto-generated method stub
 			Buyer currentBuyer=getBuyerById(buyer.getUsername());
-			currentBuyer.setPoints(buyer.getPoints());
+			double currentPoints=currentBuyer.getPoints()+buyer.getPoints();
+		
+			if(currentPoints <3000) {
+				currentBuyer.getType().setPoints(3000-currentPoints);
+			}else if(currentPoints >= 3000 && currentPoints<4000) {
+					currentBuyer.getType().setTitle(BuyerTitle.SILVER);
+					currentBuyer.getType().setDiscount(3);
+					currentBuyer.getType().setPoints(4000-currentPoints);
+					
+		    }else if(currentPoints>=4000) {
+		    	currentBuyer.getType().setTitle(BuyerTitle.GOLD);
+				currentBuyer.getType().setDiscount(5);
+			
+		    }		
+			
+			currentBuyer.setPoints(currentPoints);
 			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
 			
@@ -256,10 +272,39 @@ public class BuyerDAO {
 			double newPoints=currentPoints-lostPoints;
 			if(newPoints<0)
 				newPoints=0;
+			
+			
+			if(newPoints <3000) {
+				buyer.getType().setPoints(3000-newPoints);
+				buyer.getType().setTitle(BuyerTitle.BRONZE);
+				buyer.getType().setDiscount(0);
+			}else if(newPoints >= 3000 && newPoints<4000) {
+					buyer.getType().setTitle(BuyerTitle.SILVER);
+					buyer.getType().setDiscount(3);
+					buyer.getType().setPoints(4000-newPoints);
+					
+		    }else if(newPoints>=4000) {
+		    	buyer.getType().setTitle(BuyerTitle.GOLD);
+				buyer.getType().setDiscount(5);
+			
+		    }		
+			
 			buyers.remove(buyer);
 			buyer.setPoints(newPoints);
 			saveBuyer(buyer);
 			return lostPoints;
+		}
+
+		public int getDiscount(BasketDTO basket) {
+			// TODO Auto-generated method stub
+			Buyer buyer=getBuyerById(basket.getIdBuyer());
+			if(buyer.getType().getTitle().equals(BuyerTitle.BRONZE)) {
+				return 0;
+			}else if(buyer.getType().getTitle().equals(BuyerTitle.SILVER)) {
+				return 3;
+			}
+			return 5;
+			
 		}
 			
 		

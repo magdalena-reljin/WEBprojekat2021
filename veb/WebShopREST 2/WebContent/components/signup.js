@@ -6,7 +6,7 @@ Vue.component("signup", {
 		    password: '',
         name: '',
         surname:'',
-        gender: 0,
+        gender: null,
         birthDate: '',
         role: 3,
         deleted: false,
@@ -18,6 +18,11 @@ Vue.component("signup", {
           totalPrice: null
         },
         points: 0,
+        type: {
+          title: 2,
+          discount: 0,
+          points: 0
+        }
 		  	},
 
         user: {
@@ -131,6 +136,7 @@ Vue.component("signup", {
        this.user.username=this.buyer.username;
        this.user.password=this.buyer.password;
        this.user.birthDate=this.buyer.birthDate;
+       this.user.gender=this.buyer.gender;
        axios
        .post('/WebShopREST/rest/users/signup',this.user)
        .then(response=> {

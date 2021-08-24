@@ -103,7 +103,7 @@ public List<Order> getOrdersByBuyerID(String username) {
 	for(Order order: orders) {
 		if(order.getBuyer().getUsername().equals(username) && 
 				!order.getStatus().equals(OrderStatus.CANCELED) &&
-				!order.getStatus().equals(OrderStatus.DELIVERED)
+				!order.getStatus().equals(OrderStatus.DELIVERED) 
 				) {
 			activeOrders.add(order);
 		}

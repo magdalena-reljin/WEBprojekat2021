@@ -2,29 +2,30 @@ Vue.component("buyerCard", {
     data: function () {
       return {
         id: this.$route.params.id,
-        restaurant:[
-          {
-           name: '',
-            restaurantType: null,
+        buyer: {
+          username: '',
+          password: '',
+          name: '',
+          surname:'',
+          gender: 0,
+          birthDate: '',
+          role: 3,
+          deleted: false,
+          blocked: false,
+          orders: [],
+          basket: {
+            buyer: null,
             items: [],
-            status: null,
-            location: {
-           longitude: '',
-           latitude: '',
-           address:
-           
-             {
-             streetAndNumber: '',
-             town: '',
-             zipCode: ''
-             },
-         },
-         logo: '',
-         deleted: ''
-         
-         }
+            totalPrice: null
+          },
+          points: 0,
+          type: {
+            title: 2,
+            discount: 0,
+            points: 0
+          }
+          }
         
-       ],
       }
     },
     template: ` 
@@ -81,11 +82,46 @@ Vue.component("buyerCard", {
 
      
   
-            <h1>OVO JE BUYER CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARD!</h1>
+            
+
+            <br>
+            <br>
+            <div class="container col-lg-12 col-md-12">
+            <div class="main-body">
+          
+            
+                  <div class="row gutters-sm">
+                    <div class="col-md-12 mb-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="d-flex flex-column align-items-center text-center">
+                            <img v-if="buyer.type.title === 'BRONZE'" src="components/images/bronze.png" alt="Admin" class="rounded-circle" width="150">
+                            <img v-else-if="buyer.type.title === 'SILVER'" src="components/images/silver.png" alt="Admin" class="rounded-circle" width="150">
+                            <img v-else  src="components/images/gold.png" alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3">
+                              <h4>{{buyer.username}}</h4>
+                              <h4>{{buyer.type.title}}</h4>
+                              <p>POINTS: {{buyer.points}} </p> 
+                             
+                              <p v-if="buyer.type.title === 'BRONZE'" class="text-secondary mb-1">POINTS UNTIL SILVER: {{buyer.type.points}}</p>
+                              <p v-else-if="buyer.type.title === 'SILVER'"  style="background-color: gold;" class="text-secondary mb-1">POINTS UNTIL GOLD: {{buyer.type.points}}</p>
+                              <p v-else style="background-color: gold;" class="text-secondary mb-1">Max points reached.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    </div>
+                    </div>
+                  </div>
+                    
+
+                    
   </div>
           `,
           mounted(){
-            this.getAllRestaurants();
+            this.loadData();
           },
           methods: {
             redirect: function(){
@@ -99,6 +135,12 @@ Vue.component("buyerCard", {
             },
             goToBuyerCard: function(){
                 location.reload();
+            },
+            loadData: function(){
+              this.buyer.username=this.id
+              axios
+              .post('/WebShopREST/rest/buyers/findData',this.buyer)
+              .then(response=> (this.buyer=response.data))
             }
           }
           
