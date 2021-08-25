@@ -2,7 +2,10 @@ Vue.component("deliveryRequestsManager", {
     data: function () {
       return {
         idManager: this.$route.params.id,
-        
+        requestDto:{
+          delivererId: '',
+          orderId: ''
+        },
         basketDto:{
             idRest: '',
           },
@@ -241,8 +244,8 @@ Vue.component("deliveryRequestsManager", {
                                     </td>
 
                                     <td>
-                                    <button  type="button" class="btn btn-outline-success" >ACCEPT</button>
-                                    <button  type="button" class="btn btn-outline-danger" >DENY</button>
+                                    <button  type="button" @click="accept(deliverer,order)" class="btn btn-outline-success" >ACCEPT</button>
+                                    <button  type="button" @click="deny(deliverer,order)" class="btn btn-outline-danger" >DENY</button>
                                     </td>
                                 
                                  </tr>
@@ -299,7 +302,30 @@ Vue.component("deliveryRequestsManager", {
             goToRequests: function(){
                 location.reload();
               
-             },
+            },
+             accept: function(deliverer,order){
+               this.requestDto.delivererId=deliverer.username
+               this.requestDto.orderId=order.id
+              axios
+              .post('/WebShopREST/rest/deliverers/acceptOrder',this.requestDto)
+              .then(response=> {
+                     console.log("Magdalena je bila ovde accept")
+                     location.reload();
+              })
+
+            
+            },
+           deny: function(deliverer,order){
+            this.requestDto.delivererId=deliverer.username
+            this.requestDto.orderId=order.id
+            axios
+            .post('/WebShopREST/rest/deliverers/denyOrder',this.requestDto)
+            .then(response=> {
+                   console.log("Magdalena je bila ovde deny")
+                   location.reload();
+            })
+          
+           },
 
 
 

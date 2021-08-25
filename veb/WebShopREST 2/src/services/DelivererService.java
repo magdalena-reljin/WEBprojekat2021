@@ -25,6 +25,7 @@ import dao.ManagerDAO;
 import dao.OrderDAO;
 import dao.UserDAO;
 import dto.BasketDTO;
+import dto.RequestDTO;
 import enums.OrderStatus;
 
 @Path("/deliverers")
@@ -87,4 +88,35 @@ public class DelivererService {
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
 	    return delivererDao.findAll();
 	}
+	
+
+	@POST
+	@Path("/acceptOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Order acceptOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		OrderDAO orderDao = (OrderDAO)ctx.getAttribute("orderDAO");
+
+	System.out.println("IDDDDD ORDERRRR++++-+-+-+-+-"+requestDto.getOrderId());
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		//order.setStatus(OrderStatus.TRANSPORTING);
+		//orderDao.setStatus(order);
+		delivererDao.accept(requestDto);
+		return orderDao.getOrderById(requestDto.getOrderId());
+		
+	}
+	
+	@POST
+	@Path("/denyOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void denyOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		OrderDAO orderDao=(OrderDAO) ctx.getAttribute("orderDAO");
+		Order order= orderDao.getOrderById(requestDto.getOrderId());
+		delivererDao.deny(requestDto,order);
+	}
+	
+	
 }

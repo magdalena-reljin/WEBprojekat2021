@@ -16,6 +16,7 @@ import beans.Buyer;
 import beans.Deliverer;
 import beans.Order;
 import dto.BasketDTO;
+import dto.RequestDTO;
 import enums.OrderStatus;
 
 public class DelivererDAO {
@@ -125,6 +126,29 @@ public class DelivererDAO {
 		saveDeliverer(currentDeliverer);
 		
 		
+	}
+
+	public void accept(RequestDTO requestDto) {
+		// TODO Auto-generated method stub
+		Deliverer currentD= getDelivererById(requestDto.getDelivererId());
+		deliverers.remove(currentD);
+		for(Order order: currentD.getOrders()) {
+			if(order.getId().equals(requestDto.getOrderId())) {
+				order.setStatus(OrderStatus.TRANSPORTING);
+			}
+		}
+		saveDeliverer(currentD);
+	}
+
+		
+	
+
+	public void deny(RequestDTO requestDto,Order orderForDeleting) {
+		// TODO Auto-generated method stub
+		Deliverer currentD= getDelivererById(requestDto.getDelivererId());
+		deliverers.remove(currentD);
+	    currentD.getOrders().remove(orderForDeleting);
+		saveDeliverer(currentD);
 	}
 
 	

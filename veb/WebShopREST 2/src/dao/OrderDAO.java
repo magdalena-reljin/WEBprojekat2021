@@ -22,7 +22,10 @@ public class OrderDAO {
 	
 	   List<Order> orders;
 
- public OrderDAO() {}
+ public OrderDAO() {
+	 
+		System.out.println("OVDEEEEEEEEEEEEEEEEEEE SAM OBICANNNNNNNNN");
+ }
  
  public OrderDAO(String contextPath) {
 	 orders=new ArrayList<Order>();
@@ -30,6 +33,7 @@ public class OrderDAO {
  		orders.add(r);
      
  	}
+ 	System.out.println("OVDEEEEEEEEEEEEEEEEEEE SAM");
  }
  
  private List<Order> loadOrders(String contextPath) {
@@ -91,6 +95,7 @@ public class OrderDAO {
 	}
  
  public Order getOrderById(String id) {
+	 System.out.println("STIGAOOO ID"+id);
      for(Order order :orders) {
          if(order.getId().equals(id)) 
              return order;
@@ -147,6 +152,11 @@ public List<Order> getOrdersForDeliverer() {
 		}
 	}
 	return ordersForDeliverer;
+}
+
+public void PojediGovno() {
+	// TODO Auto-generated method stub
+	
 }
 
 }
