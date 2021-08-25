@@ -118,6 +118,9 @@ Vue.component("restaurantManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToOrders()">Orders</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToRequests()">Delivery requests</a>
+        </li>
         
          
        </ul>
@@ -227,6 +230,10 @@ Vue.component("restaurantManager", {
             goToHome: function(){
               this.$router.push("/homeLoggedInManager/"+this.id)
             },
+            goToRequests: function(){
+              
+              this.$router.push("/deliveryRequestsManager/"+this.id)
+             },
             loadData: function(){
                 this.selectedManager.username=this.id;
                 axios

@@ -1,31 +1,77 @@
-Vue.component("ordersManager", {
+Vue.component("deliveryRequestsManager", {
     data: function () {
       return {
         idManager: this.$route.params.id,
+        
         basketDto:{
             idRest: '',
           },
-
-        orders:[
-           {
-            id: '',
-            items: [
-
-            ],
-          restaurant:{
-              name: ''
-
-          } ,
-          dateAndTime: null,
-           cena: 0,
-           buyer: {
-               username: '',
-               points: 0
-           },
-           status: 0
-
-       }
-      ],
+          deliverers: [{
+		    username: '',
+	    	password: '',
+        name: '',
+        surname:'',
+        gender: 0,
+        birthDate: '',
+        role: 2,
+        deleted: false,
+        blocked: false,
+        orders: [
+            {
+                id: '',
+                items: [
+                    {
+                        name:'',
+                        price: null,
+                        itemType: null,
+                        restaurant: {
+                          name: '',
+                          restaurantType: null,
+                          items: [],
+                          status: 0,
+                          location: {
+                              longitude: '',
+                              latitude: '',
+                              address:
+                              
+                                {
+                                  streetAndNumber: '',
+                                  town: '',
+                                  zipCode: ''
+                                },
+                          },
+                          logo: '',
+                          deleted: ''
+                          
+                      },
+                       quantity: '',
+                       description: '',
+                       image: '',
+                       numberInOrder: 1,
+                       deleted: false
+            
+                      }
+                ],
+              restaurant:{
+                  name: ''
+    
+              } ,
+              dateAndTime: null,
+               cena: 0,
+               buyer: {
+                   username: '',
+                   points: 0
+               },
+               status: 0
+    
+           }
+            
+        ],
+    }
+          ],
+          
+          
+      
       manager: {
         username: '',
         password: '',
@@ -143,22 +189,23 @@ Vue.component("ordersManager", {
                                 <th><span>Quantity</span></th>
                                 <th class="text-center"><span>Status</span></th>
                                 <th><span>Price</span></th>
-                                <th><span>Buyer</span></th>
+                                <th><span>Deliverer</span></th>
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr v-for="order in orders">
+                        <tbody v-for="deliverer in deliverers">
+
+                                <tr v-if="order.status === 'WAITINGFORACCEPTANCE' && basketDto.idRest === order.restaurant.name " v-for="order in deliverer.orders">
                                     <td>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-                                  </svg>
+                                    </svg>
                                         
                                         <span class="user-subhead">{{order.id}}</span>
                                     </td>
                                     <td>{{order.dateAndTime}}</td>
                                     <td>
-                                    <div v-for="item in order.items">
+                                    <div  v-for="item in order.items">
                                       
                                         <img  style="height: 60px;" v-bind:src="item.image"/>
                                         <span class="label label-default">{{item.name}}</span>
@@ -188,18 +235,19 @@ Vue.component("ordersManager", {
                                     <td>
                                     <span class="label label-default">{{order.cena}}$</span>
                                     </td>
+                                 
                                     <td>
-                                    <span class="label label-default">{{order.buyer.username}}</span>
+                                    <span class="label label-default">{{deliverer.username}}$</span>
                                     </td>
+
                                     <td>
-                                    <button @click="setStatus(order)" v-if="order.status === 'PROCESSING'"  type="button" class="btn btn-outline-success">INPREPARATION</button>
-                                    <button v-else  type="button" class="btn btn-outline-danger" disabled>INPREPARATION</button>
-                                    <button @click="setStatusWAITINGFORDELIVERY(order)" v-if="order.status === 'INPREPARATION'"  type="button" class="btn btn-outline-success">WAINTING DELIVERY</button>
-                                    <button v-else  type="button" class="btn btn-outline-danger" disabled>WAINTING DELIVERY</button>
-                                    
-                                  
+                                    <button  type="button" class="btn btn-outline-success" >ACCEPT</button>
+                                    <button  type="button" class="btn btn-outline-danger" >DENY</button>
                                     </td>
-                                </tr>
+                                
+                                 </tr>
+                            
+                                
                                 
                             </tbody>
                         </table>
@@ -227,10 +275,12 @@ Vue.component("ordersManager", {
                   
                 this.manager=response.data
                 this.basketDto.idRest=this.manager.restaurant.name
-
+                console.log("ispred find all sam")
                 axios
-                .post('/WebShopREST/rest/orders/getOrdersForManager',this.basketDto)
-                .then(response=> {this.orders=response.data})
+                .get('/WebShopREST/rest/deliverers/findAllreq')
+                .then(response=> {this.deliverers=response.data
+                       console.log("Magdalena je bila ovde")
+                })
             
             })
             },
@@ -238,32 +288,18 @@ Vue.component("ordersManager", {
                 this.$router.push("/restaurantManager/"+this.idManager+"/"+this.basketDto.idRest);
             },
             goToOrders: function(){
-                location.reload();
+                this.$router.push("/ordersManager/"+this.idManager)
             },
             goToHome: function(){
                 this.$router.push("/homeLoggedInManager/"+this.idManager);
             },
             redirect: function(){
-                this.$router.push("/profile/"+this.idManager);
+                this.$router.push("/profile/"+this.manager.username);
             },
             goToRequests: function(){
+                location.reload();
               
-              this.$router.push("/deliveryRequestsManager/"+this.idManager)
              },
-            setStatus: function(order){
-              order.status='INPREPARATION'
-              axios
-              .put('/WebShopREST/rest/orders/setStatus',order)
-              .then(response=> location.reload() )
-          
-          },
-          setStatusWAITINGFORDELIVERY: function(order){
-            order.status='WAITINGFORDELIVERY'
-            axios
-            .put('/WebShopREST/rest/orders/setStatus',order)
-            .then(response=> location.reload() )
-        
-        },
 
 
 

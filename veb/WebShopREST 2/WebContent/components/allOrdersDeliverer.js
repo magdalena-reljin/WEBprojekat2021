@@ -156,14 +156,14 @@ Vue.component("allOrdersDeliverer", {
                        </td>
 
                         <td class="text-center">
-                            <span v-if="order.status === 'WAINTINGFORDELIVERY'" style ="color: green;"  class="label label-default">{{order.status}}</span>
+                            <span v-if="order.status === 'WAITINGFORDELIVERY'" style ="color: green;"  class="label label-default">{{order.status}}</span>
                             <span v-else style ="color: red;" class="label label-default">{{order.status}}</span>
                         </td>
                         <td>
                         {{order.buyer.username}}
                         </td>
                         <td>
-                          <button @click="sendRequest(order)" v-if="order.status === 'WAINTINGFORDELIVERY'"  type="button" class="btn btn-outline-success">SEND REQUEST</button>
+                          <button @click="sendRequest(order)" v-if="order.status === 'WAITINGFORDELIVERY'"  type="button" class="btn btn-outline-success">SEND REQUEST</button>
                           <button v-else  type="button" class="btn btn-outline-danger" disabled>SEND REQUEST</button>
                         </td>
                     </tr>
@@ -206,8 +206,8 @@ Vue.component("allOrdersDeliverer", {
             .then(response=> {this.orders=response.data})
           },
           sendRequest: function(order){
-              order.status='WAINTINGFORMANAGER'
              this.deliverer.username= this.id
+             order.status='WAITINGFORACCEPTANCE'
              this.deliverer.orders.push(order)
             axios
             .post('/WebShopREST/rest/deliverers/addOrder', this.deliverer)

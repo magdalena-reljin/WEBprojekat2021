@@ -106,6 +106,9 @@ Vue.component("homeLoggedInManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToOrders()">Orders</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToRequests()">Delivery requests</a>
+        </li>
         
          
        </ul>
@@ -161,8 +164,12 @@ Vue.component("homeLoggedInManager", {
               this.$router.push("/ordersManager/"+this.id)
             },
             goToHome: function(){
-              location.reload();
+             location.reload();
             },
+            goToRequests: function(){
+              
+              this.$router.push("/deliveryRequestsManager/"+this.id)
+             },
             getManager: function(){
               this.manager.username=this.id
               axios
