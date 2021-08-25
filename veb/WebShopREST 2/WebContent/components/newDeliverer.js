@@ -12,7 +12,9 @@ Vue.component("newDeliverer", {
         role: 2,
         deleted: false,
         blocked: false,
-        orders: []
+        orders: [
+         
+        ]
         
 		}
       
@@ -104,13 +106,13 @@ Vue.component("newDeliverer", {
             event.preventDefault();
   
        axios
-       .post('/WebShopREST/rest/deliverer/signup',this.deliverer)
+       .post('/WebShopREST/rest/deliverers/signup',this.deliverer)
        .then(response=> {
   
         this.$router.push("/allUsersAdmin/"+this.id)
          console.log("USPESNO"+response)
        })
-       .catch(err=>console.log("GRESKA"))
+     
     }
 
   }

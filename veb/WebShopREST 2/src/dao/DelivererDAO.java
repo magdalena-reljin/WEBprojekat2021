@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 
 import beans.Buyer;
 import beans.Deliverer;
+import beans.Order;
+import dto.OrderDTO;
 
 public class DelivererDAO {
 	private List<Deliverer> deliverers=new ArrayList<Deliverer>();
@@ -47,9 +49,9 @@ public class DelivererDAO {
 			try {
 				String s=new File("").getAbsolutePath();
 				System.out.println("putanja u load "+s);
-			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
+			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				delivererss=Arrays.asList(gson.fromJson(in, Deliverer[].class));
 			    
@@ -63,7 +65,7 @@ public class DelivererDAO {
 					catch (Exception e) { }
 				}
 			}
-			for(Deliverer i: deliverers) {
+			for(Deliverer i: delivererss) {
 				if(i.isDeleted()==false) {
 					currentItemss.add(i);
 				}
@@ -85,7 +87,7 @@ public class DelivererDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -102,5 +104,25 @@ public class DelivererDAO {
 				}
 			}
 		}
+	}
+
+
+	public void addOrder(Deliverer deliverer) {
+		// TODO Auto-generated method stub
+		List<Order> orders = new ArrayList<Order>();
+	
+		Deliverer currentDeliverer= getDelivererById(deliverer.getUsername());
+		orders=currentDeliverer.getOrders();
+		deliverers.remove(currentDeliverer);
+			for(Order order: deliverer.getOrders()) {
+				if(!order.getId().equals("")) {
+					orders.add(order);
+				}
+				
+			}
+		currentDeliverer.setOrders(orders);
+		saveDeliverer(currentDeliverer);
+		
+		
 	}
 }

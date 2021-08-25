@@ -18,7 +18,7 @@ Vue.component("ordersBuyer", {
                username: '',
                points: 0
            },
-           status: 1
+           status: 0
 
        }
       ],
@@ -111,9 +111,13 @@ Vue.component("ordersBuyer", {
                             <thead>
                                 <tr>
                                 <th><span>OrderID</span></th>
-                                <th><span>Created</span></th>
-                                <th class="text-center"><span>Status</span></th>
                                 <th><span>Restaurant</span></th>
+                                <th><span>Type</span></th>
+                                <th><span>Created</span></th>
+                                <th><span>Items</span></th>
+                                <th><span>Quantity</span></th>
+                                <th><span>Price</span></th>
+                                <th class="text-center"><span>Status</span></th>
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -126,16 +130,47 @@ Vue.component("ordersBuyer", {
                                         
                                         <span class="user-subhead">{{order.id}}</span>
                                     </td>
+                                    <td>
+                                    <span class="label label-default">{{order.restaurant.name}}</span>
+                                   </td>
+                                   <td>
+                                   <span class="label label-default">{{order.restaurant.restaurantType}}</span>
+                                   </td>
                                     <td>{{order.dateAndTime}}</td>
+
+                                    <td>
+                                    <div v-for="item in order.items">
+                                      
+                                        <span class="label label-default">{{item.name}}</span>
+                                        <br>
+                                      
+                                   </div> 
+                                   </td>
+            
+                                   <td>
+                                      <div v-for="item in order.items">
+                                     
+                                     
+                                       <span class="label label-default">{{item.numberInOrder}}</span>
+                                       
+                                       <br>
+                                       <br>
+                                       <br>
+                                     
+                                    </div> 
+                                   </td>
+                                   <td>
+                                   {{order.cena}}$
+                                  </td>
+
+
                                     <td class="text-center">
-                                        <span v-if="order.status === 'INPREPARATION'" style ="color: green;"  class="label label-default">{{order.status}}</span>
+                                        <span v-if="order.status === 'PROCESSING'" style ="color: green;"  class="label label-default">{{order.status}}</span>
                                         <span v-else style ="color: red;" class="label label-default">{{order.status}}</span>
                                     </td>
+                                   
                                     <td>
-                                       <span class="label label-default">{{order.restaurant.name}}</span>
-                                    </td>
-                                    <td style="width: 20%;">
-                                      <button @click="cancelOrder(order)" v-if="order.status === 'INPREPARATION'"  type="button" class="btn btn-outline-danger">CANCEL</button>
+                                      <button @click="cancelOrder(order)" v-if="order.status === 'PROCESSING'"  type="button" class="btn btn-outline-danger">CANCEL</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>CANCEL</button>
                                     </td>
                                 </tr>

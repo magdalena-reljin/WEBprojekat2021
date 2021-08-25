@@ -1,8 +1,6 @@
 package dao;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -11,18 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.print.DocFlavor.URL;
-import javax.ws.rs.Path;
-
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-
 import beans.User;
-import enums.Gender;
-import enums.Role;
 
 public class UserDAO {
     
@@ -75,7 +63,7 @@ public class UserDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -105,7 +93,7 @@ public class UserDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
-			in=Files.newBufferedReader(Paths.get(magdalena));
+			in=Files.newBufferedReader(Paths.get(dajana));
 			//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 			userss=Arrays.asList(gson.fromJson(in, User[].class));
 		    

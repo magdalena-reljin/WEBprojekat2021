@@ -61,7 +61,8 @@ Vue.component("basket", {
 
                    ],
                  restaurant:{
-                     name: ''
+                     name: '',
+                     restaurantType: null
 
                  } ,
                  dateAndTime: null,
@@ -70,8 +71,60 @@ Vue.component("basket", {
                       username: '',
                       points: 0
                   },
-                  status: 1
+                  status: 0
 
+              },
+              restaurant:{
+                name: '',
+	      restaurantType: null,
+        items: [
+          {
+              name:'',
+              price: null,
+              itemType: null,
+              restaurant: {
+                name: '',
+                restaurantType: null,
+                items: [],
+                status: 0,
+                location: {
+                    longitude: '',
+                    latitude: '',
+                    address:
+                    
+                      {
+                        streetAndNumber: '',
+                        town: '',
+                        zipCode: ''
+                      },
+                },
+                logo: '',
+                deleted: ''
+                
+            },
+             quantity: '',
+             description: '',
+             image: '',
+             numberInOrder: 1,
+             deleted: false
+  
+            },
+        ],
+        status: 0,
+        location: {
+            longitude: '',
+            latitude: '',
+            address:
+            
+              {
+                streetAndNumber: '',
+                town: '',
+                zipCode: ''
+              },
+        },
+        logo: '',
+        deleted: ''
+        
               }
         }
     },
@@ -167,6 +220,7 @@ Vue.component("basket", {
      `,
      mounted(){
         this.loadData();
+        this.getRestaurant();
      },
     methods: {
       
@@ -220,6 +274,14 @@ Vue.component("basket", {
            
           })
         },
+        getRestaurant: function(){
+            this.restaurant.name=this.idRest
+            axios
+                .post('/WebShopREST/rest/restaurants/findRestaurantData',this.restaurant)
+                .then(response=> {this.restaurant=response.data
+                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa")
+                })
+        },
         createOrder: function(){
 
                 this.basketDto.idBuyer=this.id
@@ -233,6 +295,7 @@ Vue.component("basket", {
                 this.order.id= Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
                 this.order.items=response.data
                 this.order.restaurant.name=this.idRest
+                this.order.restaurant.restaurantType=this.restaurant.restaurantType
                 const today = new Date();
                 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

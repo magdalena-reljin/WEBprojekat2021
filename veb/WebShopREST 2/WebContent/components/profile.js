@@ -38,6 +38,7 @@ Vue.component("profile", {
     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
       <li><a class="dropdown-item" @click="redirect()">Profile</a></li>
       <li><a class="dropdown-item" href="http://localhost:8080/WebShopREST/#/login">Log out</a></li>
+      <li><a class="dropdown-item" @click="goToHome()">Home</a></li>
     </ul>
     </li>
 
@@ -141,7 +142,27 @@ Vue.component("profile", {
                 .then(response=> (this.user=response.data))
             },
             backHome: function(){
-              this.$router.push("/homeLoggedIn/"+this.id)
+              if(this.user.role === 'ADMINISTRATOR'){
+                this.$router.push("/homeLoggedIn/"+this.id)
+              }else if(this.user.role === 'BUYER'){
+                this.$router.push("/homeLoggedInBuyer/"+this.id)
+              }else if(this.user.role === 'MANAGER'){
+                this.$router.push("/homeLoggedInManager/"+this.id)
+              }else {
+                this.$router.push("/homeLoggedInDeliverer/"+this.id)
+              }
+             
+            },
+            goToHome: function(){
+              if(this.user.role === 'ADMINISTRATOR'){
+                this.$router.push("/homeLoggedIn/"+this.id)
+              }else if(this.user.role === 'BUYER'){
+                this.$router.push("/homeLoggedInBuyer/"+this.id)
+              }else if(this.user.role === 'MANAGER'){
+                this.$router.push("/homeLoggedInManager/"+this.id)
+              }else {
+                this.$router.push("/homeLoggedInDeliverer/"+this.id)
+              }
             }
         }
     });

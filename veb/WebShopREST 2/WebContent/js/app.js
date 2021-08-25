@@ -20,6 +20,8 @@ const RestaurantInfoBuyerPage = { template: '<restaurantInfoBuyers></restaurantI
 const Basket = { template: '<basket></basket>' }
 const OrdersBuyerPage = { template: '<ordersBuyer></ordersBuyer>' }
 const BuyerCardPage = { template: '<buyerCard></buyerCard>' }
+const AllOrdersDelivererPage= { template: '<allOrdersDeliverer></allOrdersDeliverer>' }
+const OrdersDelivererPage = { template: '<ordersDeliverer></ordersDeliverer>' }
 
 
 
@@ -49,6 +51,8 @@ const router = new VueRouter({
     { path: '/basket/:idRest/:id', component: Basket},
     { path: '/ordersBuyer/:id', component: OrdersBuyerPage},
     { path: '/buyerCard/:id', component: BuyerCardPage},
+    { path: '/allOrdersDeliverer/:id', component: AllOrdersDelivererPage},
+    { path: '/ordersDeliverer/:id', component: OrdersDelivererPage},
 
       ]
 });

@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -18,8 +20,10 @@ import beans.Buyer;
 import beans.Order;
 import beans.Restaurant;
 import dao.BuyerDAO;
+import dao.DelivererDAO;
 import dao.OrderDAO;
 import dto.BasketDTO;
+import dto.OrderDTO;
 
 
 @Path("/orders")
@@ -94,4 +98,29 @@ public class OrdersService {
 			System.out.println("													stiglo ime restorana"+basketDto.getIdRest());
 			return orderDao.getOrdersForManager(basketDto.getIdRest());
 		}
+		
+
+		@PUT
+		@Path("/setStatus")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Order setStatus(Order order, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			System.out.println("		////tiglo ime restorana"+ order.getStatus());
+			return orderDao.setStatus(order);
+		}
+		
+		@GET
+		@Path("/getOrdersForDeliverer")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public List<Order> getOrdersForDeliverer() throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			System.out.println("OOOOOOOOVDEEEEEEEEEEEEE SAM BIOOOOOOOOOOOOOOOO C O O L");
+			
+			return orderDao.getOrdersForDeliverer();
+		}
+		
+		
+		
 }
