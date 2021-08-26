@@ -13,25 +13,23 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Admin;
 import beans.Item;
 import beans.User;
 import enums.Gender;
 import enums.Role;
 
 public class AdminDAO {
-	 private List<User> admins=new ArrayList<User>();
+	 private List<Admin> admins=new ArrayList<Admin>();
 
-	
+		
 
 	    public AdminDAO() {}
 	    
 	    public AdminDAO(String contextPath) {
-	      //  loadUsers(contextPath);
-	    	admins.add(new User("magdalena@gmail.com","a","Magdalena","Reljin",Gender.FEMALE,"",Role.ADMINISTRATOR, false, false));
-	    	admins.add(new User("dajana@gmail.com","da","Dajana","Zlokapa",Gender.FEMALE,"",Role.ADMINISTRATOR, false, false));
-	   
+	      admins=loadAdmins(contextPath);
 	    }
-	    public List<User> findAll() {
+	    public List<Admin> findAll() {
 	        return admins;
 	    }
 	  
@@ -44,36 +42,37 @@ public class AdminDAO {
 	        return null;
 	    }
 	  
-	   
-		public void saveAdmin(User newUser)  {
-			admins.add(newUser);
-			BufferedWriter writer=null;
-			
-			 Gson gson = new Gson();
-			   String json = gson.toJson(admins);  
-			   System.out.println(json);
-			   
-			 try {
-				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
-				 String s=new File("").getAbsolutePath();
-				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
-				 File file = new File(dajana);
-				writer = new BufferedWriter(new FileWriter(file));
-				  writer.write(json);
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				if(writer!=null) {
+	    private List<Admin> loadAdmins(String contextPath) {
+			List<Admin> adminss=new ArrayList<Admin>();
+			List<Admin> currentItemss=new ArrayList<Admin>();
+			Gson gson = new Gson();
+			Reader in=null;
+			try {
+				String s=new File("").getAbsolutePath();
+				System.out.println("putanja u load "+s);
+			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
+			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
+				in=Files.newBufferedReader(Paths.get(dajana));
+				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
+				adminss=Arrays.asList(gson.fromJson(in, Admin[].class));
+			    
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if (in != null) {
 					try {
-						writer.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						in.close();
 					}
+					catch (Exception e) { }
 				}
 			}
-			
+			for(Admin i: adminss) {
+				if(i.isDeleted()==false) {
+					currentItemss.add(i);
+				}
+			}
+			return currentItemss;
 		}
+	   
+
 }
