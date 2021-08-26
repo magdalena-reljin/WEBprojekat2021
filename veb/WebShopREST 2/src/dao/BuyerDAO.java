@@ -306,6 +306,16 @@ public class BuyerDAO {
 			return 5;
 			
 		}
+
+		public User editData(User user) {
+			// TODO Auto-generated method stub
+			Buyer buyer=getBuyerById(user.getUsername());
+			buyers.remove(buyer);
+			buyer.setName(user.getName());
+			buyer.setSurname(user.getSurname());
+			saveBuyer(buyer);
+			return buyer;
+		}
 			
 		
 			

@@ -75,7 +75,7 @@ public class LoginService {
 		System.out.println("dobar mi je user dao");
 		User loggedUser = userDao.findUser(user.getUsername(), user.getPassword());
        
-		System.out.println("USPEO SAM login :)))  "+loggedUser.getRole());
+
 		if (loggedUser == null) 
 			return null;
 		
@@ -108,5 +108,17 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User login(@Context HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("user");
+	}
+	
+	@POST
+	@Path("/editData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User editData(User user, @Context HttpServletRequest request) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		System.out.println("USPEO SAM edittttttttt :)))");
+
+		return  userDao.editData(user);
+		
 	}
 }

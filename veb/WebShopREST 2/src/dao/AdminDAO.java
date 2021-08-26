@@ -14,6 +14,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import beans.Admin;
+import beans.Buyer;
 import beans.Item;
 import beans.User;
 import enums.Gender;
@@ -34,8 +35,8 @@ public class AdminDAO {
 	    }
 	  
 	   
-	    public User getAdminById(String id) {
-	        for(User admin :admins) {
+	    public Admin getAdminById(String id) {
+	        for(Admin admin :admins) {
 	            if(admin.getUsername().equals(id)) 
 	                return admin;
 	        }
@@ -74,5 +75,45 @@ public class AdminDAO {
 			return currentItemss;
 		}
 	   
+		public void saveAdmin(Admin newAdmin)  {
+			admins.add(newAdmin);
+			BufferedWriter writer=null;
+			
+			 Gson gson = new Gson();
+			   String json = gson.toJson(admins);  
+			   System.out.println(json);
+			   
+			 try {
+				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
+				 String s=new File("").getAbsolutePath();
+				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\admins.json";
+				 File file = new File(dajana);
+				writer = new BufferedWriter(new FileWriter(file));
+				  writer.write(json);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if(writer!=null) {
+					try {
+						writer.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		public User editData(User user) {
+			// TODO Auto-generated method stub
+			Admin admin= getAdminById(user.getUsername());
+			admins.remove(admin);
+			admin.setName(user.getName());
+			admin.setSurname(user.getSurname());
+			saveAdmin(admin);
+			return admin;
+		}
+			
 
 }

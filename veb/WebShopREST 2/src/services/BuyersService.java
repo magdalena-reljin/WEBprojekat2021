@@ -190,4 +190,15 @@ public class BuyersService {
 		System.out.println("USPEO SAM findData BASKET DISCOUNT :)))");
 		return buyerDao.getDiscount(basket);
 	}
+	
+	@POST
+	@Path("/editData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User editData(User user, @Context HttpServletRequest request) {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		System.out.println("USPEO SAM edittttttttt :)))");
+		return  buyerDao.editData(user);
+		
+	}
 }

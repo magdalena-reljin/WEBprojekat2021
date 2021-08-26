@@ -23,6 +23,7 @@ const BuyerCardPage = { template: '<buyerCard></buyerCard>' }
 const AllOrdersDelivererPage= { template: '<allOrdersDeliverer></allOrdersDeliverer>' }
 const OrdersDelivererPage = { template: '<ordersDeliverer></ordersDeliverer>' }
 const DeliveryRequests = { template: '<deliveryRequestsManager></deliveryRequestsManager>' }
+const EditProfileDataPage = { template: '<editProfileData></editProfileData>' }
 
 
 
@@ -55,6 +56,7 @@ const router = new VueRouter({
     { path: '/allOrdersDeliverer/:id', component: AllOrdersDelivererPage},
     { path: '/ordersDeliverer/:id', component: OrdersDelivererPage},
     { path: '/deliveryRequestsManager/:id', component: DeliveryRequests},
+    { path: '/editProfileData/:id', component: EditProfileDataPage},
 
       ]
 });

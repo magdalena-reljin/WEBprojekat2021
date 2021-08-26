@@ -112,5 +112,15 @@ public class UserDAO {
 		
 		return userss;
 	}
+
+	public User editData(User user) {
+		// TODO Auto-generated method stub
+		User currentUser= getUserById(user.getUsername());
+				users.remove(currentUser);
+				saveUser(user);
+				return user;
+		
+		
+	}
 	
 }

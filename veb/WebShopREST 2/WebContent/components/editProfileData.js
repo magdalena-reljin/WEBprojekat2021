@@ -1,4 +1,4 @@
-Vue.component("profile", {
+Vue.component("editProfileData", {
     data: function () {
       return {
         id: this.$route.params.id,
@@ -47,84 +47,57 @@ Vue.component("profile", {
 
 </nav>
 
-  <br>
-  <br>
-  <div class="container">
-  <div class="main-body">
-
-  
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <img v-if="user.role === 'ADMINISTRATOR'" src="components/images/admin.png"  class="rounded-circle" width="150">
-                  <img v-else-if="user.role === 'MANAGER'" src="components/images/manager.png"  class="rounded-circle" width="150">
-                  <img v-else-if="user.role === 'BUYER'" src="components/images/buyer.png"  class="rounded-circle" width="150">
-                  <img v-else src="components/images/deliverer.png" class="rounded-circle" width="150">
-                  <div class="mt-3">
-                    <h4>{{user.username}}</h4>
-                    <p class="text-secondary mb-1">{{user.role}}</p>
-                  </div>
-                </div>
-              </div>
+<div>
+        <h3 style="text-align:center;">Personal info</h3>
+        <hr>
+        <div style="
+        margin: auto;
+        width: 80%;
+        border: 1px solid #ffa6c9;
+        padding: 10px;">
+        <form  class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" v-model="user.name">
             </div>
           </div>
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Name</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">{{user.name}}</div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Surname</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                     {{user.surname}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Gender</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user.gender}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Birthday</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user.birthDate}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <a @click="editData()" class="btn btn-info " target="__blank">Edit profile</a>
-               
-                    <a class="btn btn-info " target="__blank" >Change password</a>
-                  </div>
-                  
-                </div>
-              </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" v-model="user.surname">
             </div>
-            </div>
-
           </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Username:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" v-model="user.username" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Gender:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" v-model="user.gender" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Birthday:</label>
+            <div class="col-lg-8">
+            <input class="form-control" type="text" v-model="user.birthDate" disabled>
+          </div>
+          </div>
+          <div class="form-group">
+            <br>
+          <div class="col-lg-8">
+         <button @click="editData" class="btn btn-outline-dark">Save</button>
         </div>
-
+        </div>
+        </form>
       </div>
   </div>
-
+</div>
+<hr>
+</div>
 
   </div>
           `,
@@ -164,8 +137,33 @@ Vue.component("profile", {
                 this.$router.push("/homeLoggedInDeliverer/"+this.id)
               }
             },
-            editData: function () {
-              this.$router.push("/editProfileData/"+this.id)
-          },
+            editData: function (event) {
+                event.preventDefault();
+                this.user.username=this.id,
+                axios
+                .post('/WebShopREST/rest/users/editData',this.user)
+                .then(response=> {
+                    if(this.user.role === 'ADMINISTRATOR'){
+                        axios
+                         .post('/WebShopREST/rest/admins/editData',this.user)
+                         .then(response=>  this.$router.push("/profile/"+this.id))
+                      }else if(this.user.role === 'BUYER'){
+                        axios
+                        .post('/WebShopREST/rest/buyers/editData',this.user)
+                        .then(response=>  this.$router.push("/profile/"+this.id))
+                      }else if(this.user.role === 'MANAGER'){
+                        axios
+                         .post('/WebShopREST/rest/manager/editData',this.user)
+                         .then(response=>  this.$router.push("/profile/"+this.id))
+                      }else {
+                        axios
+                        .post('/WebShopREST/rest/deliverers/editData',this.user)
+                        .then(response=>  this.$router.push("/profile/"+this.id))
+                      }   
+
+
+                })
+            },
+            
         }
     });

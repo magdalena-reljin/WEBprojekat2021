@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import beans.Manager;
 import beans.Restaurant;
 import beans.User;
+import dao.DelivererDAO;
 import dao.ManagerDAO;
 import dao.UserDAO;
 import enums.RestaurantType;
@@ -100,5 +101,15 @@ import enums.RestaurantType;
 			Manager managerWithData = managerDao.getManagerById(manager.getUsername());
 			System.out.println("								"+ managerWithData.getRestaurant().getName());
 			return managerWithData;
+		}
+		
+		@POST
+		@Path("/editData")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public User editData(User user, @Context HttpServletRequest request) {
+			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+			return  managerDao.editData(user);
+			
 		}
 }

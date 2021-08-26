@@ -20,6 +20,8 @@ import javax.ws.rs.core.Response;
 import beans.Deliverer;
 import beans.Manager;
 import beans.Order;
+import beans.User;
+import dao.BuyerDAO;
 import dao.DelivererDAO;
 import dao.ManagerDAO;
 import dao.OrderDAO;
@@ -129,6 +131,15 @@ public class DelivererService {
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
 	  delivererDao.setStatus(req);
 
+	}
+	@POST
+	@Path("/editData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User editData(User user, @Context HttpServletRequest request) {
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		return  delivererDao.editData(user);
+		
 	}
 	
 	

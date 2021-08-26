@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Deliverer;
 import beans.Manager;
 import beans.Restaurant;
 import beans.User;
@@ -128,7 +129,16 @@ public class ManagerDAO {
 		}
 
 
-		
+		public User editData(User user) {
+			// TODO Auto-generated method stub
+			Manager manager= getManagerById(user.getUsername());
+			managers.remove(manager);
+			manager.setName(user.getName());
+			manager.setSurname(user.getSurname());
+			saveManager(manager);
+			return manager;
+		}
+			
 
 }
 

@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
 
+import beans.Admin;
 import beans.Buyer;
 import beans.Deliverer;
 import beans.Order;
+import beans.User;
 import dto.BasketDTO;
 import dto.RequestDTO;
 import enums.OrderStatus;
@@ -178,5 +180,15 @@ public class DelivererDAO {
 		
 	}
 
-	
+	public User editData(User user) {
+		// TODO Auto-generated method stub
+		Deliverer deliverer= getDelivererById(user.getUsername());
+		deliverers.remove(deliverer);
+		deliverer.setName(user.getName());
+		deliverer.setSurname(user.getSurname());
+		saveDeliverer(deliverer);
+		return deliverer;
+	}
+		
+
 }
