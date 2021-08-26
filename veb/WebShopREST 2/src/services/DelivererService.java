@@ -35,7 +35,7 @@ public class DelivererService {
 	ServletContext ctx;
 	
 	public DelivererService() {
-		System.out.println("KONSTRUKTOR DELIVERER");
+		System.out.println("KONSTRUKTOR DELIVERER vvv");
 		
 	}
 	
@@ -94,16 +94,10 @@ public class DelivererService {
 	@Path("/acceptOrder")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Order acceptOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
+	public void acceptOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
-		OrderDAO orderDao = (OrderDAO)ctx.getAttribute("orderDAO");
-
-	System.out.println("IDDDDD ORDERRRR++++-+-+-+-+-"+requestDto.getOrderId());
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		//order.setStatus(OrderStatus.TRANSPORTING);
-		//orderDao.setStatus(order);
 		delivererDao.accept(requestDto);
-		return orderDao.getOrderById(requestDto.getOrderId());
+	
 		
 	}
 	
@@ -113,9 +107,17 @@ public class DelivererService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void denyOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
-		OrderDAO orderDao=(OrderDAO) ctx.getAttribute("orderDAO");
-		Order order= orderDao.getOrderById(requestDto.getOrderId());
-		delivererDao.deny(requestDto,order);
+		delivererDao.deny(requestDto);
+	}
+	
+	@POST
+	@Path("/getOrdersForDeliverer")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Order> getOrdersForDeliverer(Deliverer deliverer){
+		System.out.println("PROBLEM U CEMU JEEEEE????");
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		return null;
 	}
 	
 	

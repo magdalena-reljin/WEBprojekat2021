@@ -310,6 +310,10 @@ Vue.component("deliveryRequestsManager", {
               .post('/WebShopREST/rest/deliverers/acceptOrder',this.requestDto)
               .then(response=> {
                      console.log("Magdalena je bila ovde accept")
+
+                     axios
+                     .post('/WebShopREST/rest/orders/acceptOrder',this.requestDto)
+                     .then(response=>console.log("Magdalena je bila ovde accept"))
                      location.reload();
               })
 

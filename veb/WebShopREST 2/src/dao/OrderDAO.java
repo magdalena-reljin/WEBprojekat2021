@@ -45,7 +45,7 @@ public class OrderDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			in=Files.newBufferedReader(Paths.get(magdalena));
+			in=Files.newBufferedReader(Paths.get(dajana));
 			orderss=Arrays.asList(gson.fromJson(in, Order[].class));
 		    
 		} catch (Exception ex) {
@@ -74,7 +74,7 @@ public class OrderDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -147,16 +147,13 @@ public List<Order> getOrdersForDeliverer() {
 	// TODO Auto-generated method stub
 	List<Order>ordersForDeliverer= new ArrayList<Order>();
 	for(Order order: orders) {
-		if(order.getStatus().equals(OrderStatus.WAITINGFORDELIVERY)) {
+	if(order.getStatus().equals(OrderStatus.WAITINGFORDELIVERY)) {
 			ordersForDeliverer.add(order);
 		}
 	}
 	return ordersForDeliverer;
 }
 
-public void PojediGovno() {
-	// TODO Auto-generated method stub
-	
-}
+
 
 }

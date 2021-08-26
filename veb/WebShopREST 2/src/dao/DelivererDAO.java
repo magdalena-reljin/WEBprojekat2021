@@ -53,7 +53,7 @@ public class DelivererDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				delivererss=Arrays.asList(gson.fromJson(in, Deliverer[].class));
 			    
@@ -89,7 +89,7 @@ public class DelivererDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\deliverers.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -143,12 +143,25 @@ public class DelivererDAO {
 		
 	
 
-	public void deny(RequestDTO requestDto,Order orderForDeleting) {
+	public void deny(RequestDTO requestDto) {
 		// TODO Auto-generated method stub
+		List<Order>orders= new ArrayList<Order>();
 		Deliverer currentD= getDelivererById(requestDto.getDelivererId());
 		deliverers.remove(currentD);
-	    currentD.getOrders().remove(orderForDeleting);
+		for(Order order: currentD.getOrders()) {
+			if(order.getId().equals(requestDto.getOrderId()) && !currentD.getUsername().equals(requestDto.getDelivererId())) {
+				orders.add(order);
+			}
+		}
+	   currentD.setOrders(orders);
 		saveDeliverer(currentD);
+	}
+
+	public List<Order> getOrdersForDeliverer(String orderId) {
+		// TODO Auto-generated method stub
+		Deliverer currentD= getDelivererById(orderId);
+		return currentD.getOrders();
+		
 	}
 
 	

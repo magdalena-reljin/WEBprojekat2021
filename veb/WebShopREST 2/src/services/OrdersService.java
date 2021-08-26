@@ -23,6 +23,8 @@ import dao.BuyerDAO;
 import dao.DelivererDAO;
 import dao.OrderDAO;
 import dto.BasketDTO;
+import dto.RequestDTO;
+import enums.OrderStatus;
 
 
 
@@ -121,6 +123,18 @@ public class OrdersService {
 			return orderDao.getOrdersForDeliverer();
 		}
 		
+		@POST
+		@Path("/acceptOrder")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public void acceptOrder(RequestDTO requestDto, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO)ctx.getAttribute("orderDAO");
+			Order order =orderDao.getOrderById(requestDto.getOrderId());
+			order.setStatus(OrderStatus.TRANSPORTING);
+			orderDao.setStatus(order);
+		
+			
+		}
 		
 		
 }

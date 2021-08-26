@@ -2,6 +2,42 @@ Vue.component("ordersDeliverer", {
 	data: function () {
 	    return {
             id: this.$route.params.id,
+            deliverer: {
+              username: '',
+              password: '',
+              name: '',
+              surname:'',
+              gender: 0,
+              birthDate: '',
+              role: 2,
+              deleted: false,
+              blocked: false,
+              orders: [
+               
+              ]
+              
+          },
+            orders: 
+                [
+                    {
+                id: '',
+                items: [
+
+                ],
+              restaurant:{
+                  name: ''
+
+              } ,
+              dateAndTime: null,
+               cena: 0,
+               buyer: {
+                   username: '',
+                   points: 0
+               },
+               status: 0
+            }
+        ],
+       
 		}
 	},
 	    template: ` 
@@ -50,14 +86,109 @@ Vue.component("ordersDeliverer", {
 </li>
  
 </ul>
-<h1>MYYYYYYYYYYYYYYYYYYYYYYYYYy ORDERSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS</h1>
+<h1 style="text-align:center;">All orders</h1>
+
+
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippets bootdey">
+<div class="row">
+<div class="col-lg-12">
+<div class="main-box no-header clearfix">
+    <div class="main-box-body clearfix">
+        <div class="table-responsive">
+            <table class="table user-list">
+                <thead>
+                    <tr>
+                    <th><span>OrderID</span></th>
+                    <th><span>Restaurant</span></th>
+                    <th><span>Type</span></th>
+                    <th><span>Created</span></th>
+                    <th><span>Items</span></th>
+                    <th><span>Quantity</span></th>
+                    <th><span>Price</span></th>
+                    <th class="text-center"><span>Status</span></th>
+                    <th><span>Buyer</span></th>
+                    <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="order.status === 'TRANSPORTING'"  v-for="order in orders">
+                        <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                      </svg>
+                            
+                            <span class="user-subhead">{{order.id}}</span>
+                        </td>
+                        <td>{{order.restaurant.name}}</td>
+                        <td>
+                    
+                        {{order.restaurant.restaurantType}}
+                        </td>
+                        <td>{{order.dateAndTime}}</td>
+                        <td>
+                        <div v-for="item in order.items">
+                          
+                            <span class="label label-default">{{item.name}}</span>
+                            <br>
+                          
+                       </div> 
+                       </td>
+
+                       <td>
+                          <div v-for="item in order.items">
+                         
+                         
+                           <span class="label label-default">{{item.numberInOrder}}</span>
+                           
+                           <br>
+                           <br>
+                           <br>
+                         
+                        </div> 
+                       </td>
+                       <td>
+                        {{order.cena}}$
+                       </td>
+
+                        <td class="text-center">
+                            <span v-if="order.status === 'TRANSPORTING'" style ="color: green;"  class="label label-default">{{order.status}}</span>
+                            <span v-else style ="color: red;" class="label label-default">{{order.status}}</span>
+                        </td>
+                        <td>
+                        {{order.buyer.username}}
+                        </td>
+                        <td>
+                          <button @click="orderDelivered(order)" v-if="order.status === 'TRANSPORTING'"  type="button" class="btn btn-outline-success">DELIVERED</button>
+                          <button v-else  type="button" class="btn btn-outline-danger" disabled>DELIVERED</button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
     	</div>		  
     	`,
 		mounted(){
-        
+      this.loadData();
 		},
    
     methods: {
+      loadData: function(){
+        this.deliverer.username = this.id
+        axios
+        .post('/WebShopREST/rest/deliverers/getOrdersForDeliverer'+ this.deliverer)
+        .then(response=> console.log())
+    },
+     
         redirect: function(){
             this.$router.push("/profile/"+this.id)
           },
@@ -69,7 +200,8 @@ Vue.component("ordersDeliverer", {
           },
           goToHome: function(){
             this.$router.push("/homeLoggedInDeliverer/"+this.id)
-          },
+          }, 
+         
          
          
     
