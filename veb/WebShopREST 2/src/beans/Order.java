@@ -13,6 +13,7 @@ public class Order {
      private double cena;
      private Buyer buyer;
      private OrderStatus status;
+     private boolean deleted;
      public String getId() {
         return id;
     }
@@ -56,7 +57,7 @@ public class Order {
         this.status = status;
     }
     public Order(String id, List<Item> items, Restaurant restaurant, String dateAndTime, double cena, Buyer buyer,
-            OrderStatus status) {
+            OrderStatus status,boolean deleted) {
         super();
         this.id = id;
         this.items = items;
@@ -65,6 +66,14 @@ public class Order {
         this.cena = cena;
         this.buyer = buyer;
         this.status = status;
+        this.deleted=false;
     }
-    public Order() {} 
+    
+    public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public Order() {} 
 }

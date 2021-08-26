@@ -132,9 +132,18 @@ public class OrdersService {
 			Order order =orderDao.getOrderById(requestDto.getOrderId());
 			order.setStatus(OrderStatus.TRANSPORTING);
 			orderDao.setStatus(order);
-		
-			
 		}
+		
+		@POST
+		@Path("/getDeliveredOrdersForBuyer")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public List<Order> getDeliveredOrdersForBuyer(Buyer buyer, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO)ctx.getAttribute("orderDAO");
+			System.out.println("trazim ordere od buyeraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa !!!!!!!!!!");
+			return orderDao.getDeliveredOrdersForBuyer(buyer);
+		}
+		
 		
 		
 }

@@ -13,14 +13,14 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Buyer;
 import beans.Order;
 import beans.Restaurant;
 import enums.OrderStatus;
 
 public class OrderDAO {
 
-	
-	   List<Order> orders;
+List<Order> orders;
 
  public OrderDAO() {
 	 
@@ -45,7 +45,7 @@ public class OrderDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			in=Files.newBufferedReader(Paths.get(dajana));
+			in=Files.newBufferedReader(Paths.get(magdalena));
 			orderss=Arrays.asList(gson.fromJson(in, Order[].class));
 		    
 		} catch (Exception ex) {
@@ -74,7 +74,7 @@ public class OrderDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			 File file = new File(dajana);
+			 File file = new File(magdalena);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -152,6 +152,18 @@ public List<Order> getOrdersForDeliverer() {
 		}
 	}
 	return ordersForDeliverer;
+}
+
+public List<Order> getDeliveredOrdersForBuyer(Buyer buyer) {
+	// TODO Auto-generated method stub
+	List<Order> deliveredOrders=new ArrayList<Order>();
+	for(Order order: orders) {
+		  if(order.getStatus().equals(OrderStatus.DELIVERED) && order.getBuyer().getUsername().equals(buyer.getUsername()) 
+				  && order.isDeleted()==false) {
+			  deliveredOrders.add(order);
+		  }
+	}
+	return deliveredOrders;
 }
 
 

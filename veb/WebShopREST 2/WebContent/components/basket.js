@@ -71,7 +71,8 @@ Vue.component("basket", {
                       username: '',
                       points: 0
                   },
-                  status: 0
+                  status: 0,
+                  deleted: false,
 
               },
               restaurant:{

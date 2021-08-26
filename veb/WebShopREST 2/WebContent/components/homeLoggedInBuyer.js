@@ -70,6 +70,9 @@ Vue.component("homeLoggedInBuyer", {
         <a class="nav-link" @click="goToAllOrders()">Orders</a>
         </li>
         <li class="nav-item">
+        <a class="nav-link" @click="goToDelivered()">Delivered Orders</a>
+        </li>
+        <li class="nav-item">
         <a class="nav-link" @click="goToBuyerCard()">BuyerCard</a>
         </li>
          
@@ -126,6 +129,9 @@ Vue.component("homeLoggedInBuyer", {
             },
             goToBuyerCard: function(){
               this.$router.push("/buyerCard/"+this.id);
+            },
+            goToDelivered: function(){
+              this.$router.push("/deliveredOrders/"+this.id);
             },
             getAllRestaurants: function () {
               axios

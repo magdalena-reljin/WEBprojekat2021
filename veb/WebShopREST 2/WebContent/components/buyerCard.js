@@ -71,6 +71,9 @@ Vue.component("buyerCard", {
         <a class="nav-link" @click="goToAllOrders()">Orders</a>
         </li>
         <li class="nav-item">
+        <a class="nav-link" @click="goToDelivered()">Delivered Orders</a>
+        </li>
+        <li class="nav-item">
         <a class="nav-link" @click="goToBuyerCard()">Buyer card</a>
         </li>
          
@@ -132,6 +135,9 @@ Vue.component("buyerCard", {
             },
             goToRestaurants: function(){
                 this.$router.push("/homeLoggedInBuyer/"+this.id);
+            },
+            goToDelivered: function(){
+              this.$router.push("/deliveredOrders/"+this.id);
             },
             goToBuyerCard: function(){
                 location.reload();
