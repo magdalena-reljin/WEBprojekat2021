@@ -39,12 +39,18 @@ Vue.component("homeLoggedIn", {
         </nav>
            
         <ul class="nav justify-content-center">
-  
+
+        <li class="nav-item">
+        <a class="nav-link" >Home</a>
+        </li>
         <li class="nav-item">
         <a class="nav-link" @click="goToAllUsers()">Users</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" @click="goToRestaurants()">Restaurants</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
         </li>
          
        </ul>
@@ -60,9 +66,12 @@ Vue.component("homeLoggedIn", {
             goToAllUsers: function(){
               this.$router.push("/allUsersAdmin/"+this.id)
             },
+            goToReviews: function(){
+              this.$router.push("/reviewAdmin/"+this.id)
+            },
             goToRestaurants: function(){
               this.$router.push("/restaurantsAdmin/"+this.id)
-            }
+            },
           }
           
       
