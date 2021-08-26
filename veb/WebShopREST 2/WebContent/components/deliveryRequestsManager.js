@@ -164,6 +164,9 @@ Vue.component("deliveryRequestsManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRequests()">Delivery requests</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
+        </li>
         
          
        </ul>
@@ -303,6 +306,10 @@ Vue.component("deliveryRequestsManager", {
                 location.reload();
               
             },
+            goToReviews: function(){
+              
+              this.$router.push("/reviewManager/"+this.idManager)
+             },
              accept: function(deliverer,order){
                this.requestDto.delivererId=deliverer.username
                this.requestDto.orderId=order.id

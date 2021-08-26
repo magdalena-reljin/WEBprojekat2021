@@ -121,6 +121,9 @@ Vue.component("restaurantManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRequests()">Delivery requests</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
+        </li>
         
          
        </ul>
@@ -233,6 +236,10 @@ Vue.component("restaurantManager", {
             goToRequests: function(){
               
               this.$router.push("/deliveryRequestsManager/"+this.id)
+             },
+             goToReviews: function(){
+              
+              this.$router.push("/reviewManager/"+this.id)
              },
             loadData: function(){
                 this.selectedManager.username=this.id;

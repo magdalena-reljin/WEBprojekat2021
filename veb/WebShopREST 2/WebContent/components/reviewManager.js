@@ -144,6 +144,9 @@ Vue.component("reviewManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRequests()">Delivery requests</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
+        </li>
         
          
        </ul>
@@ -256,6 +259,9 @@ Vue.component("reviewManager", {
             goToRequests: function(){
               
               this.$router.push("/deliveryRequestsManager/"+this.idManager)
+             },
+             goToReviews: function(){
+              location.reload();
              },
              accept: function(review1){
                 review1.status= 'ACCEPTED'

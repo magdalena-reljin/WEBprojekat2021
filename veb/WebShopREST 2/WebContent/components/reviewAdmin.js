@@ -97,7 +97,7 @@ Vue.component("reviewAdmin", {
         <ul class="nav justify-content-center">
 
         <li class="nav-item">
-        <a class="nav-link" >Home</a>
+        <a class="nav-link" @click="goToHome()>Home</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" @click="goToAllUsers()">Users</a>

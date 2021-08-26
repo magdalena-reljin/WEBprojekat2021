@@ -115,6 +115,9 @@ Vue.component("ordersManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRequests()">Delivery requests</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
+        </li>
         
          
        </ul>
@@ -243,6 +246,10 @@ Vue.component("ordersManager", {
             goToHome: function(){
                 this.$router.push("/homeLoggedInManager/"+this.idManager);
             },
+            goToReviews: function(){
+              
+              this.$router.push("/reviewManager/"+this.id)
+             },
             redirect: function(){
                 this.$router.push("/profile/"+this.idManager);
             },
