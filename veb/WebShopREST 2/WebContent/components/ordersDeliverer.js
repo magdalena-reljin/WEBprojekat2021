@@ -118,6 +118,8 @@ Vue.component("ordersDeliverer", {
                           
                             <span class="label label-default">{{item.name}}</span>
                             <br>
+                            <br>
+                            <br>
                           
                        </div> 
                        </td>

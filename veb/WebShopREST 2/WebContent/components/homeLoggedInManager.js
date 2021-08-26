@@ -109,6 +109,9 @@ Vue.component("homeLoggedInManager", {
         <li class="nav-item">
         <a class="nav-link" @click="goToRequests()">Delivery requests</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" @click="goToReviews()">Reviews</a>
+        </li>
         
          
        </ul>
@@ -169,6 +172,10 @@ Vue.component("homeLoggedInManager", {
             goToRequests: function(){
               
               this.$router.push("/deliveryRequestsManager/"+this.id)
+             },
+             goToReviews: function(){
+              
+              this.$router.push("/reviewManager/"+this.id)
              },
             getManager: function(){
               this.manager.username=this.id

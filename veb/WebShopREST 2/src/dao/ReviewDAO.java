@@ -129,13 +129,12 @@ List<Review> reviews;
     }
 
 
-	public Order setStatus(Review review) {
+	public void setStatus(Review review) {
 		// TODO Auto-generated method stub
 		Review old=getById(review.getId());
 		reviews.remove(old);
 		old.setStatus(review.getStatus());
 		saveReview(old);
-		return null;
 	}
  
  

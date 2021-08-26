@@ -223,7 +223,7 @@ Vue.component("deliveredOrders", {
                 
             },
             writeAReview: function(orderForReviewing){
-                this.$router.push("/writeAReview/"+this.id+"/"+orderForReviewing.restaurant.name); 
+                this.$router.push("/writeAReview/"+this.id+"/"+orderForReviewing.restaurant.name+"/"+orderForReviewing.id); 
                  
             }
 

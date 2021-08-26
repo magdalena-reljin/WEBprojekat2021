@@ -3,6 +3,26 @@ Vue.component("writeAReview", {
       return {
         id: this.$route.params.id,
         idRest: this.$route.params.idRest,
+        idOrd: this.$route.params.idOrd,
+        order123: 
+            {
+             id: '',
+             items: [
+ 
+             ],
+           restaurant:{
+               name: ''
+ 
+           } ,
+           dateAndTime: null,
+            cena: 0,
+            buyer: {
+                username: '',
+                points: 0
+            },
+            status: 0
+ 
+        },
         buyer: {
             username: '',
             password: '',
@@ -19,6 +39,26 @@ Vue.component("writeAReview", {
           items: [],
           totalPrice: null
         },
+        orders: [
+            {
+             id: '',
+             items: [
+ 
+             ],
+           restaurant:{
+               name: ''
+ 
+           } ,
+           dateAndTime: null,
+            cena: 0,
+            buyer: {
+                username: '',
+                points: 0
+            },
+            status: 0
+ 
+        }]
+       ,
         points: 0,
         type: {
           title: 2,
@@ -212,6 +252,7 @@ Vue.component("writeAReview", {
             loadData: function(){
                 this.buyer.username=this.id
                 this.restPom.name=this.idRest
+               
                 axios
                 .post('/WebShopREST/rest/buyers/findData',this.buyer)
                 .then(response=> (this.review.buyer=response.data))
@@ -220,6 +261,8 @@ Vue.component("writeAReview", {
                 axios
                 .post('/WebShopREST/rest/restaurants/findRestaurantData',this.restPom)
                 .then(response=> (this.review.restaurant=response.data))
+
+
             },
             write: function() {
                 this.review.id= Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
@@ -228,7 +271,27 @@ Vue.component("writeAReview", {
                 .then(response=> {
 
                     console.log("sacuvao");
+                    
+
+                    this.order123.id=this.idOrd
+                    
+                axios
+                .post('/WebShopREST/rest/orders/findData',this.order123)
+                .then(response=> (this.order123=response.data))
+
+                 
+                    axios
+                    .post('/WebShopREST/rest/orders/delete',this.order123)
+                    .then(response=> { console.log("obrisao");
+                
                     this.$router.push("/deliveredOrders/"+this.buyer.username);
+                
+                
+                    })
+
+                   
+
+                    
                 }
 
                 )

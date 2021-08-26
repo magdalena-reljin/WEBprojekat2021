@@ -65,9 +65,10 @@ public class ReviewService {
 	@Path("/setStatus")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Order setStatus(Review review, @Context HttpServletRequest request) throws IOException {
+	public void setStatus(Review review, @Context HttpServletRequest request) throws IOException {
 		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
-		return reviewDao.setStatus(review);
+		System.out.println("zastooooooooooooooooooooooooooooooooooooooooooooooooooooo "+review.getId());
+	    reviewDao.setStatus(review);
 	}
 	
 

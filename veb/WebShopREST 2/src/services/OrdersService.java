@@ -17,10 +17,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Buyer;
+import beans.Manager;
 import beans.Order;
 import beans.Restaurant;
 import dao.BuyerDAO;
 import dao.DelivererDAO;
+import dao.ManagerDAO;
 import dao.OrderDAO;
 import dto.BasketDTO;
 import dto.RequestDTO;
@@ -90,6 +92,15 @@ public class OrdersService {
 			return points;
 		}
 		
+		@POST
+		@Path("/delete")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public void deleteOrder(Order order, @Context HttpServletRequest request) throws IOException {
+			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
+			orderDao.delete(order);
+		}
+		
 
 		@POST
 		@Path("/getOrdersForManager")
@@ -144,6 +155,16 @@ public class OrdersService {
 			return orderDao.getDeliveredOrdersForBuyer(buyer);
 		}
 		
-		
+		@POST
+		@Path("/findData")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Order findData(Order order, @Context HttpServletRequest request) {
+			OrderDAO orderDao = (OrderDAO)ctx.getAttribute("orderDAO");
+			System.out.println("USPEO SAM findData manager :)))");
+			Order ord = orderDao.getOrderById(order.getId());
+			System.out.println("								"+ "ja sam u find data order");
+			return ord;
+		}
 		
 }

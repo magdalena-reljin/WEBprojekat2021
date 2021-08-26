@@ -166,6 +166,13 @@ public List<Order> getDeliveredOrdersForBuyer(Buyer buyer) {
 	return deliveredOrders;
 }
 
+public void delete(Order order) {
+	Order orderForDeleting=getOrderById(order.getId());
+	orders.remove(orderForDeleting);
+	orderForDeleting.setDeleted(true);
+	saveOrders(orderForDeleting);
+}
+
 
 
 }
