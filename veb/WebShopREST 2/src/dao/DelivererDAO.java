@@ -20,12 +20,13 @@ import dto.RequestDTO;
 import enums.OrderStatus;
 
 public class DelivererDAO {
-	private List<Deliverer> deliverers=new ArrayList<Deliverer>();
+	private List<Deliverer> deliverers;
 
 
     public DelivererDAO() {}
     
     public DelivererDAO(String contextPath) {
+    	deliverers=new ArrayList<Deliverer>();
     	for(Deliverer i:loadDeliverers(contextPath)) {
     		if(i.isDeleted()==false)
     			deliverers.add(i);
@@ -161,6 +162,19 @@ public class DelivererDAO {
 		// TODO Auto-generated method stub
 		Deliverer currentD= getDelivererById(orderId);
 		return currentD.getOrders();
+		
+	}
+
+	public void setStatus(RequestDTO req) {
+		// TODO Auto-generated method stub
+		Deliverer currentD= getDelivererById(req.getDelivererId());
+		deliverers.remove(currentD);
+		for(Order order: currentD.getOrders()) {
+			if(order.getId().equals(req.getOrderId()) &&order.getStatus().equals(OrderStatus.TRANSPORTING)) {
+				order.setStatus(OrderStatus.DELIVERED);
+			}
+		}
+		saveDeliverer(currentD);
 		
 	}
 

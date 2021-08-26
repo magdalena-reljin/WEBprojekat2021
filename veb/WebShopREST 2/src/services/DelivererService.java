@@ -120,5 +120,16 @@ public class DelivererService {
 		return delivererDao.findAll();
 	}
 	
+	@POST
+	@Path("/setStatus")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void setStatus(RequestDTO req, @Context HttpServletRequest request) throws IOException {
+		System.out.println("AAAAAAAAAAAAAAAAAJSAJAJAJAJJAJAJAJAJ");
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+	  delivererDao.setStatus(req);
+
+	}
+	
 	
 }

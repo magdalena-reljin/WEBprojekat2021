@@ -18,26 +18,10 @@ Vue.component("ordersDeliverer", {
               
           },
         ],
-            orders: 
-                [
-                    {
-                id: '',
-                items: [
-
-                ],
-              restaurant:{
-                  name: ''
-
-              } ,
-              dateAndTime: null,
-               cena: 0,
-               buyer: {
-                   username: '',
-                   points: 0
-               },
-               status: 0
-            }
-        ],
+        reguestDto:{
+          delivererId: '',
+          orderId: ''
+        }
        
 		}
 	},
@@ -115,7 +99,7 @@ Vue.component("ordersDeliverer", {
                     </tr>
                 </thead>
                 <tbody v-if="de.username === id" v-for="de in deliverer">
-                    <tr v-if="order.status === 'TRANSPORTING'"  v-for="order in de.orders">
+                    <tr v-if="order.status === 'TRANSPORTING' || order.status === 'DELIVERED'"  v-for="order in de.orders">
                         <td>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
@@ -162,7 +146,7 @@ Vue.component("ordersDeliverer", {
                         {{order.buyer.username}}
                         </td>
                         <td>
-                          <button @click="orderDelivered(order)" v-if="order.status === 'TRANSPORTING'"  type="button" class="btn btn-outline-success">DELIVERED</button>
+                          <button @click="orderDelivered(order,de)" v-if="order.status === 'TRANSPORTING'"  type="button" class="btn btn-outline-success">DELIVERED</button>
                           <button v-else  type="button" class="btn btn-outline-danger" disabled>DELIVERED</button>
                         </td>
                     </tr>
@@ -184,10 +168,11 @@ Vue.component("ordersDeliverer", {
    
     methods: {
       loadData: function(){
-      
         axios
         .get('/WebShopREST/rest/deliverers/getOrdersForDeliverer')
-        .then(response=> this.deliverer=response.data)
+        .then(response=> {this.deliverer=response.data
+         
+        })
     },
      
         redirect: function(){
@@ -202,6 +187,22 @@ Vue.component("ordersDeliverer", {
           goToHome: function(){
             this.$router.push("/homeLoggedInDeliverer/"+this.id)
           }, 
+          orderDelivered: function(order,de){
+            order.status='DELIVERED'
+            this.reguestDto.delivererId=this.id
+            this.reguestDto.orderId=order.id
+              axios
+              .post('/WebShopREST/rest/deliverers/setStatus',this.reguestDto)
+              .then(response=>
+                { 
+                  
+                  axios
+                  .put('/WebShopREST/rest/orders/setStatus',order)
+                  .then(response=> location.reload() )
+            
+              })
+
+          }
          
          
          
