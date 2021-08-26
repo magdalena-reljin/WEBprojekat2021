@@ -24,6 +24,7 @@ const AllOrdersDelivererPage= { template: '<allOrdersDeliverer></allOrdersDelive
 const OrdersDelivererPage = { template: '<ordersDeliverer></ordersDeliverer>' }
 const DeliveryRequests = { template: '<deliveryRequestsManager></deliveryRequestsManager>' }
 const EditProfileDataPage = { template: '<editProfileData></editProfileData>' }
+const ChangePassword = { template: '<changePassword></changePassword>' }
 
 
 
@@ -57,6 +58,7 @@ const router = new VueRouter({
     { path: '/ordersDeliverer/:id', component: OrdersDelivererPage},
     { path: '/deliveryRequestsManager/:id', component: DeliveryRequests},
     { path: '/editProfileData/:id', component: EditProfileDataPage},
+    { path: '/changePassword/:id', component: ChangePassword},
 
       ]
 });

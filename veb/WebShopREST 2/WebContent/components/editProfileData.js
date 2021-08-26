@@ -46,58 +46,54 @@ Vue.component("editProfileData", {
   </div>
 
 </nav>
+<br>
+<br>
 
-<div>
-        <h3 style="text-align:center;">Personal info</h3>
-        <hr>
-        <div style="
-        margin: auto;
-        width: 80%;
-        border: 1px solid #ffa6c9;
-        padding: 10px;">
-        <form  class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" v-model="user.name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" v-model="user.surname">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Username:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" v-model="user.username" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Gender:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" v-model="user.gender" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Birthday:</label>
-            <div class="col-lg-8">
-            <input class="form-control" type="text" v-model="user.birthDate" disabled>
-          </div>
-          </div>
-          <div class="form-group">
-            <br>
-          <div class="col-lg-8">
-         <button @click="editData" class="btn btn-outline-dark">Save</button>
-        </div>
-        </div>
-        </form>
-      </div>
-  </div>
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card card-outline-secondary">
+<div class="card-header">
+    <h3 style="text-align:center;" class="mb-0">Personal info</h3>
 </div>
-<hr>
+<div class="card-body">
+    <form class="form" role="form" autocomplete="off">
+        <div class="form-group">
+            <label>First name:</label>
+            <input class="form-control" type="text" v-model="user.name">
+        </div>
+
+        <div class="form-group">
+          <label>Last name:</label>
+          <input class="form-control" type="text" v-model="user.surname">
+        </div>
+
+        <div class="form-group">
+          <label>Username:</label>
+          <input class="form-control" type="text" v-model="user.username" disabled>
+
+        </div>
+
+        <div class="form-group">
+            
+          <label>Gender:</label>
+          <input class="form-control" type="text" v-model="user.gender" disabled>
+        </div>
+        <div class="form-group">
+          <label>Birthday:</label>
+        
+           <input class="form-control" type="text" v-model="user.birthDate" disabled>
+        
+        </div>
+        <br>
+        <div class="form-group">
+        <button @click="editData" class="btn btn-outline-dark">Save</button>
+        </div>
+    </form>
 </div>
+</div>
+</div>
+</div>
+
 
   </div>
           `,

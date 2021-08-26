@@ -1,4 +1,4 @@
-Vue.component("profile", {
+Vue.component("changePassword", {
     data: function () {
       return {
         id: this.$route.params.id,
@@ -46,86 +46,42 @@ Vue.component("profile", {
   </div>
 
 </nav>
-
-  <br>
-  <br>
-  <div class="container">
-  <div class="main-body">
-
-  
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <img v-if="user.role === 'ADMINISTRATOR'" src="components/images/admin.png"  class="rounded-circle" width="150">
-                  <img v-else-if="user.role === 'MANAGER'" src="components/images/manager.png"  class="rounded-circle" width="150">
-                  <img v-else-if="user.role === 'BUYER'" src="components/images/buyer.png"  class="rounded-circle" width="150">
-                  <img v-else src="components/images/deliverer.png" class="rounded-circle" width="150">
-                  <div class="mt-3">
-                    <h4>{{user.username}}</h4>
-                    <p class="text-secondary mb-1">{{user.role}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Name</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">{{user.name}}</div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Surname</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                     {{user.surname}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Gender</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user.gender}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Birthday</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user.birthDate}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <a @click="editData()" class="btn btn-info " target="__blank">Edit profile</a>
-               
-                    <a @click="changePassword()" class="btn btn-info " target="__blank" >Change password</a>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-            </div>
-
-          </div>
+<br>
+<br>
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card card-outline-secondary">
+<div class="card-header">
+    <h3 style="text-align:center;" class="mb-0">Change Password</h3>
+</div>
+<div style="width: 70%;" class="card-body">
+    <form class="form" role="form" autocomplete="off">
+        <div class="form-group">
+            <label for="inputPasswordOld">Current Password</label>
+            <input type="password" class="form-control" id="inputPasswordOld" required="">
         </div>
-
-      </div>
-  </div>
-
-
+        <div class="form-group">
+            <label for="inputPasswordNew">New Password</label>
+            <input type="password" class="form-control" id="inputPasswordNew" required="">
+            <span class="form-text small text-muted">
+                    The password must be 8-20 characters, and must <em>not</em> contain spaces.
+                </span>
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordNewVerify">Verify</label>
+            <input type="password" class="form-control" id="inputPasswordNewVerify" required="">
+            <span class="form-text small text-muted">
+                    To confirm, type the new password again.
+                </span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg float-right">Save</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
   </div>
           `,
 
@@ -164,11 +120,27 @@ Vue.component("profile", {
                 this.$router.push("/homeLoggedInDeliverer/"+this.id)
               }
             },
-            editData: function () {
-              this.$router.push("/editProfileData/"+this.id)
-          },
-          changePassword: function () {
-            this.$router.push("/changePassword/"+this.id)
-        },
+           
         }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
