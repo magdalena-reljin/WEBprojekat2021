@@ -2,7 +2,7 @@ Vue.component("ordersDeliverer", {
 	data: function () {
 	    return {
             id: this.$route.params.id,
-            deliverer: {
+            deliverer:[ {
               username: '',
               password: '',
               name: '',
@@ -17,6 +17,7 @@ Vue.component("ordersDeliverer", {
               ]
               
           },
+        ],
             orders: 
                 [
                     {
@@ -113,8 +114,8 @@ Vue.component("ordersDeliverer", {
                     <th>&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-if="order.status === 'TRANSPORTING'"  v-for="order in orders">
+                <tbody v-if="de.username === id" v-for="de in deliverer">
+                    <tr v-if="order.status === 'TRANSPORTING'"  v-for="order in de.orders">
                         <td>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
@@ -183,10 +184,10 @@ Vue.component("ordersDeliverer", {
    
     methods: {
       loadData: function(){
-        this.deliverer.username = this.id
+      
         axios
-        .post('/WebShopREST/rest/deliverers/getOrdersForDeliverer'+ this.deliverer)
-        .then(response=> console.log())
+        .get('/WebShopREST/rest/deliverers/getOrdersForDeliverer')
+        .then(response=> this.deliverer=response.data)
     },
      
         redirect: function(){
