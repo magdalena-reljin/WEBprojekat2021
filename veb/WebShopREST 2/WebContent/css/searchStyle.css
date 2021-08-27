@@ -1,0 +1,102 @@
+body 
+{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header
+{
+    height: 50vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../components/images/restaurant1.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1
+{
+    color: #c5c2c2;
+    margin-bottom: 20px;
+    font-size: 35px;
+    letter-spacing: 2px;
+}
+
+.search-field
+{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    border: none;
+    margin: 2px 0;
+    outline: none;
+}
+
+.search-select
+{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    border: none;
+    margin: 2px 0;
+    outline: none;
+}
+
+
+.search-btn
+{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    border: none;
+    min-width: 120px;
+    margin: 2px 0;
+}
+
+.form-box
+{
+    background: rgba(0,0,0,0.5);
+    padding: 40px;
+}
+
+.datepicker td, .datepicker th {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.85rem;
+}
+
+.datepicker {
+    margin-bottom: 3rem;
+}
+
+
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+  
+ .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+
+

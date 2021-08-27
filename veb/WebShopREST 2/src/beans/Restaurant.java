@@ -65,7 +65,7 @@ public class Restaurant {
         this.logo = logo;
     }
     public Restaurant(String name, RestaurantType restaurantType, List<Item> items, RestaurantStatus status,
-            Location location, String logo) {
+            Location location, String logo, boolean deleted, double avg) {
         super();
         this.name = name;
         this.restaurantType = restaurantType;
@@ -73,6 +73,8 @@ public class Restaurant {
         this.status = status;
         this.location = location;
         this.logo = logo;
+        this.deleted = false;
+        this.avg = 0;
     }
 
     public Restaurant() {}
