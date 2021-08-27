@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import beans.Order;
 import beans.Restaurant;
 import beans.Review;
+import dao.RestaurantDAO;
 import dao.ReviewDAO;
 
 @Path("/reviews")
@@ -46,7 +47,7 @@ public class ReviewService {
 	@Path("/getReviewsForManager")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Review> getReviewsForManager(Restaurant restaurant, @Context HttpServletRequest request) throws IOException {
+	public List<Review> getReviewsForManager(Restaurant restaurant) {
 		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
 		return reviewDao.findReviewsForManager(restaurant.getName());
 	}
@@ -55,9 +56,8 @@ public class ReviewService {
 	@Path("/getReviewsForAdmin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Review> getReviewsForAdmin() throws IOException {
+	public List<Review> getReviewsForAdmin() {
 		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
-		System.out.println("OOOOOOOOVDEEEEEEEEEEEEE SAM BIOOOOOOOOOOOOOOOO C O O L review ;***");
 		return reviewDao.findReviewsForAdmin();
 	}
 	
@@ -65,7 +65,7 @@ public class ReviewService {
 	@Path("/setStatus")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void setStatus(Review review, @Context HttpServletRequest request) throws IOException {
+	public void setStatus(Review review) {
 		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
 		System.out.println("zastooooooooooooooooooooooooooooooooooooooooooooooooooooo "+review.getId());
 	    reviewDao.setStatus(review);
@@ -76,10 +76,21 @@ public class ReviewService {
 	@Path("/addReview")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean addReview(Review review, @Context HttpServletRequest request) throws IOException {
+	public boolean addReview(Review review) {
 		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
 		reviewDao.saveReview(review);
 		return true;
 	}
 	
+	@PUT
+	@Path("/setAvg")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean setAvg(Review review) {
+		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
+		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		double num= reviewDao.setAvg(review);
+		restaurantDao.setAvg(review.getRestaurant().getName(),num);
+		return true;
+	}
 }

@@ -45,7 +45,7 @@ List<Order> orders;
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			in=Files.newBufferedReader(Paths.get(magdalena));
+			in=Files.newBufferedReader(Paths.get(dajana));
 			orderss=Arrays.asList(gson.fromJson(in, Order[].class));
 		    
 		} catch (Exception ex) {
@@ -74,7 +74,7 @@ List<Order> orders;
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\orders.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			

@@ -45,8 +45,8 @@ Vue.component("reviewManager", {
                      },
                  },
                  logo: '',
-                 deleted: ''
-                 
+                 deleted: '',
+                 avg: 0
                  },
 
                  comment: '',
@@ -268,7 +268,16 @@ Vue.component("reviewManager", {
                 axios
                 .put('/WebShopREST/rest/reviews/setStatus',review1)
                 .then(response=> {
-                    location.reload();
+                axios
+                  .put('/WebShopREST/rest/reviews/setAvg',review1)
+                .then(response=> {
+                  location.reload();
+
+                })
+
+                  
+
+                   
                 })
             
                

@@ -51,7 +51,8 @@ Vue.component("newRestaurant", {
               },
         },
         logo: '',
-        deleted: ''
+        deleted: '',
+        avg: 0
         
 		},
     selectedManagerID:'',

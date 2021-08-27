@@ -109,11 +109,14 @@ Vue.component("restaurantInfo", {
       
       
       </div>
+  
       <div  class="col">
         <h1 style="color:white;" class="mb-3">{{restaurant.name}}</h1>
         <h4 style="color:white;" class="mb-3">{{restaurant.restaurantType}}</h4>
         <h5 style="color:white;" class="mb-3">{{restaurant.status}}</h5>
       </div>
+     
+    
       
     </div>
   </div>

@@ -83,7 +83,8 @@ Vue.component("writeAReview", {
               },
           },
           logo: '',
-          deleted: ''
+          deleted: '',
+          avg: 0
           
           },
 
@@ -130,8 +131,8 @@ Vue.component("writeAReview", {
                      },
                  },
                  logo: '',
-                 deleted: ''
-                 
+                 deleted: '',
+                 avg: 0
                  },
 
                  comment: '',

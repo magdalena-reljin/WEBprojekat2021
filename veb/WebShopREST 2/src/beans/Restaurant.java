@@ -14,8 +14,15 @@ public class Restaurant {
     private Location location;
     private String logo;
     private boolean deleted;
+    private double avg;
     
-    public boolean isDeleted() {
+    public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+	public boolean isDeleted() {
 		return deleted;
 	}
 	public void setDeleted(boolean deleted) {

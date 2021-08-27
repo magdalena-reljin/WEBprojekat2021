@@ -1,6 +1,5 @@
 package beans;
 
-import enums.RestaurantRating;
 import enums.ReviewStatus;
 
 public class Review {

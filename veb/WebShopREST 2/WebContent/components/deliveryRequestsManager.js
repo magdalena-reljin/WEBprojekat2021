@@ -199,7 +199,7 @@ Vue.component("deliveryRequestsManager", {
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
-                        <tbody v-for="deliverer in deliverers">
+                        <tbody  v-for="deliverer in deliverers">
 
                                 <tr v-if="order.status === 'WAITINGFORACCEPTANCE' && basketDto.idRest === order.restaurant.name " v-for="order in deliverer.orders">
                                     <td>
