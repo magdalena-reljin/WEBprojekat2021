@@ -5,6 +5,7 @@ Vue.component("homepage", {
 			searchType: '',
 			searchRating: '',
 			searchLocation: '',
+			sortBy: '',
 			restaurants:[
 			 {
 				name: '',
@@ -99,12 +100,12 @@ Vue.component("homepage", {
 					    <option v-bind:value=1 >ONE STAR</option> 
 					</select>
 
-					<button @click="sortNameAToZ()" type="button" class="btn btn-outline-light" >
+					<button @click="sortRA()" type="button" class="btn btn-outline-light" >
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
  					 <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
 					</svg>
 					</button>
-					<button  @click="sortNameZToA()" type="button" class="btn btn-outline-light">
+					<button  @click="sortRD()" type="button" class="btn btn-outline-light">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
   					<path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
 					</svg>
@@ -113,13 +114,13 @@ Vue.component("homepage", {
 
 
 					<input type="text" class="search-field" placeholder="LOCATION" :value="searchLocation" @input="searchLocation = $event.target.value.toUpperCase()">
-					<button @click="sortNameAToZ()" type="button" class="btn btn-outline-light" >
+					<button @click="sortLA()" type="button" class="btn btn-outline-light" >
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
 					<path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
 					<path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
 				    </svg>
 					</button>
-					<button  @click="sortNameZToA()" type="button" class="btn btn-outline-light">
+					<button  @click="sortLD()" type="button" class="btn btn-outline-light">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down-alt" viewBox="0 0 16 16">
  				    <path d="M12.96 7H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V7z"/>
  					<path fill-rule="evenodd" d="M10.082 12.629 9.664 14H8.598l1.789-5.332h1.234L13.402 14h-1.12l-.419-1.371h-1.781zm1.57-.785L11 9.688h-.047l-.652 2.156h1.351z"/>
@@ -157,7 +158,7 @@ Vue.component("homepage", {
     <div class="carousel-item active">
       <div class="container">
         <div class="row">
-          <div  v-for="restaurant in filteredRestaurants" class="col-lg-4">
+          <div v-for="restaurant in filteredRestaurants" class="col-lg-4">
             <div class="card">
 			<img v-bind:src="restaurant.logo"
               />
@@ -203,11 +204,25 @@ Vue.component("homepage", {
 			this.searchName=""
 			this.searchRating=""
 			this.searchType=""
+		},
+		sortNameAToZ: function(){
+			 this.sortBy='NameAsc'
+		},
+		sortNameZToA: function(){
+			this.sortBy='NameDesc'
+		},
+		sortRA: function(){
+			this.sortBy='RatingAsc'
+		},
+		sortRD: function(){
+			this.sortBy='RatingDesc'
+		},
+		sortLA: function(){
+			this.sortBy='LocationAsc'
+		},
+		sortLD: function(){
+			this.sortBy='LocationDesc'
 		}
-		
-
-
-		
 		
    
     
@@ -216,17 +231,52 @@ Vue.component("homepage", {
 computed: {
 	filteredRestaurants: function(){
 
-		return this.restaurants.filter((restaurant)=>{
+		temp = this.restaurants.filter((restaurant)=>{
 
-           console.log("ovo je type"+restaurant.restaurantType)
-		   console.log("ovo je type1"+this.searchType)
 		   if(restaurant.restaurantType != null){
 		    if(this.searchRating===0)
 			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) 
 			else
-			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString())
+			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && (restaurant.location.address.town.toUpperCase().match(this.searchLocation) || restaurant.location.address.streetAndNumber.toUpperCase().match(this.searchLocation))
 		   }
 		});
+
+
+		temp = temp.sort((a, b) => {
+            if (this.sortBy == 'NameAsc') {
+                let fa = a.name.toLowerCase(), fb = b.name.toLowerCase()
+          
+              if (fa < fb) {
+                return -1
+              }
+              if (fa > fb) {
+                return 1 
+              }
+              return 0
+
+            } else if (this.sortBy == 'NameDesc') {
+				return (b.name > a.name) ? 1 : -1
+
+		    } else if (this.sortBy == 'RatingDesc') {
+             	 return a.avg - b.avg
+        	}else if (this.sortBy == 'RatingAsc') {
+				return (b.avg - a.avg)
+			}else if (this.sortBy == 'LocationAsc') {
+				let fa = a.location.address.town.toLowerCase(), fb = b.location.address.town.toLowerCase()
+          
+				if (fa < fb) {
+				  return -1
+				}
+				if (fa > fb) {
+				  return 1 
+				}
+				return 0
+			}else if (this.sortBy == 'LocationDesc') {
+				return (b.location.address.town > a.location.address.town) ? 1 : -1
+			}
+        })
+
+		return temp;
 	}
 }
 
