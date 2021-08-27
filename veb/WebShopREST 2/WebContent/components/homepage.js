@@ -6,6 +6,7 @@ Vue.component("homepage", {
 			searchRating: '',
 			searchLocation: '',
 			sortBy: '',
+			filterStatus:'ALL',
 			restaurants:[
 			 {
 				name: '',
@@ -128,6 +129,15 @@ Vue.component("homepage", {
                     </svg>
 					
 					</button>
+
+					<select  v-model="filterStatus" class="search-select" placeholder="STATUS">
+					    <option disabled value="">SELECT STATUS</option>
+					    <option >ALL</option>
+					    <option >OPEN</option>
+					</select>
+
+
+
 				    
 					<button @click="resetSearch()" type="button" class="btn btn-outline-light" >RESET SEARCH</button>
                    
@@ -204,6 +214,8 @@ Vue.component("homepage", {
 			this.searchName=""
 			this.searchRating=""
 			this.searchType=""
+			this.sortBy=""
+			this.filterStatus=""
 		},
 		sortNameAToZ: function(){
 			 this.sortBy='NameAsc'
@@ -233,13 +245,23 @@ computed: {
 
 		temp = this.restaurants.filter((restaurant)=>{
 
-		   if(restaurant.restaurantType != null){
+		   if(this.filterStatus === 'ALL'){
+		   if(restaurant.restaurantType != null){   
 		    if(this.searchRating===0)
 			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) 
 			else
 			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && (restaurant.location.address.town.toUpperCase().match(this.searchLocation) || restaurant.location.address.streetAndNumber.toUpperCase().match(this.searchLocation))
 		   }
+		   } else if(this.filterStatus === 'OPEN'){
+			if(restaurant.restaurantType != null){   
+				if(this.searchRating===0)
+				return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.status.match(this.filterStatus)
+				else
+				return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && (restaurant.location.address.town.toUpperCase().match(this.searchLocation) || restaurant.location.address.streetAndNumber.toUpperCase().match(this.searchLocation)) && restaurant.status.match(this.filterStatus)
+			   }
+		   }
 		});
+
 
 
 		temp = temp.sort((a, b) => {
