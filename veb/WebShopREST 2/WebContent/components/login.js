@@ -19,54 +19,74 @@ Vue.component("login", {
     template: ` 
         <div>
 
-        <nav  class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+        <nav  class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
         <div class="container-fluid" style="background-color: #ffa6c9;">
-          <a class="navbar-brand" href="#">
-            <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
-          </a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="http://localhost:8080/WebShopREST/#/login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active"  @click="goToRegister()">Sign up</a>
-      </li>
-      </ul>
+        <a class="navbar-brand" href="http://localhost:8080/WebShopREST/#/">
+        <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
+      </a>
       
-      <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" >
-      <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
       
       
         </div>
       
       </nav>
 
-       
-           <div class="container-sm"> 
-           <h1>Login and start grocking!</h1>
-            <form @submit="checkUser" method='post'>
-                <div class="mt-221 bg-light border">
-                    <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control"  placeholder="email@example.com" v-model="user.username">
-                 </div>
+      <br>
+      <br>
 
-                <div class="mt-221 bg-light border">
-                        <label for="exampleDropdownFormPassword1"  class="form-label">Password</label>
-                        <input type="password" class="form-control"  placeholder="Password" v-model="user.password">
-                 </div>
 
-                            
-                 <button class="btn btn-primary" type="submit">Log in</button>
-            </form>
-            <div id="greska">{{greska}}</div>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+      <br>
+      <br>
+      <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="card-group mb-0">
+                <div class="card p-4">
+                  <div class="card-body">
+                    <h1>Login</h1>
+                    <p class="text-muted">Sign In to your account</p>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg></span>
+                      <input type="text" v-model="user.username" class="form-control" placeholder="Username">
+                    </div>
+                    <div class="input-group mb-4">
+                      <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                    </svg></span>
+                      <input type="password" class="form-control" v-model="user.password" placeholder="Password">
+                    </div>
+                    <div id="greska">{{greska}}</div>
+                    <div class="row">
+                      <div class="col-6">
+                        <button @click="checkUser()" type="button" class="btn btn-outline-dark active px-4">Login</button>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-white py-5 d-md-down-none" style="width:44%; background-color: #ffa6c9">
+                  <div class="card-body text-center">
+                    <div>
+                      <h2>Sign up</h2>
+                      <p>Don't have an account?</p>
+                      <button type="button" class="btn btn-outline-light active mt-3">Sign up now!</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+
+
      </div>
      `,
     methods: {
-      checkUser: function(event) {
-			event.preventDefault();
+      checkUser: function() {
+			
      axios
      .post('/WebShopREST/rest/users/login',this.user)
      .then(response=> {
