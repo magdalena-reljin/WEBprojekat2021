@@ -176,6 +176,20 @@ Vue.component("restaurantInfoBuyers", {
 </div>
 </header>
 
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Items</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" @click="goToReview()">Review</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
 <br>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button 
@@ -324,6 +338,9 @@ Vue.component("restaurantInfoBuyers", {
         
             this.$router.push("/basket/"+this.idRest+"/"+this.id);
      
+        },
+        goToReview:function(){
+          this.$router.push("/reviewBuyer/"+this.idRest);
         },
         numOfItems(){
           this.basketDto.idBuyer=this.id

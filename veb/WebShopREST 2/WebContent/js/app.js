@@ -29,6 +29,7 @@ const DeliveredOrdersPage = { template: '<deliveredOrders></deliveredOrders>' }
 const WriteAReviewPage = { template: '<writeAReview></writeAReview>' }
 const ReviewManagerPage = { template: '<reviewManager></reviewManager>' }
 const ReviewAdminPage = { template: '<reviewAdmin></reviewAdmin>' }
+const ReviewPage = { template: '<reviewBuyer></reviewBuyer>' }
 
 
 const router = new VueRouter({
@@ -66,6 +67,7 @@ const router = new VueRouter({
     { path: '/writeAReview/:id/:idRest/:idOrd', component: WriteAReviewPage},
     { path: '/reviewManager/:id', component: ReviewManagerPage},
     { path: '/reviewAdmin/:id', component: ReviewAdminPage},
+    { path: '/reviewBuyer/:id', component: ReviewPage},
       ]
 });
 

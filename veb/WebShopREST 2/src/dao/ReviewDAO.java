@@ -159,6 +159,16 @@ List<Review> reviews;
 		return mark/number;
 	}
  
+	  public List<Review> findReviewsForRestaurantSite(String restaurantID){
+	    	List<Review> reviewsForRestaurant=new ArrayList<Review>();
+	    	for(Review r: reviews) {
+	    		if(r.getRestaurant().getName().equals(restaurantID) && r.getStatus().equals(ReviewStatus.ACCEPTED))
+	    			reviewsForRestaurant.add(r);
+	    	}
+	    	return sortReviews(reviewsForRestaurant);
+	    }
+
+
  
 
 }

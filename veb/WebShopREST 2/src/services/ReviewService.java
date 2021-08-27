@@ -93,4 +93,14 @@ public class ReviewService {
 		restaurantDao.setAvg(review.getRestaurant().getName(),num);
 		return true;
 	}
+	
+	@POST
+	@Path("/findAllReviews")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Review> findAllReviews(Restaurant restaurant) {
+		ReviewDAO reviewDao = (ReviewDAO) ctx.getAttribute("reviewDAO");
+		return reviewDao.findReviewsForRestaurantSite(restaurant.getName());
+	}
+
 }
