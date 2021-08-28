@@ -39,7 +39,8 @@ Vue.component("allUsersAdmin", {
             points: 0
           }
           }
-        ]
+        ],
+       
       }
     },
     template: ` 

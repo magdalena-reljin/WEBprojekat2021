@@ -58,7 +58,8 @@ Vue.component("login", {
                     </svg></span>
                       <input type="password" class="form-control" v-model="user.password" placeholder="Password">
                     </div>
-                    <div id="greska">{{greska}}</div>
+                    <div style="color: red;" id="greska">{{greska}}</div>
+                    <br>
                     <div class="row">
                       <div class="col-6">
                         <button @click="checkUser()" type="button" class="btn btn-outline-dark active px-4">Login</button>
@@ -92,6 +93,7 @@ Vue.component("login", {
      .then(response=> {
         console.log("USPESNO"+response.data.role)
 
+            if(response.data.blocked === false){
          if(response.data.role=='ADMINISTRATOR'){
          this.$router.push("/homeLoggedIn/"+this.user.username);
          } else if(response.data.role=='MANAGER'){
@@ -101,6 +103,11 @@ Vue.component("login", {
          }else {
           this.$router.push("/homeLoggedInDeliverer/"+this.user.username);
          }
+      
+         
+        }else {
+          this.greska="Vas nalog je blokiran!"
+        }
         
      })
      .catch(err => {
