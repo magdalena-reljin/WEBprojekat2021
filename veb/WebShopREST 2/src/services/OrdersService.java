@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -82,13 +83,12 @@ public class OrdersService {
 		@Path("/buyerCancelsOrder")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		public double buyerCancelsOrder(Order order, @Context HttpServletRequest request) throws IOException {
+		public double buyerCancelsOrder(Order order, @Context HttpServletRequest request) throws IOException, ParseException {
 			OrderDAO orderDao = (OrderDAO) ctx.getAttribute("orderDAO");
 			BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
-			System.out.println("pogodio canceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeel"+order.getId());
 			orderDao.buyerCancelsOrder(order);
 			double points= buyerDao.setPointsAfterCancelingOrder(order);
-			System.out.println("poooooooooooooooooooooooooooooooooooooooooooooooooooints"+points);
+			buyerDao.checkIfTrol(order.getBuyer());
 			return points;
 		}
 		

@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -63,7 +67,7 @@ public class BuyerDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				buyerss=Arrays.asList(gson.fromJson(in, Buyer[].class));
 			    
@@ -99,7 +103,7 @@ public class BuyerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -327,7 +331,42 @@ public class BuyerDAO {
 			return buyer.getType().getTitle();
 		}
 			
-		
+		public void checkIfTrol(Buyer buyer) throws ParseException {
+            // TODO Auto-generated method stub
+           Calendar cal1=Calendar.getInstance();
+           Calendar cal2=Calendar.getInstance();
+           Calendar cal3=Calendar.getInstance();
+           SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+           Buyer currentBuyer=getBuyerById(buyer.getUsername());
+              buyers.remove(currentBuyer);
+              if(!currentBuyer.getCancel().equals("")) {
+                     int currentNum=currentBuyer.getNum()+1;
+                     if(currentNum >= 5) {
+                         Date now=cal1.getTime();
+                         cal3.setTime(sdf.parse(currentBuyer.getCancel()));
+                         Date pom=cal3.getTime();
+                         int result= now.compareTo(pom);
+                         if(result <= 0 ) {
+                             currentBuyer.setTrol(true); 
+                         }else {
+                             currentBuyer.setNum(0);
+                             cal2.add(Calendar.DAY_OF_MONTH, 30);
+                              String str=sdf.format(cal2.getTime());
+                               currentBuyer.setCancel(str);
+                         }
+
+
+                     }else {
+                         currentBuyer.setNum(currentNum);
+                     }
+
+              }else {
+                    cal1.add(Calendar.DAY_OF_MONTH, 30);
+                    String str=sdf.format(cal1.getTime());
+                    currentBuyer.setCancel(str);
+              }
+              saveBuyer(currentBuyer);
+        }
 			
 		
 }

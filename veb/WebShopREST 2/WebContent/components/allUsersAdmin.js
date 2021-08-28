@@ -37,7 +37,10 @@ Vue.component("allUsersAdmin", {
             title: 2,
             discount: 0,
             points: 0
-          }
+          },
+          num: 0,
+          trol:false,
+          cancel: '',
           }
         ],
        
@@ -101,6 +104,7 @@ Vue.component("allUsersAdmin", {
                                 <th><span>Role</span></th>
                                 <th><span>User type</span></th>
                                 <th><span>Points</span></th>
+                                <th><span>Trol</span></th>
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -137,6 +141,15 @@ Vue.component("allUsersAdmin", {
                                   <td>
                                   <div v-for="buyer in buyers">
                                    <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.points}}</span>
+                                   </div>
+                                   <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
+                              
+                                   
+                                  </td>
+
+                                  <td>
+                                  <div v-for="buyer in buyers">
+                                   <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.trol}}</span>
                                    </div>
                                    <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
                               

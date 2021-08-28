@@ -98,7 +98,8 @@ Vue.component("deliveryRequestsManager", {
         address:
         
           {
-            streetAndNumber: '',
+            street: '',
+            number: '',
             town: '',
             zipCode: ''
           },

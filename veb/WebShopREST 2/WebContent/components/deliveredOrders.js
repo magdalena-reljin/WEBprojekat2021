@@ -23,24 +23,31 @@ Vue.component("deliveredOrders", {
        }
       ],
       buyer: {
-		    username: '',
-		    password: '',
-        name: '',
-        surname:'',
-        gender: 0,
-        birthDate: '',
-        role: 3,
-        deleted: false,
-        blocked: false,
-        orders: [],
-        basket: {
-          buyer: null,
-          items: [],
-          totalPrice: null
-        },
-        points: 0,
-		  	}
-
+        username: '',
+        password: '',
+    name: '',
+    surname:'',
+    gender: null,
+    birthDate: '',
+    role: 3,
+    deleted: false,
+    blocked: false,
+    orders: [],
+    basket: {
+      buyer: null,
+      items: [],
+      totalPrice: null
+    },
+    points: 0,
+    type: {
+      title: 2,
+      discount: 0,
+      points: 0
+    },
+    num: 0,
+    trol:false,
+    cancel: '',
+          },
 
       }
     },

@@ -10,9 +10,31 @@ public class Buyer extends User {
     private Basket basket;
     private double points;
     private BuyerType type;
+    private int num;
+    private boolean trol;
+    private String cancel;
 	
-    
-    public BuyerType getType() {
+ 
+
+	public String getCancel() {
+		return cancel;
+	}
+	public void setCancel(String cancel) {
+		this.cancel = cancel;
+	}
+	public boolean isTrol() {
+		return trol;
+	}
+	public void setTrol(boolean trol) {
+		this.trol = trol;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public BuyerType getType() {
 		return type;
 	}
 	public void setType(BuyerType type) {

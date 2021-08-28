@@ -64,7 +64,10 @@ Vue.component("writeAReview", {
           title: 2,
           discount: 0,
           points: 0
-        }
+        },
+        num: 0,
+        trol:false,
+        cancel: '',
               },
         restPom: {
             name: '',
