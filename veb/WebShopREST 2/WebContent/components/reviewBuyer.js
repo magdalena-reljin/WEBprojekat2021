@@ -15,7 +15,8 @@ Vue.component("reviewBuyer", {
 				address:
 				
 				  {
-					streetAndNumber: '',
+            street: '',
+            number: '',
 					town: '',
 					zipCode: ''
 				  },
@@ -62,7 +63,8 @@ Vue.component("reviewBuyer", {
                  address:
                  
                    {
-                   streetAndNumber: '',
+                    street: '',
+                    number: '',
                    town: '',
                    zipCode: ''
                    },

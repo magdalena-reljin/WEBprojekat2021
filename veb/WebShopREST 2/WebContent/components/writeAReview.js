@@ -77,7 +77,8 @@ Vue.component("writeAReview", {
             address:
             
               {
-              streetAndNumber: '',
+                street: '',
+                number: '',
               town: '',
               zipCode: ''
               },
@@ -125,7 +126,8 @@ Vue.component("writeAReview", {
                    address:
                    
                      {
-                     streetAndNumber: '',
+                      street: '',
+                      number: '',
                      town: '',
                      zipCode: ''
                      },

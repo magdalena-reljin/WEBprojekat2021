@@ -188,7 +188,7 @@ Vue.component("homeLoggedIn", {
                 <h4 class="card-title">{{restaurant.name}}</h4>
 				<h6 v-if="restaurant.status === 'OPEN'" style="color: green;">{{restaurant.status }}</h6>
                 <h6 v-else style="color: red;">{{restaurant.status}}</h6>
-				<h6>{{restaurant.location.address.streetAndNumber}}<p>{{restaurant.location.address.town}}</p></h6>
+                <h6>{{item.location.address.town}}<p>{{item.location.address.street}} {{item.location.address.number}}</p></h6>
 				<h6 >Rating: {{restaurant.avg}}</h6>
 				<button @click="saveRestaurantId(restaurant.name)" type="button" class="btn btn-outline-dark">SEE ITEMS</button>
               </div>
@@ -266,6 +266,9 @@ Vue.component("homeLoggedIn", {
             },
             sortLD: function(){
               this.sortBy='LocationDesc'
+            },
+            saveRestaurantId: function(rname){
+              this.$router.push("/restaurantInfo/"+rname);
             }
             
            

@@ -39,7 +39,8 @@ Vue.component("reviewManager", {
                    address:
                    
                      {
-                     streetAndNumber: '',
+                      street: '',
+                      number: '',
                      town: '',
                      zipCode: ''
                      },
@@ -80,7 +81,8 @@ Vue.component("reviewManager", {
               address:
               
                 {
-                  streetAndNumber: '',
+                  street: '',
+          number: '',
                   town: '',
                   zipCode: ''
                 },

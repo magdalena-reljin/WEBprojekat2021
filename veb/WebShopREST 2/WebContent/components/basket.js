@@ -27,7 +27,8 @@ Vue.component("basket", {
                               address:
                               
                                 {
-                                  streetAndNumber: '',
+                                    street: '',
+                                    number: '',
                                   town: '',
                                   zipCode: ''
                                 },
@@ -94,7 +95,8 @@ Vue.component("basket", {
                     address:
                     
                       {
-                        streetAndNumber: '',
+                        street: '',
+                         number: '',
                         town: '',
                         zipCode: ''
                       },
@@ -118,7 +120,8 @@ Vue.component("basket", {
             address:
             
               {
-                streetAndNumber: '',
+                street: '',
+                number: '',
                 town: '',
                 zipCode: ''
               },

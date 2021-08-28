@@ -25,7 +25,8 @@ Vue.component("restaurantManager", {
               address:
               
                 {
-                  streetAndNumber: '',
+                  street: '',
+                  number: '',
                   town: '',
                   zipCode: ''
                 },
@@ -54,7 +55,8 @@ Vue.component("restaurantManager", {
                     address:
                     
                       {
-                        streetAndNumber: '',
+                        street: '',
+                        number: '',
                         town: '',
                         zipCode: ''
                       },

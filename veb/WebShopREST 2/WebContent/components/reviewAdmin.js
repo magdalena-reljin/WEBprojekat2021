@@ -39,7 +39,8 @@ Vue.component("reviewAdmin", {
                    address:
                    
                      {
-                     streetAndNumber: '',
+                      street: '',
+                      number: '',
                      town: '',
                      zipCode: ''
                      },

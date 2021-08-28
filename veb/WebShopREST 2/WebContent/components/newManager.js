@@ -24,7 +24,8 @@ Vue.component("newManager", {
             address:
             
               {
-                streetAndNumber: '',
+                street: '',
+                number: '',
                 town: '',
                 zipCode: ''
               },

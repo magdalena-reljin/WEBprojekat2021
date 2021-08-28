@@ -1,16 +1,26 @@
 package beans;
 
 public class Address {
-    private String streetAndNumber;
+    private String street;
+    private String number;
     private String town;
     private String zipCode;
-    public String getStreetAndNumber() {
-        return streetAndNumber;
-    }
-    public void setStreetAndNumber(String streetAndNumber) {
-        this.streetAndNumber = streetAndNumber;
-    }
-    public String getTown() {
+    
+    
+    
+    public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getTown() {
         return town;
     }
     public void setTown(String town) {
@@ -22,9 +32,10 @@ public class Address {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-    public Address(String streetAndNumber, String town, String zipCode) {
+    public Address(String street, String number, String town, String zipCode) {
         super();
-        this.streetAndNumber = streetAndNumber;
+        this.street = street;
+        this.number = number;
         this.town = town;
         this.zipCode = zipCode;
     }

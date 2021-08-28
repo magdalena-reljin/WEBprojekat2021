@@ -56,7 +56,7 @@ public class ItemDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				 File file = new File(dajana);
+				 File file = new File(magdalena);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -86,7 +86,7 @@ public class ItemDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				in=Files.newBufferedReader(Paths.get(dajana));
+				in=Files.newBufferedReader(Paths.get(magdalena));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				itemss=Arrays.asList(gson.fromJson(in, Item[].class));
 			    

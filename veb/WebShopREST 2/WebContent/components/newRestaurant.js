@@ -21,7 +21,8 @@ Vue.component("newRestaurant", {
                     address:
                     
                       {
-                        streetAndNumber: '',
+                        street: '',
+                        number: '',
                         town: '',
                         zipCode: ''
                       },
@@ -45,7 +46,8 @@ Vue.component("newRestaurant", {
             address:
             
               {
-                streetAndNumber: '',
+                street: '',
+                number: '',
                 town: '',
                 zipCode: ''
               },
@@ -78,7 +80,8 @@ Vue.component("newRestaurant", {
         address:
         
           {
-            streetAndNumber: '',
+            street: '',
+            number: '',
             town: '',
             zipCode: ''
           },
@@ -114,7 +117,8 @@ Vue.component("newRestaurant", {
           address:
           
             {
-              streetAndNumber: '',
+              street: '',
+              number: '',
               town: '',
               zipCode: ''
             },
@@ -184,9 +188,14 @@ Vue.component("newRestaurant", {
           <input v-model="restaurant.location.latitude" type="text" class="form-control">
       </div>
       <div class="form-group">
-      <label>Street and number</label>
-      <input v-model="restaurant.location.address.streetAndNumber" type="text" class="form-control">
+      <label>Street</label>
+      <input v-model="restaurant.location.address.street" type="text" class="form-control">
   </div>
+  <div class="form-group">
+  <label>Number</label>
+  <input v-model="restaurant.location.address.number" type="text" class="form-control">
+</div>
+
   <div class="form-group">
   <label>Town</label>
   <input v-model="restaurant.location.address.town" type="text" class="form-control">
@@ -195,7 +204,17 @@ Vue.component("newRestaurant", {
   <label>ZipCode</label>
   <input v-model="restaurant.location.address.zipCode" type="text" class="form-control">
 </div>
-      <div class="col form-group">
+
+<br>
+<div align="center" vertical-align="center" style="border-style:solid; width:100%; height:200px;">
+                <map-container
+                :coordinates="[this.restaurant.location.longitude,this.restaurant.location.latitude]"
+                ></map-container>
+</div>
+<br>
+
+
+<div class="col form-group">
       <label>Logo </label>   
       <div class="mb-3">
       <input @click="data" class="form-control" type="file" id="formFile">
@@ -354,7 +373,61 @@ Vue.component("newRestaurant", {
      console.log("USPESNO"+response)
    })
    .catch(err=>console.log("GRESKA"))
-}
+   },
+   azuriranjeAdrese : function() {
+            
+    axios.get("https://nominatim.openstreetmap.org/reverse", {
+      params: {
+        lat: this.restaurant.location.latitude,
+        lon: this.restaurant.location.longitude,
+        format: "json",
+     },
+     })
+    .then((response) => {
+            const { address } = response.data;
+            var flag = false;
+            if (address) {
+    
+                if (address.road) {
+                    this.restaurant.location.address.street = address.road;
+      
+                    flag = true;
+                } else if (address.street) {
+                    this.restoran.location.address.street = address.street;
+                    flag = true;
+                }
+                if (flag && address["house-number"]) {
+                    this.restaurant.location.address.number = address["house-number"];
+                }
+                else if (flag && address["house_number"]) {
+                    this.restaurant.location.address.number = address["house_number"];
+                }
+                if (flag && address.town) {
+                    this.restaurant.location.address.town = address.town;
+                }
+                else if (flag && address.city) {
+                    this.restaurant.location.address.town = address.city;
+                }
+                if (flag && address.postCode) {
+                    this.restaurant.location.address.zipCode = address.postCode;
+                }
+                else if (flag && address.postcode) {
+                    this.restaurant.location.address.zipCode = address.postcode;
+                }
+                if (flag) {
+                    this.cela = this.restaurant.location.address.street  + " " + this.restaurant.location.address.number + ", " + this.restaurant.location.address.town + " " + this.restaurant.location.address.zipCode 
+                }
+            }
+        })
+          .catch(function(error) {
+         alert('Nije moguće pronaći adresu sa zadatim koordinatama.');
+          });
+
+},
+
+   
+
+
   }
 
 });

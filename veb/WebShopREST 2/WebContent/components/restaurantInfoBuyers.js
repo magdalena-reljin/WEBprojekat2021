@@ -25,7 +25,8 @@ Vue.component("restaurantInfoBuyers", {
 				address:
 				
 				  {
-					streetAndNumber: '',
+            street: '',
+            number: '',
 					town: '',
 					zipCode: ''
 				  },
@@ -50,7 +51,8 @@ Vue.component("restaurantInfoBuyers", {
               address:
               
                 {
-                  streetAndNumber: '',
+                  street: '',
+                  number: '',
                   town: '',
                   zipCode: ''
                 },
@@ -87,7 +89,8 @@ Vue.component("restaurantInfoBuyers", {
                       address:
                       
                         {
-                          streetAndNumber: '',
+                          street: '',
+                          number: '',
                           town: '',
                           zipCode: ''
                         },

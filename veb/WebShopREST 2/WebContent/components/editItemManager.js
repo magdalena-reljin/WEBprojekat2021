@@ -20,7 +20,8 @@ Vue.component("editItemManager", {
                   address:
                   
                     {
-                      streetAndNumber: '',
+                      street: '',
+                     number: '',
                       town: '',
                       zipCode: ''
                     },

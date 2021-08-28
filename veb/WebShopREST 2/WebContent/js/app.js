@@ -30,6 +30,8 @@ const WriteAReviewPage = { template: '<writeAReview></writeAReview>' }
 const ReviewManagerPage = { template: '<reviewManager></reviewManager>' }
 const ReviewAdminPage = { template: '<reviewAdmin></reviewAdmin>' }
 const ReviewPage = { template: '<reviewBuyer></reviewBuyer>' }
+const MapViewOnlyContainter = { template: '<map-view-container></map-view-container>' }
+const MapContainter = { template: '<map-container></map-container>' }
 
 
 const router = new VueRouter({
@@ -68,6 +70,8 @@ const router = new VueRouter({
     { path: '/reviewManager/:id', component: ReviewManagerPage},
     { path: '/reviewAdmin/:id', component: ReviewAdminPage},
     { path: '/reviewBuyer/:id', component: ReviewPage},
+    { path: '/map-view-container', component: MapViewOnlyContainter},
+    { path: '/map-container', component: MapContainter},
       ]
 });
 

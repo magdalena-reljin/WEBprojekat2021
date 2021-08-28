@@ -14,7 +14,8 @@ Vue.component("homeLoggedInManager", {
            address:
            
              {
-             streetAndNumber: '',
+              street: '',
+              number: '',
              town: '',
              zipCode: ''
              },
@@ -47,7 +48,8 @@ Vue.component("homeLoggedInManager", {
               address:
               
                 {
-                  streetAndNumber: '',
+                  street: '',
+          number: '',
                   town: '',
                   zipCode: ''
                 },
@@ -138,7 +140,7 @@ Vue.component("homeLoggedInManager", {
                        <h4 class="card-title">{{item.name}}</h4>
                <h6 v-if="item.status === 'OPEN'" style="color: green;">{{item.status}}</h6>
                        <h6 v-else style="color: red;">{{item.status}}</h6>
-                       <h6>{{item.location.address.streetAndNumber}}<p>{{item.location.address.town}}</p></h6>
+                       <h6>{{item.location.address.town}}<p>{{item.location.address.street}} {{item.location.address.number}}</p></h6>
 			              	<h6 >Rating: {{item.avg}}</h6>
                <button @click="saveRestaurantId(item.name)" type="button" class="btn btn-outline-dark">SEE ITEMS</button>
                      </div>

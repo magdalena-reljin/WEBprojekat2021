@@ -17,7 +17,8 @@ Vue.component("createItemManager", {
                   address:
                   
                     {
-                      streetAndNumber: '',
+                      street: '',
+                       number: '',
                       town: '',
                       zipCode: ''
                     },
@@ -55,7 +56,8 @@ Vue.component("createItemManager", {
             address:
             
               {
-                streetAndNumber: '',
+                street: '',
+                number: '',
                 town: '',
                 zipCode: ''
               },

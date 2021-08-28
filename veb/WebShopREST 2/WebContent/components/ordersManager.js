@@ -48,7 +48,8 @@ Vue.component("ordersManager", {
         address:
         
           {
-            streetAndNumber: '',
+            street: '',
+          number: '',
             town: '',
             zipCode: ''
           },
