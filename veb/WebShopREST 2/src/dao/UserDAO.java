@@ -23,22 +23,23 @@ public class UserDAO {
     	users=new ArrayList<User>();
     	for(User u:loadUsers(contextPath)) {
             users.add(u);
-            System.out.println("user stigao"+u.getUsername());
     	}
     }
     public List<User> findAll() {
+    	List<User> userP=new ArrayList<User>();
+    	for(User user:users) {
+    		if(!user.isBlocked())
+    			userP.add(user);
+    	}
         return users;
     }
   
     public User findUser(String username, String password) {
-        System.out.println("usao sam u fin user");
         for(User user :users) {
             if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                System.out.println("nasao sam usera");
                 return user;
             }
         }
-        System.out.println("nisam nasao usera");
         return null;
     }
     public User getUserById(String id) {
@@ -51,7 +52,6 @@ public class UserDAO {
   
 
 	public void saveUser(User newUser)  {
-		System.out.println("u save useru saaaaaaaaaaaaaaaaaaaaam"+newUser.getBirthDate());
 		users.add(newUser);
 		BufferedWriter writer=null;
 		 
@@ -63,7 +63,7 @@ public class UserDAO {
 			 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
 			 String s=new File("").getAbsolutePath();
 			 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
-			 File file = new File(magdalena);
+			 File file = new File(dajana);
 			writer = new BufferedWriter(new FileWriter(file));
 			  writer.write(json);
 			
@@ -80,7 +80,6 @@ public class UserDAO {
 				}
 			}
 		}
-			System.out.println("u save useru saaaaaaaaaaaaaaaaaaaaam"+newUser.getBirthDate());
 		
 	}
 	
@@ -93,7 +92,7 @@ public class UserDAO {
 			System.out.println("putanja u load "+s);
 		    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
 		    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json";
-			in=Files.newBufferedReader(Paths.get(magdalena));
+			in=Files.newBufferedReader(Paths.get(dajana));
 			//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 			userss=Arrays.asList(gson.fromJson(in, User[].class));
 		    
@@ -107,9 +106,6 @@ public class UserDAO {
 				catch (Exception e) { }
 			}
 		}
-		for(User u: userss)
-			System.out.println("user "+u.getUsername());
-		
 		return userss;
 	}
 
@@ -122,5 +118,7 @@ public class UserDAO {
 		
 		
 	}
+
+
 	
 }

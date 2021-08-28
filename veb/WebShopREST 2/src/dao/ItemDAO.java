@@ -23,7 +23,6 @@ public class ItemDAO {
 	    public ItemDAO() {}
 	    
 	    public ItemDAO(String contextPath) {
-	    	System.out.println("BIO SAM OVDE ITEM DAO");
 	    	items=new ArrayList<Item>();
 	    	
 	    	for(Item i:loadItems(contextPath)) {
@@ -31,7 +30,6 @@ public class ItemDAO {
 	            items.add(i);
 	            
 	    	}
-	    	System.out.println("BIO SAM OVDE ITEM DAO kraj");
 	    }
 	    public List<Item> findAll() {
 	        return items;
@@ -58,7 +56,7 @@ public class ItemDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -88,7 +86,7 @@ public class ItemDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\items.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				itemss=Arrays.asList(gson.fromJson(in, Item[].class));
 			    

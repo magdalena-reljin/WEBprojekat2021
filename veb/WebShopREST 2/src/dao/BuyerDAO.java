@@ -37,6 +37,11 @@ public class BuyerDAO {
 	        
 	    }
 	    public List<Buyer> findAll() {
+	    	List<Buyer> buyerP=new ArrayList<Buyer>();
+	    	for(Buyer buyer: buyers) {
+	    		if(!buyer.isDeleted())
+	    			buyerP.add(buyer);
+	    	}
 	        return buyers;
 	    }
 	 
@@ -58,7 +63,7 @@ public class BuyerDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				buyerss=Arrays.asList(gson.fromJson(in, Buyer[].class));
 			    
@@ -83,7 +88,6 @@ public class BuyerDAO {
 
 
 		public void saveBuyer(Buyer newBuyer)  {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"+newBuyer.getUsername());
 			buyers.add(newBuyer);
 			BufferedWriter writer=null;
 			
@@ -95,7 +99,7 @@ public class BuyerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -315,6 +319,12 @@ public class BuyerDAO {
 			buyer.setSurname(user.getSurname());
 			saveBuyer(buyer);
 			return buyer;
+		}
+
+		public BuyerTitle buyerType(User user) {
+			// TODO Auto-generated method stub
+			Buyer buyer=getBuyerById(user.getUsername());
+			return buyer.getType().getTitle();
 		}
 			
 		

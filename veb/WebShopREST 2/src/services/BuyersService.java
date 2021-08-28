@@ -197,8 +197,19 @@ public class BuyersService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User editData(User user, @Context HttpServletRequest request) {
 		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
-		System.out.println("USPEO SAM edittttttttt :)))");
 		return  buyerDao.editData(user);
+		
+	}
+	
+	
+	@GET
+	@Path("/getAll")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Buyer> getAll(@Context HttpServletRequest request) {
+		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
+		
+		return  buyerDao.findAll();
 		
 	}
 }
