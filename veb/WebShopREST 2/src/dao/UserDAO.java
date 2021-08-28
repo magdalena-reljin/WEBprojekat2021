@@ -117,21 +117,7 @@ public class UserDAO {
 		return userss;
 	}
 
-	public User editData(User user) {
-		// TODO Auto-generated method stub
-			
-				saveUser(user);
-				return user;
-		
-		
-	}
 
-	public User blockUser(User user) {
-		// TODO Auto-generated method stub
-		
-		saveUser(user);
-		return user;
-	}
 
 
 	

@@ -93,11 +93,12 @@ public class LoginService {
 	@Path("/editData")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User editData(User user) {
+	public boolean editData(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		System.out.println("USPEO SAM edittttttttt :)))");
 
-		return  userDao.editData(user);
+		 userDao.saveUser(user);
+		 return true;
 		
 	}
 	
@@ -114,9 +115,21 @@ public class LoginService {
 	@Path("/blockUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User blockUser(User user) {
+	public boolean blockUser(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		return  userDao.blockUser(user);
+	      userDao.saveUser(user);
+	      return true;
+		
+	}
+	
+	@POST
+	@Path("/deleteUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteUser(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		 userDao.saveUser(user);
+		 return true;
 		
 	}
 	

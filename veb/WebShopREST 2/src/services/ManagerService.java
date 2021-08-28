@@ -21,6 +21,7 @@ import beans.Restaurant;
 import beans.User;
 import dao.DelivererDAO;
 import dao.ManagerDAO;
+import dao.RestaurantDAO;
 import dao.UserDAO;
 import enums.RestaurantType;
 
@@ -110,6 +111,19 @@ import enums.RestaurantType;
 		public User editData(User user, @Context HttpServletRequest request) {
 			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 			return  managerDao.editData(user);
+			
+		}
+		
+		@POST
+		@Path("/deleteManager")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public boolean deleteManager(User user) {
+			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+			RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+			Manager manager=managerDao.deleteManager(user);
+			restaurantDao.deleteRestaurant(manager.getRestaurant().getName());
+			 return true;
 			
 		}
 }

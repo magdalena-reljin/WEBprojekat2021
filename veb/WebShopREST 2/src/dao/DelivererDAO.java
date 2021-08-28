@@ -81,7 +81,14 @@ public class DelivererDAO {
   
 
 	public void saveDeliverer(Deliverer newDeliverer)  {
-		deliverers.add(newDeliverer);
+		if(getDelivererById(newDeliverer.getUsername())!= null) {
+			Deliverer currentDeliverer= getDelivererById(newDeliverer.getUsername());
+			int index=deliverers.indexOf(currentDeliverer);
+			deliverers.remove(index);
+			deliverers.add(index, newDeliverer);
+		}else {
+			deliverers.add(newDeliverer);
+		}
 		BufferedWriter writer=null;
 		
 		 Gson gson = new Gson();
@@ -117,7 +124,6 @@ public class DelivererDAO {
 		List<Order> orders = new ArrayList<Order>();
 	
 		Deliverer currentDeliverer= getDelivererById(deliverer.getUsername());
-		deliverers.remove(currentDeliverer);
 			for(Order order: deliverer.getOrders()) {
 				if(!order.getId().equals("")) {
 					orders.add(order);
@@ -133,7 +139,6 @@ public class DelivererDAO {
 	public void accept(RequestDTO requestDto) {
 		// TODO Auto-generated method stub
 		Deliverer currentD= getDelivererById(requestDto.getDelivererId());
-		deliverers.remove(currentD);
 		for(Order order: currentD.getOrders()) {
 			if(order.getId().equals(requestDto.getOrderId())) {
 				order.setStatus(OrderStatus.TRANSPORTING);
@@ -149,7 +154,6 @@ public class DelivererDAO {
 		// TODO Auto-generated method stub
 		List<Order>orders= new ArrayList<Order>();
 		Deliverer currentD= getDelivererById(requestDto.getDelivererId());
-		deliverers.remove(currentD);
 		for(Order order: currentD.getOrders()) {
 			if(order.getId().equals(requestDto.getOrderId()) && !currentD.getUsername().equals(requestDto.getDelivererId())) {
 				orders.add(order);
@@ -169,7 +173,6 @@ public class DelivererDAO {
 	public void setStatus(RequestDTO req) {
 		// TODO Auto-generated method stub
 		Deliverer currentD= getDelivererById(req.getDelivererId());
-		deliverers.remove(currentD);
 		for(Order order: currentD.getOrders()) {
 			if(order.getId().equals(req.getOrderId()) &&order.getStatus().equals(OrderStatus.TRANSPORTING)) {
 				order.setStatus(OrderStatus.DELIVERED);
@@ -182,11 +185,17 @@ public class DelivererDAO {
 	public User editData(User user) {
 		// TODO Auto-generated method stub
 		Deliverer deliverer= getDelivererById(user.getUsername());
-		deliverers.remove(deliverer);
 		deliverer.setName(user.getName());
 		deliverer.setSurname(user.getSurname());
 		saveDeliverer(deliverer);
 		return deliverer;
+	}
+
+	public void deleteDeliverer(User user) {
+		// TODO Auto-generated method stub
+		Deliverer deliverer= getDelivererById(user.getUsername());
+		deliverer.setDeleted(true);
+		saveDeliverer(deliverer);
 	}
 		
 

@@ -92,7 +92,7 @@ Vue.component("homeLoggedInBuyer", {
     <div class="carousel-item active">
       <div class="container">
         <div class="row">
-          <div v-for="item in restaurant" class="col-lg-4">
+          <div v-if="restaurant.deleted === false" v-for="item in restaurant" class="col-lg-4">
             <div class="card">
 			<img v-bind:src="item.logo"
               />

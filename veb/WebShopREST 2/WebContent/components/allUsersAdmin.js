@@ -105,7 +105,7 @@ Vue.component("allUsersAdmin", {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in users">
+                                <tr v-if="user.deleted === false" v-for="user in users">
                                    
                                
                                     <td>
@@ -147,7 +147,7 @@ Vue.component("allUsersAdmin", {
                                     <td>
                                       <button @click="blockUser(user)" v-if="user.role != 'ADMINISTRATOR' && user.blocked === false"  type="button" class="btn btn-outline-success">BLOCK</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>BLOCK</button>
-                                      <button v-if="user.role != 'ADMINISTRATOR' && user.role != 'BUYER'"  type="button" class="btn btn-outline-success">DELETE USER</button>
+                                      <button @click="deleteUser(user)" v-if="user.role != 'ADMINISTRATOR' && user.role != 'BUYER' && user.deleted === false"  type="button" class="btn btn-outline-success">DELETE USER</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>DELETE USER</button>
                                     </td>
                                     
@@ -217,6 +217,25 @@ Vue.component("allUsersAdmin", {
                 axios
                 .post('/WebShopREST/rest/users/blockUser',user)
                 .then(response=> (location.reload()))
+              },
+              deleteUser: function(user){
+                user.deleted=true
+                axios
+                .post('/WebShopREST/rest/users/deleteUser',user)
+                .then(response=> {
+                  if(user.role === 'DELIVERER'){
+                    axios
+                    .post('/WebShopREST/rest/deliverers/deleteDeliverer',user)
+                    .then(response=>{})
+                  }else if(user.role === 'MANAGER'){
+                    axios
+                    .post('/WebShopREST/rest/managers/deleteManager',user)
+                    .then(response=>{})
+                  }
+                  location.reload()
+                })
+
+              
               }
           }
           

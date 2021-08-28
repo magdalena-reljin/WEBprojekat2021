@@ -59,8 +59,14 @@ public class ManagerDAO {
 			return managerss;
 		}
 	    public void saveManager(Manager newUser)  {
-			
-			managers.add(newUser);
+	    	if(getManagerById(newUser.getUsername())!= null) {
+				Manager currentManager= getManagerById(newUser.getUsername());
+				int index=managers.indexOf(currentManager);
+				managers.remove(index);
+				managers.add(index, newUser);
+			}else {
+				managers.add(newUser);
+			}
 			BufferedWriter writer=null;
 			 
 			 Gson gson = new Gson();
@@ -112,7 +118,6 @@ public class ManagerDAO {
 		public Manager addRestaurant(Manager newManager) {
 			// TODO Auto-generated method stub
 			Manager oldManager=getManagerById(newManager.getUsername());
-			managers.remove(oldManager);
 			oldManager.setRestaurant(newManager.getRestaurant());
 			saveManager(oldManager);
 			return oldManager;
@@ -132,13 +137,19 @@ public class ManagerDAO {
 		public User editData(User user) {
 			// TODO Auto-generated method stub
 			Manager manager= getManagerById(user.getUsername());
-			managers.remove(manager);
 			manager.setName(user.getName());
 			manager.setSurname(user.getSurname());
 			saveManager(manager);
 			return manager;
 		}
-			
+		public Manager deleteManager(User user) {
+			// TODO Auto-generated method stub
+			Manager manager= getManagerById(user.getUsername());
+			manager.setDeleted(true);
+			saveManager(manager);
+			return manager;
+		}
+		
 
 }
 

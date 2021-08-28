@@ -142,5 +142,16 @@ public class DelivererService {
 		
 	}
 	
+	@POST
+	@Path("/deleteDeliverer")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteDeliverer(User user) {
+		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
+		delivererDao.deleteDeliverer(user);
+		 return true;
+		
+	}
+	
 	
 }

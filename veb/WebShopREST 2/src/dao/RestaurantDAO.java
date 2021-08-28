@@ -58,8 +58,14 @@ public class RestaurantDAO {
 		return restaurantss;
 	}
     public void saveRestaurant(Restaurant newRestaurant)  {
-		
-		restaurants.add(newRestaurant);
+    	if(getRestaurantByName(newRestaurant.getName())!= null) {
+			Restaurant currentRestaurant= getRestaurantByName(newRestaurant.getName());
+			int index=restaurants.indexOf(currentRestaurant);
+			restaurants.remove(index);
+			restaurants.add(index, newRestaurant);
+		}else {
+			restaurants.add(newRestaurant);
+		}
 		BufferedWriter writer=null;
 		 
 		 Gson gson = new Gson();
@@ -113,21 +119,24 @@ public class RestaurantDAO {
     
     public Restaurant addNewItemInRestaurant(Restaurant newRestaurant) {
 		// TODO Auto-generated method stub
-		Restaurant oldRestaurant=getRestaurantByName(newRestaurant.getName());
-		restaurants.remove(oldRestaurant);
-	
 		saveRestaurant(newRestaurant);
-		System.out.println("newrest"+newRestaurant.getItems().get(1).getName());
-		return oldRestaurant;
+		return newRestaurant;
 		
 	}
 
 	public void setAvg(String name, double num) {
 		// TODO Auto-generated method stub
 		Restaurant oldRestaurant=getRestaurantByName(name);
-		restaurants.remove(oldRestaurant);
 		oldRestaurant.setAvg(num);
 		saveRestaurant(oldRestaurant);
+	}
+
+	public void deleteRestaurant(String name) {
+		// TODO Auto-generated method stub
+		Restaurant oldRestaurant=getRestaurantByName(name);
+		oldRestaurant.setDeleted(true);
+		saveRestaurant(oldRestaurant);
+		
 	}
 
 	
