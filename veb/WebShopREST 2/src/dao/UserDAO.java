@@ -52,7 +52,15 @@ public class UserDAO {
   
 
 	public void saveUser(User newUser)  {
-		users.add(newUser);
+		if(getUserById(newUser.getUsername())!= null) {
+			User currentUser= getUserById(newUser.getUsername());
+			int index=users.indexOf(currentUser);
+			users.remove(index);
+			users.add(index, newUser);
+		}else {
+			users.add(newUser);
+		}
+	
 		BufferedWriter writer=null;
 		 
 		 Gson gson = new Gson();
@@ -111,12 +119,18 @@ public class UserDAO {
 
 	public User editData(User user) {
 		// TODO Auto-generated method stub
-		User currentUser= getUserById(user.getUsername());
-				users.remove(currentUser);
+			
 				saveUser(user);
 				return user;
 		
 		
+	}
+
+	public User blockUser(User user) {
+		// TODO Auto-generated method stub
+		
+		saveUser(user);
+		return user;
 	}
 
 

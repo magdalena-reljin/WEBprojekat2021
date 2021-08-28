@@ -110,4 +110,14 @@ public class LoginService {
 		return userDao.findAll();
 	}
 	
+	@POST
+	@Path("/blockUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User blockUser(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return  userDao.blockUser(user);
+		
+	}
+	
 }

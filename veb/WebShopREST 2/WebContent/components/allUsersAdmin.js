@@ -105,6 +105,7 @@ Vue.component("allUsersAdmin", {
                             </thead>
                             <tbody>
                                 <tr v-for="user in users">
+                                   
                                
                                     <td>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -128,27 +129,27 @@ Vue.component("allUsersAdmin", {
                                     <div v-for="buyer in buyers">
                                     <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.type.title}}</span>
                                     </div>
-                                    <span v-else class="label label-default">-</span>
+                                    <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
                                     
                                    </td>
 
                                   <td>
                                   <div v-for="buyer in buyers">
-                                   <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.type.points}}</span>
+                                   <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.points}}</span>
                                    </div>
-                                   <span  v-else class="label label-default">-</span>
+                                   <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
                               
                                    
                                   </td>
                             
                                 
                                     <td>
-                                      <button v-if="user.role != 'ADMINISTRATOR'"  type="button" class="btn btn-outline-success">BLOCKED</button>
-                                      <button v-else  type="button" class="btn btn-outline-danger" disabled>BLOCKED</button>
+                                      <button @click="blockUser(user)" v-if="user.role != 'ADMINISTRATOR' && user.blocked === false"  type="button" class="btn btn-outline-success">BLOCK</button>
+                                      <button v-else  type="button" class="btn btn-outline-danger" disabled>BLOCK</button>
                                       <button v-if="user.role != 'ADMINISTRATOR' && user.role != 'BUYER'"  type="button" class="btn btn-outline-success">DELETE USER</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>DELETE USER</button>
                                     </td>
-                                   
+                                    
                                 </tr>
                                 
                             </tbody>
@@ -209,7 +210,13 @@ Vue.component("allUsersAdmin", {
               } ,
               registerDeliverer: function(){
                 this.$router.push("/newDeliverer/"+this.id)
-              } 
+              },
+              blockUser: function(user){
+                user.blocked=true
+                axios
+                .post('/WebShopREST/rest/users/blockUser',user)
+                .then(response=> (location.reload()))
+              }
           }
           
       
