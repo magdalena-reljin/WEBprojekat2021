@@ -126,4 +126,13 @@ import enums.RestaurantType;
 			 return true;
 			
 		}
+		@POST
+		@Path("/deleteRestaurant")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public boolean deleteRestaurant(Restaurant restaurant) {
+			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
+			managerDao.deleteRestaurant(restaurant);
+			return true;
+		}
 }

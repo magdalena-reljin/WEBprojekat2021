@@ -53,7 +53,7 @@ Vue.component("newRestaurant", {
               },
         },
         logo: '',
-        deleted: '',
+        deleted: false,
         avg: 0
         
 		},

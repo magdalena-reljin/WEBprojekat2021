@@ -98,7 +98,7 @@ public class RestaurantDAO {
     
     public Restaurant getRestaurantByName(String name) {
         for(Restaurant restaurant :restaurants) {
-            if(restaurant.getName().equals(name)) 
+            if(restaurant.getName().equals(name) && restaurant.isDeleted()==false) 
                 return restaurant;
         }
         return null;

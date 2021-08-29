@@ -149,6 +149,17 @@ public class ManagerDAO {
 			saveManager(manager);
 			return manager;
 		}
+
+		public void deleteRestaurant(Restaurant restaurant) {
+			// TODO Auto-generated method stub
+			for(Manager manager:managers) {
+				if(manager.getRestaurant().getName().equals(restaurant.getName())) {
+					manager.setRestaurant(new Restaurant(""));
+					saveManager(manager);
+				}
+			}
+			
+		}
 		
 
 }

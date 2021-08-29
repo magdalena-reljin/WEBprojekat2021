@@ -81,7 +81,6 @@ public class RestaurantService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurant findUserData(Restaurant restaurant, @Context HttpServletRequest request) {
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
-		System.out.println("USPEO SAM u rest findData :)))");
 		Restaurant restaurantWithData = restaurantDao.getRestaurantByName(restaurant.getName());
 		return restaurantWithData;
 	}
@@ -90,10 +89,19 @@ public class RestaurantService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurant update(Restaurant newRestaurant, @Context HttpServletRequest request) {
-		System.out.println("pogodio update Restaurant");
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
 		restaurantDao.addNewItemInRestaurant(newRestaurant);
 		return newRestaurant;
+	}
+	
+	@POST
+	@Path("/deleteRestaurant")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean deleteRestaurant(Restaurant restaurant) {
+		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
+		restaurantDao.deleteRestaurant(restaurant.getName());
+		return true;
 	}
 	
 	

@@ -195,6 +195,7 @@ Vue.component("homeLoggedIn", {
                 <h6>{{restaurant.location.address.town}}<p>{{restaurant.location.address.street}} {{restaurant.location.address.number}}</p></h6>
 				<h6 >Rating: {{restaurant.avg}}</h6>
 				<button @click="saveRestaurantId(restaurant.name)" type="button" class="btn btn-outline-dark">SEE ITEMS</button>
+        <button @click="deleteRestaurant(restaurant)" type="button" class="btn btn-outline-danger">DELETE</button>
               </div>
             </div>
           </div>
@@ -234,12 +235,7 @@ Vue.component("homeLoggedIn", {
               axios
               
               .get('/WebShopREST/rest/restaurants/findAllRestaurants')
-              .then(response=> {this.restaurants=response.data
-              
-              
-        
-              
-              })
+              .then(response=> this.restaurants=response.data)
         
             },
             resetSearch: function(){
@@ -273,7 +269,19 @@ Vue.component("homeLoggedIn", {
             },
             createRestaurant: function(){
               this.$router.push("/newRestaurant/"+this.id)
-              }  
+              } ,
+              deleteRestaurant: function(rest){
+                axios
+                .post('/WebShopREST/rest/restaurants/deleteRestaurant',rest)
+                .then(response=> {  
+                  
+                  axios
+                  .post('/WebShopREST/rest/managers/deleteRestaurant',rest)
+                  .then(response=> {})
+                  
+                  location.reload()})
+
+            }   
             
            
             

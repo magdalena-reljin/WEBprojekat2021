@@ -7,7 +7,11 @@ import enums.RestaurantStatus;
 import enums.RestaurantType;
 
 public class Restaurant {
-    private String name;
+    public Restaurant(String name) {
+		this.name = name;
+	}
+
+	private String name;
     private RestaurantType restaurantType;
     private List<Item> items;
     private RestaurantStatus status;
@@ -78,4 +82,5 @@ public class Restaurant {
     }
 
     public Restaurant() {}
+	
 }
