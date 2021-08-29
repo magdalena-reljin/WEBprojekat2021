@@ -44,11 +44,11 @@ Vue.component("signup", {
         }
     },
     template: ` 
-        <div>
+        <div  style="background-image: url('components/images/pig2.png');">
 
-        <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
         <div class="container-fluid" style="background-color: #ffa6c9;">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand"  href="http://localhost:8080/WebShopREST/#/">
         <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
       </a>
     
@@ -56,15 +56,15 @@ Vue.component("signup", {
       
       </nav>
       <br>
-      <div class="container">
+      <div class="container" >
       
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" >
       <div class="col-md-6">
-      <div class="card">
-      <header class="card-header">
-          <h4 class="card-title mt-2">Register</h4>
+      <div class="card" >
+      <header class="card-header" >
+          <h4 class="card-title mt-2">Sign up</h4>
       </header>
-      <article class="card-body">
+      <article class="card-body"  >
       <form @submit="registerUser" method='post'>
           <div class="form-row">
               <div class="col form-group">
@@ -109,7 +109,7 @@ Vue.component("signup", {
       </div>
           </div> 
           <div class="form-group">
-              <button type="submit" class="btn btn-primary"> Register  </button>
+              <button type="submit" class="btn btn-primary"> Sign up  </button>
           </div>                                                
       </form>
       </article> 
@@ -127,7 +127,7 @@ Vue.component("signup", {
     methods: {
         registerUser: function(event) {
             event.preventDefault();
-  
+       
        axios
        .post('/WebShopREST/rest/buyers/signup',this.buyer)
        .then(response=> {

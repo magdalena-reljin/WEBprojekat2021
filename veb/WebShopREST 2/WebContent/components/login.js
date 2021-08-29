@@ -68,12 +68,12 @@ Vue.component("login", {
                     </div>
                   </div>
                 </div>
-                <div class="card text-white py-5 d-md-down-none" style="width:44%; background-color: #ffa6c9">
+                <div class="card text-white py-5 d-md-down-none" style="width:44%; background-image: url('components/images/loginKONACNO.png');">
                   <div class="card-body text-center">
                     <div>
                       <h2>Sign up</h2>
                       <p>Don't have an account?</p>
-                      <button type="button" class="btn btn-outline-light active mt-3">Sign up now!</button>
+                      <button @click="sign()" type="button" class="btn btn-outline-light active mt-3">Sign up now!</button>
                     </div>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ Vue.component("login", {
      .then(response=> {
         console.log("USPESNO"+response.data.role)
 
-            if(response.data.blocked === false){
+         if(response.data.blocked === false){
          if(response.data.role=='ADMINISTRATOR'){
          this.$router.push("/homeLoggedIn/"+this.user.username);
          } else if(response.data.role=='MANAGER'){
@@ -105,13 +105,15 @@ Vue.component("login", {
          }
       
          
-        }else {
-          this.greska="Vas nalog je blokiran!"
+        }else if(response.data.blocked === true) {
+          this.greska="Your account is blocked!"
+        }else{
+          this.greska="Wrong password or username!"
         }
         
      })
      .catch(err => {
-      this.greska = "Neuspesšna registracija!";
+      this.greska = "Wrong password or username!";
       console.log(err);
     })
 	},
@@ -120,6 +122,9 @@ Vue.component("login", {
   },
   goToHome: function(){
     this.$router.push("/")	
+  },
+  sign: function(){
+    this.$router.push("/signup")
   }
 
   }
