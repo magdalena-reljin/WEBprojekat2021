@@ -33,6 +33,7 @@ const MapViewOnlyContainter = { template: '<map-view-container></map-view-contai
 const MapContainter = { template: '<map-container></map-container>' }
 const HomeMapPage = { template: '<homeMap></homeMap>' }
 const ShowMapBuyer = { template: '<showMapBuyer></showMapBuyer>' }
+const RestInfoAdmin = { template: '<restaurantInfoAdmin></restaurantInfoAdmin>' }
 
 const router = new VueRouter({
     mode: 'hash',
@@ -73,6 +74,7 @@ const router = new VueRouter({
     { path: '/map-container', component: MapContainter},
     { path: '/homeMap/:id', component: HomeMapPage},
     { path: '/showMapBuyer/:id/:idRest', component: ShowMapBuyer},
+    { path: '/restaurantInfoAdmin/:id/:idRest', component: RestInfoAdmin},
       ]
 });
 

@@ -265,7 +265,7 @@ Vue.component("homeLoggedIn", {
               this.sortBy='LocationDesc'
             },
             saveRestaurantId: function(rname){
-              this.$router.push("/restaurantInfo/"+rname);
+              this.$router.push("/restaurantInfoAdmin/"+rname+"/"+this.id);
             },
             createRestaurant: function(){
               this.$router.push("/newRestaurant/"+this.id)
