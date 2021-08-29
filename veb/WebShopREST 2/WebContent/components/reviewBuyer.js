@@ -165,22 +165,25 @@ Vue.component("reviewBuyer", {
 </div>
 </header>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" style="background-color: black;">
   <li class="nav-item">
-    <a class="nav-link "  @click="goToItems()">Items</a>
+    <a style="color: white;" class="nav-link"  @click="goToItems()">ITEMS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" @click="goToReview()">Review</a>
+    <a style="color: white;" class="nav-link" @click="goToReview()">REVIEWS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" @click="goToMaps()">Location</a>
+    <a style="color: white;" class="nav-link" @click="goToMaps()">LOCATION</a>
   </li>
 </ul>
 
 
 <div class="container">
 	<div class="row">
-		<h2>Carousel Reviews</h2>
+    <br>
+    <br>
+    &nbsp;
+		<h2>ALL REVIEWS</h2>
 	</div>
 </div>
 <div v-for="review in reviews" class="carousel-reviews broun-block">
@@ -192,7 +195,7 @@ Vue.component("reviewBuyer", {
                                   <div class="item active">
                                     <div  class="col-md-12">
                                   <div class="block-text rel zmin">
-                                <div class="mark">My rating:  {{review.rating}} <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
+                                <div class="mark">RATING:  {{review.rating}} <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
                                   <p>{{review.comment}}</p>
                                 <ins class="ab zmin sprite sprite-i-triangle block"></ins>
                                 </div>

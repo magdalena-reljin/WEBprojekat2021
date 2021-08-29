@@ -190,15 +190,15 @@ Vue.component("restaurantInfoBuyers", {
 </div>
 </header>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" style="background-color: black;">
   <li class="nav-item">
-    <a class="nav-link" @click="goToItems()">Items</a>
+    <a style="color: white;" class="nav-link" @click="goToItems()">ITEMS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" @click="goToReview()">Reviews</a>
+    <a style="color: white;" class="nav-link" @click="goToReview()">REVIEWS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" @click="goToMaps()">Location</a>
+    <a style="color: white;" class="nav-link" @click="goToMaps()">LOCATION</a>
   </li>
   
 </ul>
