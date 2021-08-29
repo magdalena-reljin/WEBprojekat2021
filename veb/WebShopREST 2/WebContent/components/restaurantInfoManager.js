@@ -202,7 +202,7 @@ Vue.component("restaurantInfoManager", {
               
           },
           showMap: function(){
-            this.$router.push("/homeMap/"+this.restaurant.name);
+            this.$router.push("/restaurantMap/"+this.restaurant.name);
           }
         }
 	

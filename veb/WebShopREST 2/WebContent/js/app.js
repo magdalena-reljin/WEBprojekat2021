@@ -36,7 +36,7 @@ const ShowMapBuyer = { template: '<showMapBuyer></showMapBuyer>' }
 const RestInfoAdmin = { template: '<restaurantInfoAdmin></restaurantInfoAdmin>' }
 const RestInfoManager = { template: '<restaurantInfoManager></restaurantInfoManager>' }
 const RestInfoDeliverer = { template: '<restaurantInfoDeliverer></restaurantInfoDeliverer>' }
-
+const RestMap = { template: '<restaurantMap></restaurantMap>' }
 
 
 const router = new VueRouter({
@@ -81,6 +81,7 @@ const router = new VueRouter({
     { path: '/restaurantInfoAdmin/:id/:idRest', component: RestInfoAdmin},
     { path: '/restaurantInfoManager/:id/:idRest', component: RestInfoManager},
     { path: '/restaurantInfoDeliverer/:id/:idRest', component: RestInfoDeliverer},
+    { path: '/restaurantMap/:idRest', component: RestMap},
       ]
 });
 
