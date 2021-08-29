@@ -190,7 +190,7 @@ Vue.component("homeLoggedInManager", {
               .then(response=> (this.restaurant=response.data))
             },
             saveRestaurantId: function (id) {
-              this.$router.push("/restaurantInfo/"+id);
+              this.$router.push("/restaurantInfoManager/"+id+"/"+this.manager.username);
               console.log("ovo je id rest"+id)
             },
             redirect: function(){

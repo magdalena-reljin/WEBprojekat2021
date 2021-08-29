@@ -134,7 +134,7 @@ Vue.component("homeLoggedInDeliverer", {
               .then(response=> (this.restaurant=response.data))
             },
             saveRestaurantId: function (id) {
-              this.$router.push("/restaurantInfo/"+id);
+              this.$router.push("/restaurantInfoDeliverer/"+id+"/"+this.id);
               console.log("ovo je id rest"+id)
             },
           }

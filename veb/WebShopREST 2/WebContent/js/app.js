@@ -34,6 +34,10 @@ const MapContainter = { template: '<map-container></map-container>' }
 const HomeMapPage = { template: '<homeMap></homeMap>' }
 const ShowMapBuyer = { template: '<showMapBuyer></showMapBuyer>' }
 const RestInfoAdmin = { template: '<restaurantInfoAdmin></restaurantInfoAdmin>' }
+const RestInfoManager = { template: '<restaurantInfoManager></restaurantInfoManager>' }
+const RestInfoDeliverer = { template: '<restaurantInfoDeliverer></restaurantInfoDeliverer>' }
+
+
 
 const router = new VueRouter({
     mode: 'hash',
@@ -75,6 +79,8 @@ const router = new VueRouter({
     { path: '/homeMap/:id', component: HomeMapPage},
     { path: '/showMapBuyer/:id/:idRest', component: ShowMapBuyer},
     { path: '/restaurantInfoAdmin/:id/:idRest', component: RestInfoAdmin},
+    { path: '/restaurantInfoManager/:id/:idRest', component: RestInfoManager},
+    { path: '/restaurantInfoDeliverer/:id/:idRest', component: RestInfoDeliverer},
       ]
 });
 
