@@ -83,13 +83,6 @@ Vue.component("restaurantManager", {
               <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
             </a>
   
-              
-  
-              <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-  
   
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,26 +102,7 @@ Vue.component("restaurantManager", {
      
         </nav>
            
-        <ul class="nav justify-content-center">
-        
-        <li class="nav-item">
-        <a class="nav-link" @click="goToHome()">Home</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" @click="goToRestaurant()">Restaurant</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" @click="goToOrders()">Orders</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" @click="goToRequests()">Delivery requests</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" @click="goToReviews()">Reviews</a>
-        </li>
-        
-         
-       </ul>
+    
 
   <header>
   <!-- Background image -->
@@ -169,6 +143,27 @@ Vue.component("restaurantManager", {
   <!-- Background image -->
   </div>
 </header>
+
+<ul class="nav justify-content-center">
+        
+<li class="nav-item">
+<a class="nav-link" @click="goToHome()">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" @click="goToRestaurant()">Restaurant</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" @click="goToOrders()">Orders</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" @click="goToRequests()">Delivery requests</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" @click="goToReviews()">Reviews</a>
+</li>
+
+ 
+</ul>
 
   <!-- Controls -->
   <div class="d-flex justify-content-center mb-4">

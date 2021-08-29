@@ -41,9 +41,8 @@ public class AdminsService {
 		@Path("/editData")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		public User editData(User user, @Context HttpServletRequest request) {
+		public User editData(User user) {
 			AdminDAO adminDao = (AdminDAO) ctx.getAttribute("adminDAO");
-			System.out.println("USPEO SAM edittttttttt :)))");
 			return  adminDao.editData(user);
 			
 		}

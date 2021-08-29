@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Item;
 import beans.Order;
 import beans.Restaurant;
 import beans.Review;
@@ -33,7 +34,6 @@ List<Review> reviews;
  		reviews.add(r);
      
  	}
- 	System.out.println("OVDEEEEEEEEEEEEEEEEEEE SAM");
  }
  
  private List<Review> loadReviews(String contextPath) {
@@ -62,8 +62,14 @@ List<Review> reviews;
 		return orderss;
 	}
  public void saveReview(Review newReview)  {
-		
-		reviews.add(newReview);
+	 if(getById(newReview.getId())!= null) {
+			Review currentReview= getById(newReview.getId());
+			int index=reviews.indexOf(currentReview);
+			reviews.remove(index);
+			reviews.add(index, newReview);
+		}else {
+			reviews.add(newReview);
+		}
 		BufferedWriter writer=null;
 		 
 		 Gson gson = new Gson();
@@ -133,7 +139,6 @@ List<Review> reviews;
 	public void setStatus(Review review) {
 		// TODO Auto-generated method stub
 		Review old=getById(review.getId());
-		reviews.remove(old);
 		old.setStatus(review.getStatus());
 		saveReview(old);
 	}

@@ -14,6 +14,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import beans.Buyer;
+import beans.Manager;
 import beans.Order;
 import beans.Restaurant;
 import enums.OrderStatus;
@@ -62,8 +63,14 @@ List<Order> orders;
 		return orderss;
 	}
  public void saveOrders(Order newOrder)  {
-		
-		orders.add(newOrder);
+	 if(getOrderById(newOrder.getId())!= null) {
+			Order currentOrder= getOrderById(newOrder.getId());
+			int index=orders.indexOf(currentOrder);
+			orders.remove(index);
+			orders.add(index, newOrder);
+		}else {
+			orders.add(newOrder);
+		};
 		BufferedWriter writer=null;
 		 
 		 Gson gson = new Gson();
@@ -119,7 +126,6 @@ public List<Order> getOrdersByBuyerID(String username) {
 public void buyerCancelsOrder(Order order) {
 	// TODO Auto-generated method stub
 	Order orderForCanceling=getOrderById(order.getId());
-	orders.remove(order);
 	orderForCanceling.setStatus(OrderStatus.CANCELED);
 	saveOrders(orderForCanceling);
 }
@@ -136,7 +142,6 @@ public List<Order> getOrdersForManager(String idRest) {
 public Order setStatus(Order order) {
 	// TODO Auto-generated method stu
 	Order orderSet=getOrderById(order.getId());
-	orders.remove(orderSet);
 	orderSet.setStatus(order.getStatus());
 	saveOrders(orderSet);
 
@@ -168,7 +173,6 @@ public List<Order> getDeliveredOrdersForBuyer(Buyer buyer) {
 
 public void delete(Order order) {
 	Order orderForDeleting=getOrderById(order.getId());
-	orders.remove(orderForDeleting);
 	orderForDeleting.setDeleted(true);
 	saveOrders(orderForDeleting);
 }

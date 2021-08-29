@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Buyer;
 import beans.Item;
 import beans.Restaurant;
 
@@ -45,7 +46,14 @@ public class ItemDAO {
 	  
 
 		public void saveItem(Item newItem)  {
-			items.add(newItem);
+			if(getItemByName(newItem.getName())!= null) {
+				Item currentItem= getItemByName(newItem.getName());
+				int index=items.indexOf(currentItem);
+				items.remove(index);
+				items.add(index, newItem);
+			}else {
+				items.add(newItem);
+			}
 			BufferedWriter writer=null;
 			 
 			 Gson gson = new Gson();
@@ -112,7 +120,6 @@ public class ItemDAO {
 
 		public List<Item> findAllItemsInRestaurant(Restaurant r) {
 			List<Item> itemsInRestaurant=new ArrayList<Item>();
-			System.out.println("AAAAAA"+r.getName());
 			for(Item item:items) {
 				if(item.getRestaurant().getName().equals(r.getName()) && item.getDeleted()==false)
 					itemsInRestaurant.add(item);
@@ -122,7 +129,6 @@ public class ItemDAO {
 
 		public Item updateItem(Item item) {
 			Item oldItem= getItemByName(item.getName());
-			items.remove(oldItem);
 			saveItem(item);
 			return item;
 		}
@@ -135,7 +141,6 @@ public class ItemDAO {
 		public void deleteItem(String item) {
 			// TODO Auto-generated method stub
 			Item itemToDelete=getItemByName(item);
-			items.remove(itemToDelete);
 			itemToDelete.setDeleted(true);
 			saveItem(itemToDelete);
 			

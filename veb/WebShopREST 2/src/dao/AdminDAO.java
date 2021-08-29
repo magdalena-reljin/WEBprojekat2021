@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import beans.Admin;
 import beans.Buyer;
+import beans.Deliverer;
 import beans.Item;
 import beans.User;
 import enums.Gender;
@@ -76,7 +77,14 @@ public class AdminDAO {
 		}
 	   
 		public void saveAdmin(Admin newAdmin)  {
-			admins.add(newAdmin);
+			if(getAdminById(newAdmin.getUsername())!= null) {
+				Admin currentAdmin= getAdminById(newAdmin.getUsername());
+				int index=admins.indexOf(currentAdmin);
+				admins.remove(index);
+				admins.add(index, newAdmin);
+			}else {
+				admins.add(newAdmin);
+			}
 			BufferedWriter writer=null;
 			
 			 Gson gson = new Gson();
@@ -108,7 +116,6 @@ public class AdminDAO {
 		public User editData(User user) {
 			// TODO Auto-generated method stub
 			Admin admin= getAdminById(user.getUsername());
-			admins.remove(admin);
 			admin.setName(user.getName());
 			admin.setSurname(user.getSurname());
 			saveAdmin(admin);

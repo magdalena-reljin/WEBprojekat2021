@@ -164,7 +164,7 @@ Vue.component("createItemManager", {
        axios
        .post('/WebShopREST/rest/items/add',this.item)
        .then(response=> {
-        this.$router.push("/restaurantManager/"+this.id)
+        this.$router.push("/restaurantManager/"+this.id+"/"+this.item.restaurant.name)
       })
      
     },

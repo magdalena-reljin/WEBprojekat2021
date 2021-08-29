@@ -126,13 +126,6 @@ Vue.component("deliveryRequestsManager", {
               <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
             </a>
   
-              
-  
-              <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-  
   
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -245,7 +238,7 @@ Vue.component("deliveryRequestsManager", {
                                     </td>
                                  
                                     <td>
-                                    <span class="label label-default">{{deliverer.username}}$</span>
+                                    <span class="label label-default">{{deliverer.username}}</span>
                                     </td>
 
                                     <td>

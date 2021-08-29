@@ -5,7 +5,6 @@ const HomeLoggedInPage = { template: '<homeLoggedIn></homeLoggedIn>' }
 const ProfilePage = { template: '<profile></profile>' }
 const HomeLoggedInBuyerPage = { template: '<homeLoggedInBuyer></homeLoggedInBuyer>' }
 const AllUsersAdminPage = { template: '<allUsersAdmin></allUsersAdmin>' }
-const RestaurantsAdminPage = { template: '<restaurantsAdmin></restaurantsAdmin>' }
 const newManagerPage = { template: '<newManager></newManager>' }
 const newDelivererPage = { template: '<newDeliverer></newDeliverer>' }
 const newRestaurantPage = { template: '<newRestaurant></newRestaurant>' }
@@ -44,7 +43,6 @@ const router = new VueRouter({
 		{ path: '/profile/:id', component: ProfilePage},
 		{ path: '/homeLoggedInBuyer/:id', component: HomeLoggedInBuyerPage},
 		{ path: '/allUsersAdmin/:id', component: AllUsersAdminPage},
-		{ path: '/restaurantsAdmin/:id', component: RestaurantsAdminPage},
     { path: '/newManager/:id', component: newManagerPage},
     { path: '/newRestaurant/:id', component: newRestaurantPage},
     { path: '/newDeliverer/:id', component: newDelivererPage},

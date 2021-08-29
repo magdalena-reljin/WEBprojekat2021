@@ -17,6 +17,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import beans.Admin;
 import beans.Basket;
 import beans.Buyer;
 import beans.Item;
@@ -92,7 +93,14 @@ public class BuyerDAO {
 
 
 		public void saveBuyer(Buyer newBuyer)  {
-			buyers.add(newBuyer);
+			if(getBuyerById(newBuyer.getUsername())!= null) {
+				Buyer currentBuyer= getBuyerById(newBuyer.getUsername());
+				int index=buyers.indexOf(currentBuyer);
+				buyers.remove(index);
+				buyers.add(index, newBuyer);
+			}else {
+				buyers.add(newBuyer);
+			}
 			BufferedWriter writer=null;
 			
 			 Gson gson = new Gson();
@@ -126,7 +134,6 @@ public class BuyerDAO {
 			// TODO Auto-generated method stu
 			List<Item>items=new ArrayList<Item>();
 			 Buyer currentBuyer=getBuyerById(buyerBasket.getBuyer().getUsername());
-			 buyers.remove(currentBuyer);
 			 
 			 items.addAll(currentBuyer.getBasket().getItems());
 				for(Item it: buyerBasket.getItems()) {
@@ -156,7 +163,6 @@ public class BuyerDAO {
 				itemss.add(item);
 			}
 			currentBuyer.getBasket().setItems(itemss);
-			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
 			return currentBuyer.getBasket();
 		}
@@ -190,7 +196,6 @@ public class BuyerDAO {
 			List<Item>items=new ArrayList<Item>();
 			List<Item>itemss=new ArrayList<Item>();
 			 Buyer currentBuyer=getBuyerById(buyerBasket.getIdBuyer());
-			 buyers.remove(currentBuyer);
 			 
 			 items.addAll(currentBuyer.getBasket().getItems());
 				for(Item it:items) {
@@ -249,7 +254,6 @@ public class BuyerDAO {
 		    }		
 			
 			currentBuyer.setPoints(currentPoints);
-			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
 			
 		}
@@ -267,13 +271,11 @@ public class BuyerDAO {
 				newBasket.add(item);
 			}
 			currentBuyer.getBasket().setItems(newBasket);
-			buyers.remove(currentBuyer);
 			saveBuyer(currentBuyer);
 		}
 
 		public double setPointsAfterCancelingOrder(Order order) {
 			// TODO Auto-generated method stub
-			System.out.println("ovo je name od buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuyera"+order.getBuyer().getUsername());
 			Buyer buyer=getBuyerById(order.getBuyer().getUsername());
 			double currentPoints=buyer.getPoints();
 			double lostPoints=order.getCena()/1000*133*4;
@@ -297,7 +299,6 @@ public class BuyerDAO {
 			
 		    }		
 			
-			buyers.remove(buyer);
 			buyer.setPoints(newPoints);
 			saveBuyer(buyer);
 			return lostPoints;
@@ -318,7 +319,6 @@ public class BuyerDAO {
 		public User editData(User user) {
 			// TODO Auto-generated method stub
 			Buyer buyer=getBuyerById(user.getUsername());
-			buyers.remove(buyer);
 			buyer.setName(user.getName());
 			buyer.setSurname(user.getSurname());
 			saveBuyer(buyer);
@@ -338,7 +338,6 @@ public class BuyerDAO {
            Calendar cal3=Calendar.getInstance();
            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
            Buyer currentBuyer=getBuyerById(buyer.getUsername());
-              buyers.remove(currentBuyer);
               if(!currentBuyer.getCancel().equals("")) {
                      int currentNum=currentBuyer.getNum()+1;
                      if(currentNum >= 5) {
