@@ -75,7 +75,7 @@ Vue.component("changePassword", {
                 </span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg float-right">Save</button>
+            <button type="submit" class="btn btn-outline-dark">Save</button>
         </div>
     </form>
 </div>

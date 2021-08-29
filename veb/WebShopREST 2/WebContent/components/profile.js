@@ -109,9 +109,9 @@ Vue.component("profile", {
                 <hr>
                 <div class="row">
                   <div class="col-sm-12">
-                    <a @click="editData()" class="btn btn-info " target="__blank">Edit profile</a>
+                    <a @click="editData()" class="btn btn-outline-dark" target="__blank">Edit profile</a>
                
-                    <a @click="changePassword()" class="btn btn-info " target="__blank" >Change password</a>
+                    <a @click="changePassword()" class="btn btn-outline-dark" target="__blank" >Change password</a>
                   </div>
                   
                 </div>
