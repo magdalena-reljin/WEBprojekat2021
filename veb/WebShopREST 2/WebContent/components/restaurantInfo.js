@@ -66,19 +66,27 @@ Vue.component("restaurantInfo", {
 	    template: `
       
       <div>
-      <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #ffa6c9; list-style: none;">
-        <div class="container-fluid" style="background-color: #ffa6c9;">
-          <a class="navbar-brand" href="#">
-            <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
-          </a>
-
-            
-
-
-
-        </div>
-   
-      </nav>
+      <nav  class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
+      <div class="container-fluid" style="background-color: #ffa6c9;">
+      <a class="navbar-brand" href="#">
+      <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
+    </a>
+    
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a style="color: black;" class="nav-link active" aria-current="page" href="http://localhost:8080/WebShopREST/#/login">Login</a>
+    </li>
+    <li class="nav-item">
+      <a style="color: black;" class="nav-link active" href="http://localhost:8080/WebShopREST/#/signup"">Sign up</a>
+    </li>
+    </ul>
+    
+    
+    
+    
+      </div>
+    
+    </nav>
 
 <header>
 <!-- Background image -->
@@ -109,9 +117,20 @@ Vue.component("restaurantInfo", {
         <h1 style="color:white;" class="mb-3">{{restaurant.name}}</h1>
         <h4 style="color:white;" class="mb-3">{{restaurant.restaurantType}}</h4>
         <h5 style="color:white;" class="mb-3">{{restaurant.status}}</h5>
+        
+      
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Open maps">
+        <button @click="showMap()" type="button" class="btn btn-outline-light active mt-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+      </svg> {{restaurant.location.address.street}} {{restaurant.location.address.number}} , {{restaurant.location.address.town}}
+        </button>
+      </span>
+
+        
       </div>
      
-    
+       
       
     </div>
   </div>
@@ -156,7 +175,7 @@ Vue.component("restaurantInfo", {
             <h3 class="card-title">{{item.name}} </h3>
             <h5 class="card-title" style="color: #44ad73;">  price: {{item.price}} $</h5>
             <h6 class="card-title" style="color:gray;">{{item.description}}</h6>
-           
+            
            
           
           </div>
@@ -189,6 +208,9 @@ Vue.component("restaurantInfo", {
               .then(response=> {this.items=response.data})
               
           },
+          showMap: function(){
+            this.$router.push("/homeMap/"+this.restaurant.name);
+          }
         }
 	
 });

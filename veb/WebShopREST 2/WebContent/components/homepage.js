@@ -19,7 +19,8 @@ Vue.component("homepage", {
 				address:
 				
 				  {
-					streetAndNumber: '',
+					street: '',
+					number: '',
 					town: '',
 					zipCode: ''
 				  },

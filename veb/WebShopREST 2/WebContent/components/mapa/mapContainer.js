@@ -22,7 +22,7 @@ Vue.component("map-container", {
                 this.markerFeature.setStyle(new ol.style.Style({
                 image: new ol.style.Icon({
                   scale: 0.2,
-                  src: 'slike/pokazivac.png',
+                  src: 'components/images/lokacija.png',
                 })}));
     
                 vectorLayer = new ol.layer.Vector({

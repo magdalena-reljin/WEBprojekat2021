@@ -170,6 +170,13 @@ Vue.component("restaurantInfoBuyers", {
         <h1 style="color:white;" class="mb-3">{{restaurant.name}}</h1>
         <h4 style="color:white;" class="mb-3">{{restaurant.restaurantType}}</h4>
         <h5 style="color:white;" class="mb-3">{{restaurant.status}}</h5>
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Open maps">
+        <button @click="goToMaps()" type="button" class="btn btn-outline-light active mt-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+      </svg> {{restaurant.location.address.street}} {{restaurant.location.address.number}} , {{restaurant.location.address.town}}
+        </button>
+      </span>
       </div>
       
     </div>
@@ -181,17 +188,15 @@ Vue.component("restaurantInfoBuyers", {
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Items</a>
+    <a class="nav-link" @click="goToItems()">Items</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" @click="goToReview()">Review</a>
+    <a class="nav-link" @click="goToReview()">Reviews</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" @click="goToMaps()">Location</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
+  
 </ul>
 <br>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -343,7 +348,7 @@ Vue.component("restaurantInfoBuyers", {
      
         },
         goToReview:function(){
-          this.$router.push("/reviewBuyer/"+this.idRest);
+          this.$router.push("/reviewBuyer/"+this.id+"/"+this.idRest);
         },
         numOfItems(){
           this.basketDto.idBuyer=this.id
@@ -354,6 +359,12 @@ Vue.component("restaurantInfoBuyers", {
               this.numberOfItems=response.data
         
               })
+        },
+        goToMaps: function(){
+          this.$router.push("/showMapBuyer/"+this.id+"/"+this.idRest);
+        },
+        goToItems: function(){
+          location.reload();
         }
 
         }

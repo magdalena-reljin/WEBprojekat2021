@@ -80,6 +80,7 @@ public class RestaurantService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurant findUserData(Restaurant restaurant, @Context HttpServletRequest request) {
+		System.out.println("Pogodio sam                                     FIND DATA REST!!!");
 		RestaurantDAO restaurantDao = (RestaurantDAO) ctx.getAttribute("restaurantDAO");
 		Restaurant restaurantWithData = restaurantDao.getRestaurantByName(restaurant.getName());
 		return restaurantWithData;
