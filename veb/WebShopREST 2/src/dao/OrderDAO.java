@@ -102,9 +102,8 @@ List<Order> orders;
 	}
  
  public Order getOrderById(String id) {
-	 System.out.println("STIGAOOO ID"+id);
      for(Order order :orders) {
-         if(order.getId().equals(id)) 
+         if(order.getId().equals(id) && order.isDeleted()==false) 
              return order;
      }
      return null;

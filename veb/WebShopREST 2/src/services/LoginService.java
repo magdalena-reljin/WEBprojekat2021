@@ -130,4 +130,15 @@ public class LoginService {
 		
 	}
 	
+	@POST
+	@Path("/changePassword")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean changePassword(User user) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		 userDao.saveUser(user);
+		 return true;
+		
+	}
+	
 }

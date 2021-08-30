@@ -13,6 +13,10 @@ Vue.component("changePassword", {
             deleted: false,
             blocked: false
         }, 
+        oldPass: '',
+        checkPass: '',
+        newPass: '',
+        err:''
       }
     },
     template: ` 
@@ -55,25 +59,28 @@ Vue.component("changePassword", {
     <h3 style="text-align:center;" class="mb-0">Change Password</h3>
 </div>
 <div style="width: 70%;" class="card-body">
-    <form class="form" role="form" autocomplete="off">
+    <form @submit="changePassword" method='post' class="form" role="form" autocomplete="off">
         <div class="form-group">
             <label for="inputPasswordOld">Current Password</label>
-            <input type="password" class="form-control" id="inputPasswordOld" required="">
+            <input v-model="oldPass" type="password" class="form-control" id="inputPasswordOld" required="">
         </div>
         <div class="form-group">
             <label for="inputPasswordNew">New Password</label>
-            <input type="password" class="form-control" id="inputPasswordNew" required="">
+            <input v-model="newPass"  type="password" class="form-control" id="inputPasswordNew" required="This field is required">
             <span class="form-text small text-muted">
                     The password must be 8-20 characters, and must <em>not</em> contain spaces.
                 </span>
         </div>
         <div class="form-group">
             <label for="inputPasswordNewVerify">Verify</label>
-            <input type="password" class="form-control" id="inputPasswordNewVerify" required="">
+            <input v-model="checkPass" type="password" class="form-control" id="inputPasswordNewVerify" required="">
             <span class="form-text small text-muted">
                     To confirm, type the new password again.
                 </span>
         </div>
+        <br>
+        <div style="color:red;">{{err}}</div>
+        <br>
         <div class="form-group">
             <button type="submit" class="btn btn-outline-dark">Save</button>
         </div>
@@ -96,6 +103,44 @@ Vue.component("changePassword", {
                 axios
                 .post('/WebShopREST/rest/users/findData',this.user)
                 .then(response=> (this.user=response.data))
+            },
+            changePassword: function(event){
+              event.preventDefault()
+              if(this.oldPass==""){
+                this.err="All fields are required!";
+              }else if(this.checkPass== ""){
+                this.err="All fields are required!";
+              }else if(this.newPass==""){
+                this.err="All fields are required!";
+              }
+
+                if(this.oldPass != "" && this.newPass !="" && this.checkPass !=""){
+                  if(this.newPass.length< 8 || this.newPass.length>20){
+                    this.err="The password must be 8-20 characters!";
+                  }else if(this.newPass.length>=8 && this.newPass.length<=20){
+                      if(this.oldPass === this.user.password){
+                        
+                      if(this.newPass === this.checkPass){
+                        this.user.password=this.newPass
+                        axios
+                        .post('/WebShopREST/rest/users/changePassword',this.user)
+                        .then(response=> {
+                          alert("Password changed!")
+                        })
+                      }else {
+                        this.err="Inccorect password!";
+                      }
+                    }else {
+                      this.err="Inccorect password!";
+                    }
+
+                  }
+
+                
+              }
+
+             
+
             },
             backHome: function(){
               if(this.user.role === 'ADMINISTRATOR'){

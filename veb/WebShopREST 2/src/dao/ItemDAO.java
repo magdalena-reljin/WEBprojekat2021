@@ -38,7 +38,7 @@ public class ItemDAO {
 	  
 	    public Item getItemByName(String id) {
 	        for(Item item :items) {
-	            if(item.getName().equals(id)) 
+	            if(item.getName().equals(id) && item.getDeleted()==false) 
 	                return item;
 	        }
 	        return null;
