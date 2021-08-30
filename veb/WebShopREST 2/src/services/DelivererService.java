@@ -111,13 +111,13 @@ public class DelivererService {
 		delivererDao.deny(requestDto);
 	}
 	
-	@GET
+	@POST
 	@Path("/getOrdersForDeliverer")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Deliverer> getOrdersForDeliverer(@Context HttpServletRequest request){
+	public List<Order> getOrdersForDeliverer(Deliverer deliverer,@Context HttpServletRequest request){
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
-		return delivererDao.findAll();
+		return delivererDao.getOrdersForDeliverer(deliverer.getUsername());
 	}
 	
 	@POST

@@ -1,12 +1,15 @@
 Vue.component("homepage", { 
 	data: function () {
 	    return {
+			flagg: false,
 			searchName: '',
 			searchType: '',
 			searchRating: '',
 			searchLocation: '',
 			sortBy: '',
 			filterStatus:'ALL',
+			townSearch: '',
+			cela: '',
 			restaurants:[
 			 {
 				name: '',
@@ -33,6 +36,61 @@ Vue.component("homepage", {
      
 		],
     restaurantID: '',
+	restaurant: {
+		name: '',
+	  restaurantType: null,
+	items: [
+	  {
+		  name:'',
+		  price: null,
+		  itemType: null,
+		  restaurant: {
+			name: '',
+			restaurantType: null,
+			items: [],
+			status: 0,
+			location: {
+				longitude: '',
+				latitude: '',
+				address:
+				
+				  {
+					street: '',
+					number: '',
+					town: '',
+					zipCode: ''
+				  },
+			},
+			logo: '',
+			deleted: ''
+			
+		},
+		 quantity: '',
+		 description: '',
+		 image: '',
+		 numberInOrder: 1,
+		 deleted: false
+
+		},
+	],
+	status: 0,
+	location: {
+		longitude: '',
+		latitude: '',
+		address:
+		
+		  {
+			street: '',
+			number: '',
+			town: '',
+			zipCode: ''
+		  },
+	},
+	logo: '',
+	deleted: false,
+	avg: 0
+	
+	},
 		}
 	},
 	    template: ` 
@@ -133,12 +191,25 @@ Vue.component("homepage", {
 					    <option >ALL</option>
 					    <option >OPEN</option>
 					</select>
-
-
-
-				    
 					<button @click="resetSearch()" type="button" class="btn btn-outline-light" >RESET SEARCH</button>
-                   
+
+
+                    <br>
+                    <br>
+                    <button  @click="setFlagg()" type="button" class="btn btn-outline-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+					<path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+					<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+				  </svg> SEARCH BY MAPS
+					</button>
+
+					<div v-if="flagg === true" align="center" vertical-align="center" style="border-style:solid; width:100%; height:200px;">
+                			<map-container
+                			:coordinates="[this.restaurant.location.longitude,this.restaurant.location.latitude]"
+               				 ></map-container>
+					</div>
+					<div v-else></div>
+
+
 				   
 
                 </div>
@@ -213,7 +284,10 @@ Vue.component("homepage", {
 			this.searchRating=""
 			this.searchType=""
 			this.sortBy=""
-			this.filterStatus=""
+			this.filterStatus='ALL'
+			this.searchLocation=""
+			this.townSearch=""
+			this.flagg=false;
 		},
 		sortNameAToZ: function(){
 			 this.sortBy='NameAsc'
@@ -235,6 +309,71 @@ Vue.component("homepage", {
 		},
 		saveRestaurantId: function(rname){
 			this.$router.push("/restaurantInfo/"+rname);
+		},
+		azuriranjeAdrese : function() {
+            
+			axios.get("https://nominatim.openstreetmap.org/reverse", {
+			  params: {
+				lat: this.restaurant.location.latitude,
+				lon: this.restaurant.location.longitude,
+				format: "json",
+			 },
+			 })
+			.then((response) => {
+					const { address } = response.data;
+					var flag = false;
+
+					
+
+					if (address) {
+    
+						if (address.road) {
+							this.restaurant.location.address.street = address.road;
+			  
+							flag = true;
+						} else if (address.street) {
+							this.restoran.location.address.street = address.street;
+							flag = true;
+						}
+						if (flag && address["house-number"]) {
+							this.restaurant.location.address.number = address["house-number"];
+						}
+						else if (flag && address["house_number"]) {
+							this.restaurant.location.address.number = address["house_number"];
+						}
+						if (flag && address.town) {
+							this.restaurant.location.address.town = address.town;
+							this.townSearch= this.restaurant.location.address.town;
+						}
+						else if (flag && address.city) {
+							this.restaurant.location.address.town = address.city;
+							this.townSearch= this.restaurant.location.address.town;
+						}
+						if (flag && address.postCode) {
+							this.restaurant.location.address.zipCode = address.postCode;
+						}
+						else if (flag && address.postcode) {
+							this.restaurant.location.address.zipCode = address.postcode;
+						}
+						if (flag) {
+							this.cela = this.restaurant.location.address.street  + " " + this.restaurant.location.address.number 
+						}
+					}
+					this.searchLocation=""
+					console.log("ovo je grad "+ this.townSearch)
+					console.log("ovo je grad2 "+ this.restaurant.location.address.town)
+					
+				})
+				  
+		
+		},
+		setFlagg: function(){
+			if(this.flagg === true){
+				this.flagg=false
+			}else if(this.flagg === false){
+				this.flagg=true;
+			}
+			console.log("ovo je flag "+this.flagg)
 		}
 		
    
@@ -245,22 +384,44 @@ computed: {
 	filteredRestaurants: function(){
 
 		temp = this.restaurants.filter((restaurant)=>{
-
+			this.cela=restaurant.location.address.street +" "+ restaurant.location.address.number + " "+ restaurant.location.address.town
+           if(this.townSearch === '') {
 		   if(this.filterStatus === 'ALL'){
 		   if(restaurant.restaurantType != null){   
 		    if(this.searchRating===0)
 			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) 
 			else
-			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && (restaurant.location.address.town.toUpperCase().match(this.searchLocation) || restaurant.location.address.streetAndNumber.toUpperCase().match(this.searchLocation))
-		   }
+			return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && this.cela.toUpperCase().match(this.searchLocation)  
+		        }
 		   } else if(this.filterStatus === 'OPEN'){
 			if(restaurant.restaurantType != null){   
 				if(this.searchRating===0)
 				return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.status.match(this.filterStatus)
 				else
-				return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && (restaurant.location.address.town.toUpperCase().match(this.searchLocation) || restaurant.location.address.streetAndNumber.toUpperCase().match(this.searchLocation)) && restaurant.status.match(this.filterStatus)
+				return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && this.cela.toUpperCase().match(this.searchLocation) && restaurant.status.match(this.filterStatus)
 			   }
 		   }
+		  }else{
+			this.searchLocation=""
+			if(this.filterStatus === 'ALL'){
+				if(restaurant.restaurantType != null){   
+				 if(this.searchRating===0)
+				 return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) 
+				 else
+				 return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && restaurant.location.address.town.toUpperCase().match(this.townSearch.toUpperCase()) 
+				}
+				} else if(this.filterStatus === 'OPEN'){
+				 if(restaurant.restaurantType != null){   
+					 if(this.searchRating===0)
+					 return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.status.match(this.filterStatus)
+					 else
+					 return restaurant.name.match(this.searchName) && restaurant.restaurantType.match(this.searchType) && restaurant.avg.toString().match(this.searchRating.toString()) && restaurant.location.address.town.toUpperCase().match(this.townSearch.toUpperCase()) && restaurant.status.match(this.filterStatus)
+					}
+				}
+
+		  }
+
+
 		});
 
 
