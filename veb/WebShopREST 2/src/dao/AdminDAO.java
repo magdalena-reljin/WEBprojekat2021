@@ -38,7 +38,7 @@ public class AdminDAO {
 	   
 	    public Admin getAdminById(String id) {
 	        for(Admin admin :admins) {
-	            if(admin.getUsername().equals(id)) 
+	            if(admin.getUsername().equals(id) && admin.isDeleted()==false) 
 	                return admin;
 	        }
 	        return null;

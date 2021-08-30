@@ -99,7 +99,7 @@ public class ManagerDAO {
 	    
 	    public Manager getManagerById(String id) {
 	        for(Manager manager :managers) {
-	            if(manager.getUsername().equals(id)) 
+	            if(manager.getUsername().equals(id) && manager.isDeleted()==false) 
 	                return manager;
 	        }
 	        return null;

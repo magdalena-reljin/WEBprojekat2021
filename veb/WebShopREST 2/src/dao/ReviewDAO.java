@@ -129,7 +129,7 @@ List<Review> reviews;
     
     public Review getById(String id) {
         for(Review r :reviews) {
-            if(r.getId().equals(id)) 
+            if(r.getId().equals(id) && r.isDeleted()==false) 
                 return r;
         }
         return null;

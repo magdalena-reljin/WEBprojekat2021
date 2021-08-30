@@ -54,7 +54,7 @@ public class BuyerDAO {
 	 
 	    public Buyer getBuyerById(String id) {
 	        for(Buyer buyer :buyers) {
-	            if(buyer.getUsername().equals(id)) 
+	            if(buyer.getUsername().equals(id) && buyer.isDeleted()==false) 
 	                return buyer;
 	        }
 	        return null;

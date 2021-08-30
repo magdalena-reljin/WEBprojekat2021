@@ -44,7 +44,7 @@ public class UserDAO {
     }
     public User getUserById(String id) {
         for(User user :users) {
-            if(user.getUsername().equals(id)) 
+            if(user.getUsername().equals(id)&& user.isDeleted()==false) 
                 return user;
         }
         return null;

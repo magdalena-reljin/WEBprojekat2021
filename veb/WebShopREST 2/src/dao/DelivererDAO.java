@@ -42,7 +42,7 @@ public class DelivererDAO {
  
     public Deliverer getDelivererById(String id) {
         for(Deliverer deliverer :deliverers) {
-            if(deliverer.getUsername().equals(id)) 
+            if(deliverer.getUsername().equals(id) && deliverer.isDeleted()==false) 
                 return deliverer;
         }
         return null;
