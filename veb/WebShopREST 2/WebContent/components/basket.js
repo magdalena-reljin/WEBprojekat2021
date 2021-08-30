@@ -290,7 +290,8 @@ Vue.component("basket", {
                 this.order.restaurant.name=this.idRest
                 this.order.restaurant.restaurantType=this.restaurant.restaurantType
                 const today = new Date();
-                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const date = today.getFullYear()+'-'+((today.getMonth()+1) > 9 ? '' : '0')+(today.getMonth()+1)+'-'+today.getDate();
+                console.log("ovo je datum "+ date)
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date +' '+ time;
                 this.order.dateAndTime= dateTime
