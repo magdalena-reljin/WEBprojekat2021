@@ -126,9 +126,10 @@ Vue.component("changePassword", {
                         .post('/WebShopREST/rest/users/changePassword',this.user)
                         .then(response=> {
                           alert("Password changed!")
+                          this.$router.push("/profile/"+this.id)
                         })
                       }else {
-                        this.err="Inccorect password!";
+                        this.err="Verify password correctly!";
                       }
                     }else {
                       this.err="Inccorect password!";

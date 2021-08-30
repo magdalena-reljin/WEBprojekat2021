@@ -2,10 +2,16 @@ Vue.component("allUsersAdmin", {
     data: function () {
       return {
         id: this.$route.params.id,
+        nameSearch: '',
+        surnameSearch: '',
+        usernameSearch:'',
+        pointsSearch: '',
+        filterRole: '',
+        filterType: '',
+        sort: '',
       
         userDto:
-        
-      [{
+         [{
 
         user:{
           username: '',
@@ -70,6 +76,121 @@ Vue.component("allUsersAdmin", {
          
        </ul>
   
+       <div class="header" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('components/images/porudzbine.jpeg');" >
+            <form>
+                <h1>
+                    Search users
+                </h1>
+                <div class="form-box">
+  
+        
+		
+          <input class="search-field checkin" placeholder="NAME" :value="nameSearch" @input="nameSearch = $event.target.value.toUpperCase()">
+				
+
+					<button @click="sortNA()" type="button" class="btn btn-outline-light" >
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+					<path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+				    </svg>
+					</button>
+					<button  @click="sortND()" type="button" class="btn btn-outline-light">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down-alt" viewBox="0 0 16 16">
+ 				    <path d="M12.96 7H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V7z"/>
+ 					<path fill-rule="evenodd" d="M10.082 12.629 9.664 14H8.598l1.789-5.332h1.234L13.402 14h-1.12l-.419-1.371h-1.781zm1.57-.785L11 9.688h-.047l-.652 2.156h1.351z"/>
+  					<path d="M4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+                    </svg>
+          </button>
+          
+          <input :value="surnameSearch" @input="surnameSearch = $event.target.value.toUpperCase()"  class="search-field checkout" placeholder="SURNAME" >
+					
+			
+					<button @click="sortSA()" type="button" class="btn btn-outline-light" >
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+					<path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+				    </svg>
+					</button>
+					<button  @click="sortSD()" type="button" class="btn btn-outline-light">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down-alt" viewBox="0 0 16 16">
+ 				    <path d="M12.96 7H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V7z"/>
+ 					<path fill-rule="evenodd" d="M10.082 12.629 9.664 14H8.598l1.789-5.332h1.234L13.402 14h-1.12l-.419-1.371h-1.781zm1.57-.785L11 9.688h-.047l-.652 2.156h1.351z"/>
+  					<path d="M4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+                    </svg>
+					
+					</button>
+
+          <input :value="usernameSearch" @input="usernameSearch = $event.target.value.toUpperCase()"  class="search-field checkout" placeholder="USERNAME" >
+					
+			
+					<button @click="sortUA()" type="button" class="btn btn-outline-light" >
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+					<path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+				    </svg>
+					</button>
+					<button  @click="sortUD()" type="button" class="btn btn-outline-light">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down-alt" viewBox="0 0 16 16">
+ 				    <path d="M12.96 7H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V7z"/>
+ 					<path fill-rule="evenodd" d="M10.082 12.629 9.664 14H8.598l1.789-5.332h1.234L13.402 14h-1.12l-.419-1.371h-1.781zm1.57-.785L11 9.688h-.047l-.652 2.156h1.351z"/>
+  					<path d="M4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+                    </svg>
+					
+					</button>
+
+          <input :value="pointsSearch" @input="pointsSearch = $event.target.value.toUpperCase()"  class="search-field checkout" placeholder="POINTS" >
+					
+			
+					<button @click="sortPA()" type="button" class="btn btn-outline-light" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+          <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+        </svg>
+					</button>
+					<button  @click="sortPD()" type="button" class="btn btn-outline-light">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+          <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+        </svg>
+					
+					</button>
+
+
+
+					<select  v-model="filterRole" class="search-select" placeholder="ROLE">
+					    <option disabled value="">SELECT ROLE</option>
+              <option >ADMINISTRATOR</option>
+              <option >MANAGER</option>
+					    <option >BUYER</option>
+					    <option >DELIVERER</option>
+					</select>
+          <select  v-model="filterType" class="search-select" placeholder="USER TYPE">
+					    <option disabled value="">SELECT TYPE</option>
+              <option >BRONZE</option>
+              <option >SILVER</option>
+					    <option >GOLD</option>
+					</select>
+					<button @click="resetSearch()" type="button" class="btn btn-outline-light" >RESET SEARCH</button>
+
+
+                </div>
+
+				    
+				
+				
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+<br>
+        
+
+           <br>
        <br>
        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
        
@@ -107,7 +228,7 @@ Vue.component("allUsersAdmin", {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="pom.user.deleted === false" v-for="pom in userDto" :style="{ background: pom.trol == true ? '#ff6b6b' : 'white' }">
+                                <tr v-if="pom.user.deleted === false" v-for="pom in filteredUsers" :style="{ background: pom.trol == true ? '#ff6b6b' : 'white' }">
                                    
                                
                                     <td>
@@ -240,8 +361,110 @@ Vue.component("allUsersAdmin", {
                 })
 
               
-              }
+              },
+              resetSearch: function(){
+                this.nameSearch= ''
+                this.surnameSearch= ''
+                this.usernameSearch=''
+                this.pointsSearch= ''
+                this.filterRole= ''
+                this.filterType= ''
+                this.sort=''
+
+              },
+              sortNA :function(){
+                  this.sort='NA'
+              },
+              sortND :function(){
+                  this.sort='ND'
+              },
+              sortSA :function(){
+                  this.sort='SA'
+              },
+              sortSD :function(){
+                this.sort='SD'
+              },
+              sortUA :function(){
+                this.sort='UA'
+              },
+              sortUD :function(){
+                this.sort='UD'
+              },
+              sortPA :function(){
+                this.sort='PA'
+              },
+              sortPD :function(){
+                this.sort='PD'
+              },
+
+          },
+
+          computed: {
+            filteredUsers: function(){
+          
+              temp = this.userDto.filter((MyUser)=>{
+                    if(MyUser.user.role !=null && MyUser.title==null){
+                        return MyUser.user.name.toUpperCase().match(this.nameSearch) && MyUser.user.surname.toUpperCase().match(this.surnameSearch) && MyUser.user.username.toUpperCase().match(this.usernameSearch) && MyUser.points.toString().match(this.pointsSearch) && MyUser.user.role.toString().match(this.filterRole)
+                    }else if(MyUser.user.role !=null && MyUser.title!=null){
+                      return MyUser.user.name.toUpperCase().match(this.nameSearch) && MyUser.user.surname.toUpperCase().match(this.surnameSearch) && MyUser.user.username.toUpperCase().match(this.usernameSearch) && MyUser.points.toString().match(this.pointsSearch) && MyUser.user.role.toString().match(this.filterRole) && MyUser.title.toString().match(this.filterType)
+
+                    }
+              });
+                 
+           
+              temp = temp.sort((a, b) => {
+                if (this.sort == 'PD') {
+                    return a.points - b.points
+                }else if (this.sort == 'PA') {
+                    return (b.points - a.points)
+                }else if (this.sort == 'NA') {
+                    let fa = a.user.name.toLowerCase(), fb = b.user.name.toLowerCase()
+              
+                    if (fa < fb) {
+                    return -1
+                    }
+                     if (fa > fb) {
+                     return 1 
+                     }
+                   return 0
+                }else if (this.sort == 'ND') {
+                   return (b.user.name > a.user.name) ? 1 : -1
+                }else if (this.sort == 'SA') {
+                  let fa = a.user.surname.toLowerCase(), fb = b.user.surname.toLowerCase()
+            
+                  if (fa < fb) {
+                  return -1
+                  }
+                   if (fa > fb) {
+                   return 1 
+                   }
+                 return 0
+
+
+               }else if (this.sort == 'SD') {
+                 return (b.user.surname > a.user.surname) ? 1 : -1
+               }else if (this.sort == 'UA') {
+                let fa = a.user.username.toLowerCase(), fb = b.user.username.toLowerCase()
+          
+                if (fa < fb) {
+                return -1
+                }
+                 if (fa > fb) {
+                 return 1 
+                 }
+               return 0
+               }else if (this.sort == 'UD') {
+               return (b.user.username > a.user.username) ? 1 : -1
+               }
+
+
+                })
+      
+                return temp;
+              
+            }
           }
+
           
       
       
