@@ -10,7 +10,7 @@ Vue.component("allOrdersDeliverer", {
             startSearch:'',
             endSearch: '',
             filterStatus: '',
-            orders: 
+            orders:  
                 [
                     {
                 id: '',
