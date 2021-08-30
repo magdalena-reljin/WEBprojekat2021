@@ -366,12 +366,6 @@ Vue.component("ordersManager", {
             .then(response=> location.reload() )
         
           },
-          sortNameAToZ: function(){
-                this.sort="NameAsc"
-          },
-          sortNameZToA: function(){
-            this.sort="NameDesc"
-          },
           sortDA: function() {
             this.sort="DateAsc"
           },
@@ -407,8 +401,8 @@ Vue.component("ordersManager", {
               temp = this.orders.filter((order)=>{
                   return order
               });
-
-
+                 
+           
               temp1 = temp.filter((order)=>{
                  if(order.status!=null && order.dateAndTime !=null){
 
@@ -418,28 +412,18 @@ Vue.component("ordersManager", {
                        return order.cena.toString().match(this.searchPriceStart) && order.dateAndTime.substring(0,10) >= this.startSearch.substring(0,10)  && order.dateAndTime.substring(0,10) <= this.endSearch.substring(0,10) && order.status.match(this.filterStatus)
                      }else if(this.endSearch ==='' && this.searchPriceEnd != ''){
                        return order.dateAndTime.match(this.startSearch) &&  order.cena>= parseFloat(this.searchPriceStart) && order.cena <= parseFloat(this.searchPriceEnd) && order.status.match(this.filterStatus)
-                     }
+                     }else if(this.endSearch != '' && this.searchPriceEnd !='' && this.startSearch != '' && this.searchPriceStart !='' && this.filterStatus!=''){
+                      return order.dateAndTime.substring(0,10) >= this.startSearch.substring(0,10) && order.dateAndTime.substring(0,10) <= this.endSearch.substring(0,10) &&  order.cena>= parseFloat(this.searchPriceStart) && order.cena <= parseFloat(this.searchPriceEnd) && order.status.match(this.filterStatus)
+                    }else if(this.endSearch != '' && this.searchPriceEnd !='' && this.startSearch != '' && this.searchPriceStart !='' && this.filterStatus===''){
+                      return order.dateAndTime.substring(0,10) >= this.startSearch.substring(0,10) && order.dateAndTime.substring(0,10) <= this.endSearch.substring(0,10) &&  order.cena>= parseFloat(this.searchPriceStart) && order.cena <= parseFloat(this.searchPriceEnd)
+                    }
                     
                  }
               });
          
               temp=temp1
               temp = temp.sort((a, b) => {
-                if (this.sort == 'NameAsc') {
-                    let fa = a.restaurant.name.toLowerCase(), fb = b.restaurant.name.toLowerCase()
-              
-                  if (fa < fb) {
-                    return -1
-                  }
-                  if (fa > fb) {
-                    return 1 
-                  }
-                  return 0
-      
-                } else if (this.sort == 'NameDesc') {
-                  return (b.restaurant.name > a.restaurant.name) ? 1 : -1
-      
-                } else if (this.sort == 'PriceDesc') {
+                if (this.sort == 'PriceDesc') {
                     return a.cena - b.cena
                 }else if (this.sort == 'PriceAsc') {
                     return (b.cena - a.cena)

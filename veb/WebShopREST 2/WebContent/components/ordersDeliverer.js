@@ -6,8 +6,8 @@ Vue.component("ordersDeliverer", {
             id: this.$route.params.id,
             searchName: '',
             searchType: '',
-            filterStatus: '',
-            searchPrice: '',
+            searchPriceStart: '',
+            searchPriceEnd: '',
             sort: '',
             startSearch:'',
             endSearch: '',
@@ -118,7 +118,7 @@ Vue.component("ordersDeliverer", {
           &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
           <p style="color: white;" >  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;
           &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-            &nbsp; START DATE  &nbsp;   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;END DATE</p>
+            START DATE  &nbsp;   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;END DATE &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  START PRICE &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;   &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; END PRICE </p>
           
         
           <input type="text" class="search-field" placeholder="RESTAURANT NAME" :value="searchName" @input="searchName = $event.target.value.toUpperCase()">
@@ -165,7 +165,7 @@ Vue.component("ordersDeliverer", {
 				
 
 
-					<input type="text" class="search-field" placeholder="PRICE" :value="searchPrice" @input="searchPrice = $event.target.value.toUpperCase()">
+					<input type="text" class="search-field" placeholder="PRICE" :value="searchPriceStart" @input="searchPriceStart = $event.target.value.toUpperCase()">
 					<button @click="sortPriceA()" type="button" class="btn btn-outline-light" >
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
 					<path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
@@ -180,13 +180,8 @@ Vue.component("ordersDeliverer", {
                     </svg>
 					
 					</button>
+          <input type="text" class="search-field" placeholder="PRICE" :value="searchPriceEnd" @input="searchPriceEnd = $event.target.value.toUpperCase()">
 
-
-					<select  v-model="filterStatus" class="search-select" placeholder="STATUS">
-					    <option disabled value="">SELECT STATUS</option>
-					    <option >WAITINGFORDELIVERY</option>
-					    <option >WAITINGFORACCEPTANCE</option>
-					</select>
 					<button @click="resetSearch()" type="button" class="btn btn-outline-light" >RESET SEARCH</button>
 
 
@@ -363,10 +358,10 @@ Vue.component("ordersDeliverer", {
           resetSearch: function () {
             this.searchName=''
             this.searchType=''
-            this.searchPrice=''
+            this.searchPriceStart=''
+            this.searchPriceEnd=''
             this.startSearch=''
             this.endSearch=''
-            this.filterStatus=''
             this.sort=''
           }
          
@@ -379,11 +374,27 @@ Vue.component("ordersDeliverer", {
       filteredOrders: function(){
     
         temp = this.orders.filter((order)=>{
-              if(order.restaurant.restaurantType!=null)
-               return order.restaurant.name.match(this.searchName) && order.restaurant.restaurantType.match(this.searchType) && order.cena.toString().match(this.searchPrice)
-              else
-              return order.restaurant.name.match(this.searchName) && order.cena.toString().match(this.searchPrice)
-        });
+          return order
+      });
+         
+   
+      temp1 = temp.filter((order)=>{
+         if( order.dateAndTime !=null && order.restaurant.restaurantType !=null){
+
+             if(this.endSearch === '' && this.searchPriceEnd ===''){
+               return order.cena.toString().match(this.searchPriceStart) && order.dateAndTime.match(this.startSearch) && order.restaurant.restaurantType.match(this.searchType) && order.restaurant.name.match(this.searchName)
+             }else if(this.endSearch !='' && this.searchPriceEnd === ''){
+               return order.cena.toString().match(this.searchPriceStart) && order.dateAndTime.substring(0,10) >= this.startSearch.substring(0,10)  && order.dateAndTime.substring(0,10) <= this.endSearch.substring(0,10) && order.restaurant.restaurantType.match(this.searchType)  && order.restaurant.name.match(this.searchName)
+             }else if(this.endSearch ==='' && this.searchPriceEnd != ''){
+               return order.dateAndTime.match(this.startSearch) &&  order.cena>= parseFloat(this.searchPriceStart) && order.cena <= parseFloat(this.searchPriceEnd) && order.restaurant.restaurantType.match(this.searchType)  && order.restaurant.name.match(this.searchName)
+             }else if(this.endSearch != '' && this.searchPriceEnd !='' && this.startSearch != '' && this.searchPriceStart !='' && this.searchName !='' && this. searchType!=''){
+               return order.dateAndTime.substring(0,10) >= this.startSearch.substring(0,10) && order.dateAndTime.substring(0,10) <= this.endSearch.substring(0,10) &&  order.cena>= parseFloat(this.searchPriceStart) && order.cena <= parseFloat(this.searchPriceEnd) && order.restaurant.restaurantType.match(this.searchType)  && order.restaurant.name.match(this.searchName)
+             }
+             
+         }
+      });
+ 
+      temp=temp1
     
     
         temp = temp.sort((a, b) => {
