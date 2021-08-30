@@ -26,7 +26,6 @@ public class LoginService {
 	ServletContext ctx;
 	
 	public LoginService() {
-		System.out.println("KONSTRUKTOR");
 	}
 	
 	@PostConstruct
@@ -95,8 +94,6 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean editData(User user) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		System.out.println("USPEO SAM edittttttttt :)))");
-
 		 userDao.saveUser(user);
 		 return true;
 		

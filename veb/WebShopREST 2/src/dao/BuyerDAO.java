@@ -24,7 +24,9 @@ import beans.Item;
 import beans.Order;
 import beans.User;
 import dto.BasketDTO;
+import dto.UserDTO;
 import enums.BuyerTitle;
+import enums.Role;
 
 public class BuyerDAO {
 		private List<Buyer> buyers=new ArrayList<Buyer>();
@@ -68,7 +70,7 @@ public class BuyerDAO {
 				System.out.println("putanja u load "+s);
 			    String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 			    String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				in=Files.newBufferedReader(Paths.get(magdalena));
+				in=Files.newBufferedReader(Paths.get(dajana));
 				//in=Files.newBufferedReader(Paths.get(s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\users.json"));
 				buyerss=Arrays.asList(gson.fromJson(in, Buyer[].class));
 			    
@@ -111,7 +113,7 @@ public class BuyerDAO {
 				 String magdalena="C:\\Users\\computer\\Desktop\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
 				 String s=new File("").getAbsolutePath();
 				 String dajana=s+"\\web\\WEBprojekat2021\\veb\\WebShopREST 2\\buyers.json";
-				 File file = new File(magdalena);
+				 File file = new File(dajana);
 				writer = new BufferedWriter(new FileWriter(file));
 				  writer.write(json);
 				
@@ -366,6 +368,24 @@ public class BuyerDAO {
               }
               saveBuyer(currentBuyer);
         }
-			
+
+		public List<UserDTO> getAllBuyers(List<User> allUsers) {
+			// TODO Auto-generated method stub
+			List<UserDTO>all=new ArrayList<UserDTO>();
+			for(User user: allUsers) {
+				for(Buyer buyer: buyers) {
+					if(user.getUsername().equals(buyer.getUsername()) && user.getRole().equals(Role.BUYER)) {
+						UserDTO userDto=new UserDTO(user,buyer.isTrol(),buyer.getType().getTitle(),buyer.getPoints());
+						all.add(userDto);
+					}
+				}
+				if(!user.getRole().equals(Role.BUYER)) {
+					UserDTO userDto=new UserDTO(user,false,null,0);
+					all.add(userDto);
+				}
+				
+			}
+			return all;
+		}
 		
 }

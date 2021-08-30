@@ -21,8 +21,10 @@ import beans.Buyer;
 import beans.Item;
 import beans.User;
 import dao.BuyerDAO;
+import dao.DelivererDAO;
 import dao.UserDAO;
 import dto.BasketDTO;
+import dto.UserDTO;
 import enums.BuyerTitle;
 
 @Path("/buyers")
@@ -203,13 +205,14 @@ public class BuyersService {
 	
 	
 	@GET
-	@Path("/getAll")
+	@Path("/getAllUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Buyer> getAll(@Context HttpServletRequest request) {
+	public List<UserDTO> getAllUser() {
 		BuyerDAO buyerDao = (BuyerDAO) ctx.getAttribute("buyerDAO");
-		
-		return  buyerDao.findAll();
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		return buyerDao.getAllBuyers(userDao.findAll());
+		 
 		
 	}
 }

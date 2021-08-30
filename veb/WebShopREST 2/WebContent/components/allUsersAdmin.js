@@ -2,8 +2,12 @@ Vue.component("allUsersAdmin", {
     data: function () {
       return {
         id: this.$route.params.id,
-        users: 
-        [{
+      
+        userDto:
+        
+      [{
+
+        user:{
           username: '',
           password: '',
           name: '',
@@ -13,36 +17,11 @@ Vue.component("allUsersAdmin", {
           role: 0,
           deleted: false,
           blocked: false
-          }
-        ],
-        buyers: [
-          {
-          username: '',
-          password: '',
-          name: '',
-          surname:'',
-          gender: null,
-          birthDate: '',
-          role: 3,
-          deleted: false,
-          blocked: false,
-          orders: [],
-          basket: {
-            buyer: null,
-            items: [],
-            totalPrice: null
-          },
-          points: 0,
-          type: {
-            title: 2,
-            discount: 0,
-            points: 0
-          },
-          num: 0,
-          trol:false,
-          cancel: '',
-          }
-        ],
+        },
+         trol: false,
+         title: null,
+         points: 0
+        }]
        
       }
     },
@@ -122,12 +101,13 @@ Vue.component("allUsersAdmin", {
                                 <th><span>Role</span></th>
                                 <th><span>User type</span></th>
                                 <th><span>Points</span></th>
+                                <th><span>Blocked</span></th>
                                 <th><span>Trol</span></th>
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="user.deleted === false" v-for="user in users">
+                                <tr v-if="pom.user.deleted === false" v-for="pom in userDto" :style="{ background: pom.trol == true ? '#ff6b6b' : 'white' }">
                                    
                                
                                     <td>
@@ -135,50 +115,54 @@ Vue.component("allUsersAdmin", {
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                   </svg>
                                         
-                                        <span class="user-subhead">{{user.name}}</span>
+                                        <span class="user-subhead">{{pom.user.name}}</span>
                                     </td>
 
                                     <td>
-                                    <span class="label label-default">{{user.surname}}</span>
+                                    <span class="label label-default">{{pom.user.surname}}</span>
                                    </td>
 
                                    <td>
-                                   <span class="label label-default">{{user.username}}</span>
+                                   <span class="label label-default">{{pom.user.username}}</span>
                                    </td>
 
-                                    <td>{{user.role}}</td>
+                                    <td>{{pom.user.role}}</td>
                                   
                                     <td>
-                                    <div v-for="buyer in buyers">
-                                    <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.type.title}}</span>
-                                    </div>
-                                    <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
+                                  
+                                    <span v-if="pom.user.role === 'BUYER'" class="label label-default">{{pom.title}}</span>
+                               
+                                    <span  v-else class="label label-default">-</span>
                                     
                                    </td>
 
                                   <td>
-                                  <div v-for="buyer in buyers">
-                                   <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.points}}</span>
-                                   </div>
-                                   <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
+                                 
+                                   <span v-if="pom.user.role === 'BUYER'" class="label label-default">{{pom.points}}</span>
+                                   
+                                   <span v-else class="label label-default">-</span>
                               
                                    
                                   </td>
+                                  <td>
+                                  <span v-if="pom.user.blocked == true" class="label label-default">YES</span>
+                                  <span v-else class="label label-default">NO</span>
+                                  </td>
 
                                   <td>
-                                  <div v-for="buyer in buyers">
-                                   <span v-if="user.role === 'BUYER' && user.username === buyer.username" class="label label-default">{{buyer.trol}}</span>
-                                   </div>
-                                   <span  v-if="user.role != 'BUYER'" class="label label-default">-</span>
+                                 
+                                   <span v-if="pom.user.role === 'BUYER' && pom.trol == true" class="label label-default">YES</span>
+                                   <span v-else-if="pom.user.role === 'BUYER' && pom.trol == false" class="label label-default">NO</span>
+                                   <span v-else class="label label-default">-</span>
                               
                                    
                                   </td>
                             
                                 
                                     <td>
-                                      <button @click="blockUser(user)" v-if="user.role != 'ADMINISTRATOR' && user.blocked === false"  type="button" class="btn btn-outline-success">BLOCK</button>
+                                      <button @click="blockUser(pom.user)" v-if="pom.user.role != 'ADMINISTRATOR' && pom.user.blocked === false"  type="button" class="btn btn-outline-success">BLOCK</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>BLOCK</button>
-                                      <button @click="deleteUser(user)" v-if="user.role != 'ADMINISTRATOR' && user.role != 'BUYER' && user.deleted === false"  type="button" class="btn btn-outline-success">DELETE USER</button>
+                                      <button @click="deleteUser(pom.user)" v-if="pom.user.role != 'ADMINISTRATOR' && pom.user.role != 'BUYER' && pom.user.deleted === false"  type="button" class="btn btn-outline-success">DELETE USER</button>
                                       <button v-else  type="button" class="btn btn-outline-danger" disabled>DELETE USER</button>
                                     </td>
                                     
@@ -203,23 +187,15 @@ Vue.component("allUsersAdmin", {
           `,
           mounted(){
             this.loadData();
-            this.loadBuyers();
+            
           },
           methods: {
 
             loadData: function(){
-              axios
-               .get('/WebShopREST/rest/users/findAll')
-		        	 .then(response=> this.users=response.data)
-
-
-
-            },
-            loadBuyers: function(){
-                
                axios
-               .get('/WebShopREST/rest/buyers/getAll')
-		        	 .then(response=> this.buyers=response.data)
+               .get('/WebShopREST/rest/buyers/getAllUser')
+		        	 .then(response=> this.userDto=response.data)
+
             },
             redirect: function(){
               this.$router.push("/profile/"+this.id)

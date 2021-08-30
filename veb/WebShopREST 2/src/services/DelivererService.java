@@ -28,6 +28,7 @@ import dao.OrderDAO;
 import dao.UserDAO;
 import dto.BasketDTO;
 import dto.RequestDTO;
+import dto.UserDTO;
 import enums.OrderStatus;
 
 @Path("/deliverers")
@@ -37,8 +38,6 @@ public class DelivererService {
 	ServletContext ctx;
 	
 	public DelivererService() {
-		System.out.println("KONSTRUKTOR DELIVERER vvv");
-		
 	}
 	
 	@PostConstruct
@@ -117,7 +116,6 @@ public class DelivererService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Deliverer> getOrdersForDeliverer(@Context HttpServletRequest request){
-		System.out.println("PROBLEM U CEMU JEEEEE????");
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
 		return delivererDao.findAll();
 	}
@@ -127,7 +125,6 @@ public class DelivererService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void setStatus(RequestDTO req, @Context HttpServletRequest request) throws IOException {
-		System.out.println("AAAAAAAAAAAAAAAAAJSAJAJAJAJJAJAJAJAJ");
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
 	  delivererDao.setStatus(req);
 
