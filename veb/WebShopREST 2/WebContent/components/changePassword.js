@@ -59,21 +59,27 @@ Vue.component("changePassword", {
     <h3 style="text-align:center;" class="mb-0">Change Password</h3>
 </div>
 <div style="width: 70%;" class="card-body">
-    <form @submit="changePassword" method='post' class="form" role="form" autocomplete="off">
+    <form @submit="changePassword" method='post' class="was-validated">
         <div class="form-group">
             <label for="inputPasswordOld">Current Password</label>
-            <input v-model="oldPass" type="password" class="form-control" id="inputPasswordOld" required="">
+            <input v-model="oldPass" type="password" class="form-control" id="inputPasswordOld" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-group">
             <label for="inputPasswordNew">New Password</label>
-            <input v-model="newPass"  type="password" class="form-control" id="inputPasswordNew" required="This field is required">
+            <input v-model="newPass"  type="password" class="form-control" id="inputPasswordNew" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
             <span class="form-text small text-muted">
                     The password must be 8-20 characters, and must <em>not</em> contain spaces.
                 </span>
         </div>
         <div class="form-group">
             <label for="inputPasswordNewVerify">Verify</label>
-            <input v-model="checkPass" type="password" class="form-control" id="inputPasswordNewVerify" required="">
+            <input v-model="checkPass" type="password" class="form-control" id="inputPasswordNewVerify" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
             <span class="form-text small text-muted">
                     To confirm, type the new password again.
                 </span>

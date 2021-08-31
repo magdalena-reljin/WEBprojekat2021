@@ -56,15 +56,19 @@ Vue.component("editProfileData", {
     <h3 style="text-align:center;" class="mb-0">Personal info</h3>
 </div>
 <div class="card-body">
-    <form class="form" role="form" autocomplete="off">
+    <form  @submit="editData" method='post' class="was-validated">
         <div class="form-group">
             <label>First name:</label>
-            <input class="form-control" type="text" v-model="user.name">
+            <input class="form-control" type="text" v-model="user.name" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
         <div class="form-group">
           <label>Last name:</label>
-          <input class="form-control" type="text" v-model="user.surname">
+          <input class="form-control" type="text" v-model="user.surname" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
         <div class="form-group">
@@ -86,7 +90,7 @@ Vue.component("editProfileData", {
         </div>
         <br>
         <div class="form-group">
-        <button @click="editData" class="btn btn-outline-dark">Save</button>
+        <button type="submit" class="btn btn-outline-dark">Save</button>
         </div>
     </form>
 </div>
@@ -135,6 +139,7 @@ Vue.component("editProfileData", {
             },
             editData: function (event) {
                 event.preventDefault();
+            
                 this.user.username=this.id,
                 axios
                 .post('/WebShopREST/rest/users/editData',this.user)
