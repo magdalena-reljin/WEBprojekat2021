@@ -69,7 +69,7 @@ Vue.component("restaurantInfo", {
       <nav  class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
       <div class="container-fluid" style="background-color: #ffa6c9;">
       <a class="navbar-brand" href="#">
-      <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
+      <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top" @click="home()">
     </a>
     
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -138,6 +138,19 @@ Vue.component("restaurantInfo", {
 <!-- Background image -->
 </div>
 </header>
+
+<ul class="nav nav-tabs" style="background-color: black;">
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToItems()">ITEMS</a>
+  </li>
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToReview()">REVIEWS</a>
+  </li>
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToMaps()">LOCATION</a>
+  </li>
+  
+</ul>
 
 <!-- Controls -->
 <div class="d-flex justify-content-center mb-4">
@@ -210,7 +223,19 @@ Vue.component("restaurantInfo", {
           },
           showMap: function(){
             this.$router.push("/homeMap/"+this.restaurant.name);
-          }
+          },
+          goToReview:function(){
+            this.$router.push("/reviewInfo/"+this.id);
+          },
+          goToItems:function(){
+            location.reload();
+            },
+            home: function(){
+              this.$router.push("/homepage");
+          },
+          goToMaps: function(){
+            this.$router.push("/showMapInfoRestaurant/"+this.id);
+          },
         }
 	
 });
