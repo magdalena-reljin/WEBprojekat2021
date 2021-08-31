@@ -127,11 +127,15 @@ Vue.component("basket", {
               },
         },
         logo: '',
-        deleted: ''
+        deleted: '',
+      
         
-              }
+              },
+              
         }
+      
     },
+   
     template: ` 
         <div>
 
@@ -272,7 +276,6 @@ Vue.component("basket", {
             axios
                 .post('/WebShopREST/rest/restaurants/findRestaurantData',this.restaurant)
                 .then(response=> {this.restaurant=response.data
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa")
                 })
         },
         createOrder: function(){
@@ -298,24 +301,29 @@ Vue.component("basket", {
                 this.order.cena= this.total;
                 this.order.buyer.username=this.id
                 this.order.buyer.points=this.totalPrice/1000*133
-         
-                axios
-                .post('/WebShopREST/rest/orders/createOrder',this.order)
-                .then(response=>{
-                    console.log("USPEOOOO SAM")
+                    if(this.order.items.length == 0){
+                        alert('Basket is empty!!')
+                        this.$router.push("/restaurantInfoBuyers/"+this.idRest+"/"+this.id);
+                    }else {
+                            axios
+                            .post('/WebShopREST/rest/orders/createOrder',this.order)
+                            .then(response=>{
+                                
+                            
+                                axios
+                                .post('/WebShopREST/rest/buyers/clearBasketAfterOrdering',this.basketDto)
+                                .then(response=>{
+                            
+
+                                    this.$router.push("/ordersBuyer/"+this.id);
+                                })
                 
-                    axios
-                    .post('/WebShopREST/rest/buyers/clearBasketAfterOrdering',this.basketDto)
-                    .then(response=>{
-                        console.log("USPEOOOO SAM da obrisem posle narucivanja")
 
-                        this.$router.push("/ordersBuyer/"+this.id);
-                    })
-    
+                            })
+            }
 
                 })
-
-                })
+            
 
                
         },
