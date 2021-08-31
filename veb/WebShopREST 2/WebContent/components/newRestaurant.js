@@ -253,7 +253,7 @@ Vue.component("newRestaurant", {
   </div>
       <br>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary"> Create  </button>
+          <button type="submit" class="btn btn-outline-success"> Create  </button>
       </div>                                                
   </form>
  
@@ -335,7 +335,7 @@ Vue.component("newRestaurant", {
         <div style="color:red;">{{err}}</div>
         <br>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary"> Register  </button>
+            <button type="submit" class="btn btn-outline-success"> Register  </button>
         </div>                                                
     </form>
     </article> 
