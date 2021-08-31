@@ -369,7 +369,10 @@ Vue.component("restaurantInfoBuyers", {
         },
         goToItems: function(){
           location.reload();
-        }
+        },
+        redirect: function(){
+          this.$router.push("/profile/"+this.id)
+        },
 
         }
 	

@@ -39,6 +39,13 @@ const RestInfoDeliverer = { template: '<restaurantInfoDeliverer></restaurantInfo
 const RestMap = { template: '<restaurantMap></restaurantMap>' }
 const ReviewInfoPage = { template: '<reviewInfo></reviewInfo>' }
 const ShowMapInfoRestaurantPage = { template: '<showMapInfoRestaurant></showMapInfoRestaurant>' }
+const ReviewInfoAdminPage = { template: '<reviewInfoAdmin></reviewInfoAdmin>' }
+const ShowMapAdminPage = { template: '<showMapAdmin></showMapAdmin>' }
+const ReviewInfoDelivererPage = { template: '<reviewInfoDeliverer></reviewInfoDeliverer>' }
+const ShowMapDelivererPage = { template: '<showMapDeliverer></showMapDeliverer>' }
+const ReviewInfoManagerPage = { template: '<reviewInfoManager></reviewInfoManager>' }
+const ShowMapManagerPage = { template: '<showMapManager></showMapManager>' }
+
 
 
 const router = new VueRouter({
@@ -86,6 +93,12 @@ const router = new VueRouter({
     { path: '/restaurantMap/:idRest', component: RestMap},
     { path: '/reviewInfo/:idRest', component: ReviewInfoPage},
     { path: '/showMapInfoRestaurant/:idRest', component: ShowMapInfoRestaurantPage},
+    { path: '/reviewInfoAdmin/:idRest/:id', component: ReviewInfoAdminPage},
+    { path: '/showMapAdmin/:idRest/:id', component: ShowMapAdminPage},
+    { path: '/reviewInfoDeliverer/:idRest/:id', component: ReviewInfoDelivererPage},
+    { path: '/showMapDeliverer/:idRest/:id', component: ShowMapDelivererPage},
+    { path: '/reviewInfoManager/:idRest/:id', component: ReviewInfoManagerPage},
+    { path: '/showMapManager/:idRest/:id', component: ShowMapManagerPage},
       ]
 });
 

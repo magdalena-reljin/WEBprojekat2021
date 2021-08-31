@@ -73,7 +73,18 @@ Vue.component("restaurantInfoDeliverer", {
       <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
     </a>
  
-    
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16">
+    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </svg>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <li><a class="dropdown-item" @click="redirect()">Profile</a></li>
+      <li><a class="dropdown-item" href="http://localhost:8080/WebShopREST/#/login">Log out</a></li>
+    </ul>
+    </li>
     
     
     
@@ -132,6 +143,18 @@ Vue.component("restaurantInfoDeliverer", {
 </div>
 </header>
 
+<ul class="nav nav-tabs" style="background-color: black;">
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToItems()">ITEMS</a>
+  </li>
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToReview()">REVIEWS</a>
+  </li>
+  <li class="nav-item">
+    <a style="color: white;" class="nav-link" @click="goToMaps()">LOCATION</a>
+  </li>
+  
+</ul>
 <!-- Controls -->
 <div class="d-flex justify-content-center mb-4">
   <button
@@ -203,7 +226,19 @@ Vue.component("restaurantInfoDeliverer", {
           },
           showMap: function(){
             this.$router.push("/restaurantMap/"+this.restaurant.name);
-          }
+          },
+          goToReview:function(){
+            this.$router.push("/reviewInfoDeliverer/"+this.id+"/"+this.idRest);
+          },
+          goToItems:function(){
+            location.reload();
+            },
+          goToMaps: function(){
+            this.$router.push("/showMapDeliverer/"+this.id+"/"+this.idRest);
+          },
+          redirect: function(){
+            this.$router.push("/profile/"+this.idRest)
+          },
         }
 	
 });

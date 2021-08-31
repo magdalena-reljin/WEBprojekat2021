@@ -1,4 +1,4 @@
-Vue.component("reviewBuyer", { 
+Vue.component("reviewInfoAdmin", { 
 	data: function () {
 	    return {
             idRest: this.$route.params.idRest,
@@ -95,30 +95,31 @@ Vue.component("reviewBuyer", {
 	},
 	    template: `
       
-      <div>
-      <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #ffa6c9; list-style: none;">
+        <div>
+      <nav  class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
       <div class="container-fluid" style="background-color: #ffa6c9;">
-        <a class="navbar-brand" @click="backHome()">
-          <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top"> 
-        </a>
+      <a class="navbar-brand" href="#">
+      <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top" @click="home()">
+    </a>
     
-       
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" @click="redirect()">Profile</a></li>
-              <li><a class="dropdown-item" href="http://localhost:8080/WebShopREST/#/login">Log out</a></li>
-            </ul>
-            </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16">
+    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </svg>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <li><a class="dropdown-item" @click="redirect()">Profile</a></li>
+      <li><a class="dropdown-item" href="http://localhost:8080/WebShopREST/#/login">Log out</a></li>
+    </ul>
+    </li>
+
     
     
       </div>
-      </nav>
+    
+    </nav>
 
 <header>
 <!-- Background image -->
@@ -242,11 +243,12 @@ Vue.component("reviewBuyer", {
             location.reload();
           },
           goToItems:function(){
-              this.$router.push("/restaurantInfoBuyers/"+this.idRest+"/"+ this.id);
+              this.$router.push("/restaurantInfoAdmin/"+this.idRest+"/"+this.id);
             },
           goToMaps: function(){
-            this.$router.push("/showMapBuyer/"+this.id+"/"+ this.idRest);
-          }, redirect: function(){
+            this.$router.push("/showMapAdmin/"+ this.idRest+"/"+this.id);
+          },
+          redirect: function(){
             this.$router.push("/profile/"+this.id)
           },
          

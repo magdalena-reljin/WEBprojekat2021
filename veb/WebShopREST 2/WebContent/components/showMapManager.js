@@ -1,8 +1,9 @@
-Vue.component("reviewBuyer", { 
+Vue.component("showMapManager", { 
 	data: function () {
 	    return {
-            idRest: this.$route.params.idRest,
             id: this.$route.params.id,
+            idRest: this.$route.params.idRest,
+          
 			restaurant:
 			 {
 				name: '',
@@ -25,70 +26,8 @@ Vue.component("reviewBuyer", {
 			deleted: ''
 			
 			},
-      reviews:
-      [{
-          buyer: {
-              username: '',
-              password: '',
-          name: '',
-          surname:'',
-          gender: null,
-          birthDate: '',
-          role: 3,
-          deleted: false,
-          blocked: false,
-          orders: [],
-          basket: {
-            buyer: null,
-            items: [],
-            totalPrice: null
-          },
-          points: 0,
-          type: {
-            title: 2,
-            discount: 0,
-            points: 0
-          },
-          num: 0,
-          trol:false,
-          cancel: '',
-                },
-
-                restaurant:
-                {
-                 name: '',
-                  restaurantType: null,
-                  items: [],
-                  status: null,
-                  location: {
-                 longitude: '',
-                 latitude: '',
-                 address:
-                 
-                   {
-                    street: '',
-                    number: '',
-                   town: '',
-                   zipCode: ''
-                   },
-               },
-               logo: '',
-               deleted: '',
-               avg: 0
-               },
-
-               comment: '',
-               rating: null,
-               deleted: false,
-               status: 'UNREVIEWED',
-               id: '',
-
-
-
-      }
-  ]
-      
-      
+    
+		
 
 
 		}
@@ -148,7 +87,6 @@ Vue.component("reviewBuyer", {
         <h1 style="color:white;" class="mb-3">{{restaurant.name}}</h1>
         <h4 style="color:white;" class="mb-3">{{restaurant.restaurantType}}</h4>
         <h5 style="color:white;" class="mb-3">{{restaurant.status}}</h5>
-
         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Open maps">
         <button @click="goToMaps()" type="button" class="btn btn-outline-light active mt-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -167,7 +105,7 @@ Vue.component("reviewBuyer", {
 
 <ul class="nav nav-tabs" style="background-color: black;">
   <li class="nav-item">
-    <a style="color: white;" class="nav-link"  @click="goToItems()">ITEMS</a>
+    <a style="color: white;" class="nav-link" @click="goToItems()">ITEMS</a>
   </li>
   <li class="nav-item">
     <a style="color: white;" class="nav-link" @click="goToReview()">REVIEWS</a>
@@ -175,52 +113,52 @@ Vue.component("reviewBuyer", {
   <li class="nav-item">
     <a style="color: white;" class="nav-link" @click="goToMaps()">LOCATION</a>
   </li>
+  
 </ul>
+<br>
 
 
-<div class="container">
-	<div class="row">
-    <br>
-    <br>
-    &nbsp;
-		<h2>ALL REVIEWS</h2>
-	</div>
-</div>
-<div v-for="review in reviews" class="carousel-reviews broun-block">
-    <div class="container">
-        <div class="row">
-            <div  id="carousel-reviews" class="carousel slide" data-ride="carousel" >
-                          
-                              <div class="carousel-inner">
-                                  <div class="item active">
-                                    <div  class="col-md-12">
-                                  <div class="block-text rel zmin">
-                                <div class="mark">RATING:  {{review.rating}} <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
-                                  <p>{{review.comment}}</p>
-                                <ins class="ab zmin sprite sprite-i-triangle block"></ins>
-                                </div>
-                            <div class="person-text rel">
-                                    
-                              <a title="" >By: {{review.buyer.username}}</a>
-                              
-                            </div>
-                            <hr>
-                          </div>
-            		      	</div>
-                  </div>
-                  </div>
+<br>
+
+<div class="container col-lg-12 col-md-12">
+<div class="main-body">
+
+
+      <div class="row gutters-sm">
+        <div class="col-md-12 mb-12">
+          <div class="card">
+            <div class="card-body">
+              
+                <div class="mt-6">
+                  <h2>{{restaurant.name.toUpperCase()}}</h2>
+                  <br>
+                  <h2>{{restaurant.location.address.street}} {{restaurant.location.address.number}}</h2>
+                  <h5>{{restaurant.location.address.town}} {{restaurant.location.address.zipCode}}</h5>
+                  <h5>{{restaurant.location.latitude}} , {{restaurant.location.longitude}}</h5>
+
+                  <br>
+                    <div align="center" vertical-align="center" style="border-style:solid; width:50%; height:200px;">
+                      <map-container
+                      :coordinates="[this.restaurant.location.longitude,this.restaurant.location.latitude]"
+                      ></map-container>
+                    </div>
+                  <br>
+
+              
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
 
-
+        </div>
+        </div>
+      </div>
 
 </div>
     	`,
       mounted () {
         this.loadData();
-      
+    
           
     },
         methods: {
@@ -232,24 +170,37 @@ Vue.component("reviewBuyer", {
                 .post('/WebShopREST/rest/restaurants/findRestaurantData',this.restaurant)
                 .then(response=> (this.restaurant=response.data))
 
-                axios
-                .post('/WebShopREST/rest/reviews/findAllReviews',this.restaurant)
-                .then(response=> (this.reviews=response.data))
-
               
           },
-          goToReview:function(){
-            location.reload();
+        goToReview:function(){
+          this.$router.push("/reviewInfoAdmin/"+this.idRest+"/"+this.id);
+        },
+        goToItems:function(){
+            this.$router.push("/restaurantInfoAdmin/"+this.idRest+"/"+ this.id);
           },
-          goToItems:function(){
-              this.$router.push("/restaurantInfoBuyers/"+this.idRest+"/"+ this.id);
-            },
-          goToMaps: function(){
-            this.$router.push("/showMapBuyer/"+this.id+"/"+ this.idRest);
-          }, redirect: function(){
+        goToMaps: function(){
+           location.reload();
+        },
+        redirect: function(){
             this.$router.push("/profile/"+this.id)
           },
-         
+        azuriranjeAdrese : function() {
+            
+            axios.get("https://nominatim.openstreetmap.org/reverse", {
+              params: {
+                lat: this.restaurant.location.latitude,
+                lon: this.restaurant.location.longitude,
+                format: "json",
+             },
+             })
+            .then((response) => {
+                    const { address } = response.data;
+                    var flag = false;
+                    
+                })
+                
+        
+        },
 
         }
 	

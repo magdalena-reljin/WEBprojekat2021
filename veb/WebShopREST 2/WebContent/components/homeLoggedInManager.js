@@ -288,7 +288,7 @@ Vue.component("homeLoggedInManager", {
        </form>
    </div>
    <br>
-       
+ 
        <!-- Carousel wrapper -->
        <div
          id="carouselMultiItemExample"

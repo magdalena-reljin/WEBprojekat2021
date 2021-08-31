@@ -250,6 +250,9 @@ Vue.component("homeLoggedInDeliverer", {
         <br>
   
   
+
+        
+
        <!-- Carousel wrapper -->
        <div
          id="carouselMultiItemExample"

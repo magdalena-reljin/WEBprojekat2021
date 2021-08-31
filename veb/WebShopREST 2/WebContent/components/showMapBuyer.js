@@ -181,6 +181,9 @@ Vue.component("showMapBuyer", {
         goToMaps: function(){
            location.reload();
         },
+        redirect: function(){
+          this.$router.push("/profile/"+this.id)
+        },
         azuriranjeAdrese : function() {
             
             axios.get("https://nominatim.openstreetmap.org/reverse", {
