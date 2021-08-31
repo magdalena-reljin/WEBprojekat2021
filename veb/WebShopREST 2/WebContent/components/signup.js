@@ -39,6 +39,7 @@ Vue.component("signup", {
           deleted: false,
           blocked: false
           },
+          err: ''
        
       
         }
@@ -65,35 +66,44 @@ Vue.component("signup", {
           <h4 class="card-title mt-2">Sign up</h4>
       </header>
       <article class="card-body"  >
-      <form @submit="registerUser" method='post'>
+      <form @submit="registerUser" method='post' class="was-validated">
           <div class="form-row">
               <div class="col form-group">
                   <label>Name </label>   
-                    <input v-model="buyer.name" type="text" class="form-control" placeholder="">
+                    <input v-model="buyer.name" type="text" class="form-control" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
               </div> 
               <div class="col form-group">
                   <label>Surname</label>
-                    <input v-model="buyer.surname" type="text" class="form-control" placeholder=" ">
+                    <input v-model="buyer.surname" type="text" class="form-control" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
               </div> 
           </div>
           <div class="form-group">
               <label>Username</label>
-              <input v-model="buyer.username" type="text" class="form-control" placeholder="">
+              <input v-model="buyer.username" type="text" class="form-control"   required>
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <div class="col form-group">
           <label>Password </label>   
-            <input v-model="buyer.password" type="password" class="form-control" placeholder="">
+            <input v-model="buyer.password" type="password" class="form-control"   required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
       </div> 
           <br>
           <div class="form-group">
                   <label class="form-check form-check-inline">
-                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value="1">
+                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value="1"   required>
                 <span class="form-check-label"> Male </span>
               </label>
               <label class="form-check form-check-inline">
-                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value=0>
+                <input v-model="buyer.gender" class="form-check-input" type="radio" name="gender" value=0   required>
                 <span class="form-check-label"> Female</span>
               </label>
+              
           </div> 
           <br>
           <div class="form-row">
@@ -101,13 +111,18 @@ Vue.component("signup", {
           <div class="col-12">
   <div class="form-group">
    <label >Birthday</label>
-   <input v-model="buyer.birthDate" type="date" name="bday" min="1000-01-01"
-          max="3000-12-31" class="form-control">
+   <input v-model="buyer.birthDate" type="date" name="bday" min="1930-01-01"
+          max="2003-12-31" class="form-control"  required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
   </div>
     <br>
   </div>
       </div>
           </div> 
+          <br>
+          <div style="color:red;">{{err}}</div>
+          <br>
           <div class="form-group">
               <button type="submit" class="btn btn-primary"> Sign up  </button>
           </div>                                                
@@ -127,27 +142,30 @@ Vue.component("signup", {
     methods: {
         registerUser: function(event) {
             event.preventDefault();
-       
-       axios
-       .post('/WebShopREST/rest/buyers/signup',this.buyer)
-       .then(response=> {
+            if(this.buyer.password.length< 8 || thisbuyer.password.length>20){
+                this.err="The password must be 8-20 characters!"
+            }else if(this.buyer.password.length>=8 && this.buyer.password.length<=20){
+                  axios
+                  .post('/WebShopREST/rest/buyers/signup',this.buyer)
+                  .then(response=> {
 
-         console.log("USPESNO buyer"+response)
-         this.user.name=this.buyer.name;
-         this.user.surname=this.buyer.surname;
-         this.user.username=this.buyer.username;
-         this.user.password=this.buyer.password;
-         this.user.birthDate=this.buyer.birthDate;
-         this.user.gender=this.buyer.gender;
-         axios
-         .post('/WebShopREST/rest/users/signup',this.user)
-         .then(response=> {
-    
-          this.$router.push("/login")
-           console.log("USPESNO user"+response)
-         })
+                    console.log("USPESNO buyer"+response)
+                    this.user.name=this.buyer.name;
+                    this.user.surname=this.buyer.surname;
+                    this.user.username=this.buyer.username;
+                    this.user.password=this.buyer.password;
+                    this.user.birthDate=this.buyer.birthDate;
+                    this.user.gender=this.buyer.gender;
+                    axios
+                    .post('/WebShopREST/rest/users/signup',this.user)
+                    .then(response=> {
+                
+                      this.$router.push("/login")
+                      console.log("USPESNO user"+response)
+                    }).catch(err=>this.err='Username already exists!')
 
-       })
+                  })
+      }
 
     
     }

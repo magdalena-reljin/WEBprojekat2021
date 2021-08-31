@@ -165,6 +165,9 @@ Vue.component("editProfileData", {
 
                 })
             },
+            redirect: function(){
+              this.$router.push("/profile/"+this.id)
+            },
             
         }
     });

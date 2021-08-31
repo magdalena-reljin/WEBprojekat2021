@@ -171,6 +171,8 @@ Vue.component("changePassword", {
               }else {
                 this.$router.push("/homeLoggedInDeliverer/"+this.id)
               }
+            },redirect: function(){
+              this.$router.push("/profile/"+this.id)
             },
            
         }

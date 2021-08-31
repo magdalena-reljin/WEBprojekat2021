@@ -79,7 +79,7 @@ public class LoginService {
 	}
 	
 	
-	@POST
+	@GET
 	@Path("/logout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

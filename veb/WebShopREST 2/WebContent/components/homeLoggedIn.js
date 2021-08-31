@@ -110,7 +110,7 @@ Vue.component("homeLoggedIn", {
 </a>
 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
   <li><a class="dropdown-item" @click="redirect()">Profile</a></li>
-  <li><a class="dropdown-item" href="http://localhost:8080/WebShopREST/#/login">Log out</a></li>
+  <li><a class="dropdown-item"  @click="logOut()">Log out</a></li>
 </ul>
 </li>
 
@@ -303,6 +303,13 @@ Vue.component("homeLoggedIn", {
             redirect: function(){
               this.$router.push("/profile/"+this.id)
             },
+          logOut:function(){
+            axios
+              .get('/WebShopREST/rest/users/logout')
+              .then(response=> {
+              this.$router.push("/login")
+              })
+          },
             goToAllUsers: function(){
               this.$router.push("/allUsersAdmin/"+this.id)
             },
