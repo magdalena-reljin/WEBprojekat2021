@@ -64,13 +64,6 @@ public class ItemsService {
 		}
 	String str=newItem.getImage().substring(12);
 	newItem.setImage("components/images/"+str);
-	System.out.println("AAAAAAA"+newItem.getDescription());
-	System.out.println("AAAAAAA"+newItem.getImage());
-	System.out.println("AAAAAAA"+newItem.getName());
-	System.out.println("AAAAAAA"+newItem.getPrice());
-	System.out.println("AAAAAAA"+newItem.getQuantity());
-	System.out.println("AAAAAAA"+newItem.getRestaurant().getName());
-	itemDao.saveItem(newItem);
 		return Response.status(200).build();
 	}
 

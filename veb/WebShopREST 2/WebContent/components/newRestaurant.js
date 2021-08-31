@@ -133,6 +133,7 @@ Vue.component("newRestaurant", {
         },
         isHidden: true,
         value: null,
+        err: ''
       }
     
     },
@@ -163,46 +164,62 @@ Vue.component("newRestaurant", {
       <h4 class="card-title mt-2">Create Restaurant</h4>
   </header>
   <article class="card-body">
-  <form @submit="createRestaurant" method='post'>
+  <form @submit="createRestaurant" method='post' class="was-validated">
       <div class="form-row">
           <div class="col form-group">
               <label>Name </label>   
-                <input v-model="restaurant.name" type="text" class="form-control">
+                <input v-model="restaurant.name" type="text" class="form-control" required>
+                <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
           <label for="inputState">Restaurant Type</label>
-          <select v-model="restaurant.restaurantType" id="inputState" class="form-control">
+          <select v-model="restaurant.restaurantType" id="inputState" class="form-control" required>
             <option v-bind:value=0>SERBIAN</option>
             <option v-bind:value=1>ITALIAN</option>
             <option v-bind:value=2>CHINESE</option>
             <option v-bind:value=3>AMERICAN</option>
           </select>
+          <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
           
       </div>
       
       <div class="form-group">
           <label>Longitude</label>
-          <input v-model="restaurant.location.longitude" type="text" class="form-control">
+          <input v-model="restaurant.location.longitude" type="text" class="form-control"  pattern="[0-9]*\.?[0-9]*" required>
+          <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
       </div>
       <div class="form-group">
           <label>Latitude</label>
-          <input v-model="restaurant.location.latitude" type="text" class="form-control">
+          <input v-model="restaurant.location.latitude" type="text" class="form-control" pattern="[0-9]*\.?[0-9]*" required>
+          <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
       </div>
       <div class="form-group">
       <label>Street</label>
-      <input v-model="restaurant.location.address.street" type="text" class="form-control">
+      <input v-model="restaurant.location.address.street" type="text" class="form-control" required>
+      <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
   </div>
   <div class="form-group">
   <label>Number</label>
-  <input v-model="restaurant.location.address.number" type="text" class="form-control">
+  <input v-model="restaurant.location.address.number" type="text" class="form-control" required>
+  <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
 </div>
 
   <div class="form-group">
   <label>Town</label>
-  <input v-model="restaurant.location.address.town" type="text" class="form-control">
+  <input v-model="restaurant.location.address.town" type="text" class="form-control" required>
+  <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
 </div>
 <div class="form-group">
   <label>ZipCode</label>
-  <input v-model="restaurant.location.address.zipCode" type="text" class="form-control">
+  <input v-model="restaurant.location.address.zipCode" type="text" class="form-control" pattern="[0-9]*" required>
+  <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
 </div>
 
 <br>
@@ -217,18 +234,21 @@ Vue.component("newRestaurant", {
 <div class="col form-group">
       <label>Logo </label>   
       <div class="mb-3">
-      <input @click="data" class="form-control" type="file" id="formFile">
+      <input @click="data" class="form-control" type="file" id="formFile" required>
+      <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
     </div>
   </div> 
   <div class="form-group">
   <label>Select manager</label>
   <div class="input-group">
 
-  <select v-model="selectedManagerID" @click="getManagers()" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+  <select v-model="selectedManagerID" @click="getManagers()" class="form-select" id="inputGroupSelect04" required>
     <option v-for="manager in managers">{{manager}}</option>
-   
   </select>
   <button v-on:click="isHidden = false" class="btn btn-outline-secondary" type="button">Register new manager</button>
+  <div class="valid-feedback">Valid.</div>
+  <div class="invalid-feedback">Please fill out this field.</div>
 </div>
   </div>
       <br>
@@ -259,33 +279,41 @@ Vue.component("newRestaurant", {
         <h4 class="card-title mt-2"> Register Manager</h4>
     </header>
     <article class="card-body">
-    <form @submit="registerManager" method='post'>
+    <form @submit="registerManager" method='post' class="was-validated">
         <div class="form-row">
             <div class="col form-group">
                 <label>Name </label>   
-                  <input v-model="newManager.name" type="text" class="form-control" placeholder="">
+                  <input v-model="newManager.name" type="text" class="form-control" required>
+                  <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
             </div> 
             <div class="col form-group">
                 <label>Surname</label>
-                  <input v-model="newManager.surname" type="text" class="form-control" placeholder=" ">
+                  <input v-model="newManager.surname" type="text" class="form-control" required>
+                  <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
             </div> 
         </div>
         <div class="form-group">
             <label>Username</label>
-            <input v-model="newManager.username" type="text" class="form-control" placeholder="">
+            <input v-model="newManager.username" type="text" class="form-control" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="col form-group">
         <label>Password </label>   
-          <input v-model="newManager.password" type="password" class="form-control" placeholder="">
+          <input v-model="newManager.password" type="password" class="form-control" required>
+          <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
     </div> 
         <br>
         <div class="form-group">
                 <label class="form-check form-check-inline">
-              <input v-model="newManager.gender" class="form-check-input" type="radio" name="gender" value="1">
+              <input v-model="newManager.gender" class="form-check-input" type="radio" name="gender" value="1" required>
               <span class="form-check-label"> Male </span>
             </label>
             <label class="form-check form-check-inline">
-              <input v-model="newManager.gender" class="form-check-input" type="radio" name="gender" value=0>
+              <input v-model="newManager.gender" class="form-check-input" type="radio" name="gender" value=0 required>
               <span class="form-check-label"> Female</span>
             </label>
         </div> 
@@ -295,13 +323,17 @@ Vue.component("newRestaurant", {
         <div class="col-12">
   <div class="form-group">
   <label >Birthday</label>
-  <input v-model="newManager.birthDate" type="date" name="bday" min="1000-01-01"
-        max="3000-12-31" class="form-control">
+  <input v-model="newManager.birthDate" type="date" name="bday" min="1930-01-01"
+        max="2000-12-31" class="form-control" required>
+        <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
   </div>
   <br>
   </div>
     </div>
         </div> 
+        <div style="color:red;">{{err}}</div>
+        <br>
         <div class="form-group">
             <button type="submit" class="btn btn-primary"> Register  </button>
         </div>                                                
@@ -331,6 +363,8 @@ Vue.component("newRestaurant", {
         
           .get('/WebShopREST/rest/managers/findUnemployed')
           .then(response=> (this.managers=response.data))
+         
+        
       },
       data: function(){
         document.getElementById("formFile").onchange = function () {
@@ -366,13 +400,15 @@ Vue.component("newRestaurant", {
     registerManager: function(event) {
         event.preventDefault();
 
+        if(this.newManager.password.length< 8 || this.newManager.password.length>20){
+          this.err="The password must be 8-20 characters!";
+        }else if(this.newManager.password.length>=8 && this.newManager.password.length<=20){
+
    axios
    .post('/WebShopREST/rest/managers/signup',this.newManager)
-   .then(response=> {
-    isHidden=true;
-     console.log("USPESNO"+response)
-   })
-   .catch(err=>console.log("GRESKA"))
+   .then(response=> this.isHidden=true)
+   .catch(err=>this.err='Username already exists')
+        }
    },
    azuriranjeAdrese : function() {
             

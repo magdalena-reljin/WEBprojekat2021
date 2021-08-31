@@ -57,9 +57,9 @@ public class DelivererService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(Deliverer newDeliverer, @Context HttpServletRequest request) throws IOException {
 		DelivererDAO delivererDao = (DelivererDAO) ctx.getAttribute("delivererDAO");
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		Deliverer deliverer = delivererDao.getDelivererById(newDeliverer.getUsername());
-		if (deliverer != null) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");System.out.println("USPEO SAM");
+		User user=userDao.getUserById(newDeliverer.getUsername());
+		if (user != null) {
 			return Response.status(400).entity("Username already exits").build();
 		}
 		

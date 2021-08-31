@@ -56,8 +56,8 @@ import enums.RestaurantType;
 			ManagerDAO managerDao = (ManagerDAO) ctx.getAttribute("managerDAO");
 			UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 			System.out.println("USPEO SAM");
-			Manager manager = managerDao.getManagerById(newManager.getUsername());
-			if (manager != null) {
+			User user=userDao.getUserById(newManager.getUsername());
+			if (user != null) {
 				return Response.status(400).entity("Username already exits").build();
 			}
 			managerDao.saveManager(newManager);
