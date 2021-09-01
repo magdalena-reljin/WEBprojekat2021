@@ -204,7 +204,7 @@ Vue.component("newRestaurant", {
   </div>
   <div class="form-group">
   <label>Number</label>
-  <input v-model="restaurant.location.address.number" type="text" class="form-control" required>
+  <input v-model="restaurant.location.address.number" type="text" class="form-control" pattern="[0-9]*" required>
   <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
 </div>
@@ -251,6 +251,8 @@ Vue.component("newRestaurant", {
   <div class="invalid-feedback">Please fill out this field.</div>
 </div>
   </div>
+      <br>
+      <div style="color:red;">{{err}}</div>
       <br>
       <div class="form-group">
           <button type="submit" class="btn btn-outline-success"> Create  </button>
@@ -368,7 +370,6 @@ Vue.component("newRestaurant", {
       },
       data: function(){
         document.getElementById("formFile").onchange = function () {
-          console.log("SLIKKKa"+document.getElementById("formFile").value)
           }
       },
       createRestaurant: function(event){
@@ -377,15 +378,10 @@ Vue.component("newRestaurant", {
         this.restaurant.logo= document.getElementById("formFile").value
         this.selectedManager.restaurant=this.restaurant
         this.selectedManager.username=this.selectedManagerID
-        console.log("AAAA"+this.restaurant.logo);
         axios
         .post('/WebShopREST/rest/restaurants/addNewRestaurant',this.restaurant)
         .then(response=> {
-          console.log("USPESNO"+response)
-        })
-        .catch(err=>console.log("GRESKA prvi axios"))
-
-       
+           
         axios
         .put('/WebShopREST/rest/managers/update',this.selectedManager)
         .then(response=> {
@@ -394,6 +390,10 @@ Vue.component("newRestaurant", {
 
         })
         .catch(err=>console.log("GRESKA drugi"))
+        })
+        .catch(err=>this.err='Restaurant name already exists!')
+
+     
 
      
       },

@@ -16,7 +16,8 @@ Vue.component("newDeliverer", {
          
         ]
         
-		}
+		},
+    err:''
       
         }
     },
@@ -42,33 +43,41 @@ Vue.component("newDeliverer", {
       <h4 class="card-title mt-2"> Register Deliverer</h4>
   </header>
   <article class="card-body">
-  <form @submit="registerDeliverer" method='post'>
+  <form @submit="registerDeliverer" method='post' class="was-validated">
       <div class="form-row">
           <div class="col form-group">
               <label>Name </label>   
-                <input v-model="deliverer.name" type="text" class="form-control" placeholder="">
+                <input v-model="deliverer.name" type="text" class="form-control" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
           <div class="col form-group">
               <label>Surname</label>
-                <input v-model="deliverer.surname" type="text" class="form-control" placeholder=" ">
+                <input v-model="deliverer.surname" type="text" class="form-control" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
       </div>
       <div class="form-group">
           <label>Username</label>
-          <input v-model="deliverer.username" type="text" class="form-control" placeholder="">
+          <input v-model="deliverer.username" type="text" class="form-control" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
       </div>
       <div class="col form-group">
       <label>Password </label>   
-        <input v-model="deliverer.password" type="password" class="form-control" placeholder="">
+        <input v-model="deliverer.password" type="password" class="form-control" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
   </div> 
       <br>
       <div class="form-group">
               <label class="form-check form-check-inline">
-            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value="1">
+            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value="1" required>
             <span class="form-check-label"> Male </span>
           </label>
           <label class="form-check form-check-inline">
-            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value=0>
+            <input v-model="deliverer.gender" class="form-check-input" type="radio" name="gender" value=0 required>
             <span class="form-check-label"> Female</span>
           </label>
       </div> 
@@ -78,15 +87,19 @@ Vue.component("newDeliverer", {
       <div class="col-12">
 <div class="form-group">
 <label >Birthday</label>
-<input v-model="deliverer.birthDate" type="date" name="bday" min="1000-01-01"
-      max="3000-12-31" class="form-control">
+<input v-model="deliverer.birthDate" type="date" name="bday" min="1930-01-01"
+      max="2002-12-31" class="form-control" required>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
 </div>
 <br>
 </div>
   </div>
       </div> 
+      <div style="color:red;">{{err}}</div>
+      <br>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary"> Register  </button>
+          <button type="submit" class="btn btn-outline-success"> Register  </button>
       </div>                                                
   </form>
   </article> 
@@ -105,13 +118,16 @@ Vue.component("newDeliverer", {
         registerDeliverer: function(event) {
             event.preventDefault();
   
-       axios
-       .post('/WebShopREST/rest/deliverers/signup',this.deliverer)
-       .then(response=> {
-  
-        this.$router.push("/allUsersAdmin/"+this.id)
-         console.log("USPESNO"+response)
-       })
+          
+        if(this.deliverer.password.length< 8 || this.deliverer.password.length>20){
+          this.err="The password must be 8-20 characters!";
+        }else if(this.deliverer.password.length>=8 && this.deliverer.password.length<=20){
+
+              axios
+              .post('/WebShopREST/rest/deliverers/signup',this.deliverer)
+              .then(response=>this.$router.push("/allUsersAdmin/"+this.id))
+              .catch(err=>this.err='Username already exists')
+           }
      
     }
 
