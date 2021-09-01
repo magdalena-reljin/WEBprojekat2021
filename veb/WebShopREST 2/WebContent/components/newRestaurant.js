@@ -204,7 +204,7 @@ Vue.component("newRestaurant", {
   </div>
   <div class="form-group">
   <label>Number</label>
-  <input v-model="restaurant.location.address.number" type="text" class="form-control" pattern="[0-9]*" required>
+  <input v-model="restaurant.location.address.number" type="text" class="form-control" pattern="[0-9]*" title="Use numbers only" required>
   <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
 </div>
@@ -217,7 +217,7 @@ Vue.component("newRestaurant", {
 </div>
 <div class="form-group">
   <label>ZipCode</label>
-  <input v-model="restaurant.location.address.zipCode" type="text" class="form-control" pattern="[0-9]*" required>
+  <input v-model="restaurant.location.address.zipCode" type="text" class="form-control" pattern="[0-9]*" title="Use numbers only" required>
   <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
 </div>

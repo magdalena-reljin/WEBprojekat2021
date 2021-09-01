@@ -82,14 +82,14 @@ Vue.component("editItemManager", {
 
           <div class="col form-group">
               <label>Price </label>   
-                <input v-model="item.price" type="text" class="form-control" pattern="[0-9]*" required>
+                <input v-model="item.price" type="text" class="form-control" pattern="[0-9]*" title="Use numbers only" required>
         <div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
 
           <div class="col form-group">
               <label>Quantity [g/ml] </label>   
-                <input  v-model="item.quantity" type="text" class="form-control" pattern="[0-9]*" required>
+                <input  v-model="item.quantity" type="text" class="form-control" pattern="[0-9]*" title="Use numbers only" required>
                 
         <div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback">Please fill out this field.</div>

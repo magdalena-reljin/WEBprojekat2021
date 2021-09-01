@@ -148,8 +148,6 @@ Vue.component("signup", {
                   axios
                   .post('/WebShopREST/rest/buyers/signup',this.buyer)
                   .then(response=> {
-
-                    console.log("USPESNO buyer"+response)
                     this.user.name=this.buyer.name;
                     this.user.surname=this.buyer.surname;
                     this.user.username=this.buyer.username;
@@ -161,7 +159,6 @@ Vue.component("signup", {
                     .then(response=> {
                 
                       this.$router.push("/login")
-                      console.log("USPESNO user"+response)
                     }).catch(err=>this.err='Username already exists!')
 
                   })
