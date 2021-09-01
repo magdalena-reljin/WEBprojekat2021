@@ -70,6 +70,7 @@ Vue.component("createItemManager", {
         
     
           },
+          err: ''
         }
     },
     template: ` 
@@ -97,31 +98,47 @@ Vue.component("createItemManager", {
   
 
   <article class="card-body">
-  <form @submit="addNewItem" method='post'>
+  <form @submit="addNewItem" method='post' class="was-validated">
       <div class="form-row">
           <div class="col form-group">
               <label>Name </label>   
-                <input v-model="item.name" type="text" class="form-control">
+                <input v-model="item.name" type="text" class="form-control" required>
+                
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
+          <div>
           <label for="inputState">Type </label>
-          <select v-model="item.itemType" id="inputState" class="form-control">
+          <select v-model="item.itemType" id="inputState" class="form-control" required>
             <option v-bind:value=0>FOOD</option>
             <option v-bind:value=1>DRINK</option>
           </select>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
 
           <div class="col form-group">
               <label>Price </label>   
-                <input v-model="item.price" type="text" class="form-control">
+                <input v-model="item.price" type="text" class="form-control" required pattern="[0-9]*">
+                
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
 
           <div class="col form-group">
               <label>Quantity [g/ml] </label>   
-                <input  v-model="item.quantity" type="text" class="form-control">
+                <input  v-model="item.quantity" type="text" class="form-control" required pattern="[0-9]*">
+                
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
 
           <div class="col form-group">
             <label for="exampleFormControlTextarea1">Description</label>
-            <textarea v-model="item.description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea v-model="item.description" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+            
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
           
       </div>
@@ -130,13 +147,18 @@ Vue.component("createItemManager", {
       <div class="col form-group">
       <label>Image </label>   
       <div class="mb-3">
-      <input @click="data" class="form-control" type="file" id="formFile">
+      <input @click="data" class="form-control" type="file" id="formFile" required>
+      
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
       </div>
   </div> 
  
   <br>
+  <div style="color:red;">{{err}}</div>
+  <br>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary"> Save  </button>
+          <button type="submit" class="btn btn-outline-success"> Save  </button>
       </div>                                                
   </form>
  
@@ -165,7 +187,7 @@ Vue.component("createItemManager", {
        .post('/WebShopREST/rest/items/add',this.item)
        .then(response=> {
         this.$router.push("/restaurantManager/"+this.id+"/"+this.item.restaurant.name)
-      })
+      }).catch(err=>this.err='Item name already exists!')
      
     },
     data: function(){
