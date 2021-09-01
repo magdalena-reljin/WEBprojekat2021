@@ -67,7 +67,7 @@ Vue.component("editItemManager", {
   
 
   <article class="card-body">
-  <form @submit="editItem" method='put'>
+  <form @submit="editItem" method='put'  class="was-validated">
       <div class="form-row">
           <div class="col form-group">
               <label>Name </label>   
@@ -82,17 +82,25 @@ Vue.component("editItemManager", {
 
           <div class="col form-group">
               <label>Price </label>   
-                <input v-model="item.price" type="text" class="form-control">
+                <input v-model="item.price" type="text" class="form-control" pattern="[0-9]*" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
 
           <div class="col form-group">
               <label>Quantity [g/ml] </label>   
-                <input  v-model="item.quantity" type="text" class="form-control">
+                <input  v-model="item.quantity" type="text" class="form-control" pattern="[0-9]*" required>
+                
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
 
           <div class="col form-group">
             <label for="exampleFormControlTextarea1">Description</label>
-            <textarea v-model="item.description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea v-model="item.description" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+            
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
           </div> 
           
       </div>
@@ -109,7 +117,7 @@ Vue.component("editItemManager", {
  
   <br>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary"> Save  </button>
+          <button type="submit" class="btn btn-outline-success"> Save  </button>
       </div>                                                
   </form>
  
@@ -142,7 +150,7 @@ Vue.component("editItemManager", {
              axios
             .put('/WebShopREST/rest/items/update',this.item)
             .then(response=> {
-               this.$router.push("/restaurantManager/"+this.managerId)
+               this.$router.push("/restaurantManager/"+this.managerId+ "/"+this.item.restaurant.name)
 
         })
      
