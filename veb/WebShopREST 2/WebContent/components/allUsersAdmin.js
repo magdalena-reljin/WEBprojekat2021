@@ -35,7 +35,7 @@ Vue.component("allUsersAdmin", {
     <div>
     <nav  class="navbar navbar-fixed-top navbar-expand" style="background-color: #ffa6c9; list-style: none;">
 <div class="container-fluid" style="background-color: #ffa6c9;">
-<a class="navbar-brand" href="#">
+<a class="navbar-brand">
 <img src="components/images/grockLogo4.png" alt="" width="194" height="80" class="d-inline-block align-text-top">
 </a>
 
@@ -341,7 +341,11 @@ Vue.component("allUsersAdmin", {
                 user.blocked=true
                 axios
                 .post('/WebShopREST/rest/users/blockUser',user)
-                .then(response=> (location.reload()))
+                .then(response=> {
+                  
+                  alert("User "+user.username + " blocked!")
+                  location.reload()
+                })
               },
               deleteUser: function(user){
                 user.deleted=true
@@ -357,6 +361,7 @@ Vue.component("allUsersAdmin", {
                     .post('/WebShopREST/rest/managers/deleteManager',user)
                     .then(response=>{})
                   }
+                  alert("User "+user.username + " deleted!")
                   location.reload()
                 })
 

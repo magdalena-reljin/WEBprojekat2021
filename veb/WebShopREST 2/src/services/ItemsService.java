@@ -64,6 +64,7 @@ public class ItemsService {
 		}
 	String str=newItem.getImage().substring(12);
 	newItem.setImage("components/images/"+str);
+	itemDao.saveItem(newItem);
 		return Response.status(200).build();
 	}
 
