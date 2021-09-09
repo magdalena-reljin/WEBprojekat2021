@@ -61,7 +61,7 @@ Vue.component("restaurantInfoBuyers", {
           deleted: ''
           
       },
-       quantity: '',
+       quantity: 0,
        description: '',
        image: '',
        numberInOrder: 1,
@@ -99,7 +99,7 @@ Vue.component("restaurantInfoBuyers", {
                   deleted: ''
                   
               },
-               quantity: '',
+               quantity: 0,
                description: '',
                image: '',
                numberInOrder: 0,
@@ -309,17 +309,22 @@ Vue.component("restaurantInfoBuyers", {
               
           },
           addItemToBasket: function(item){
-             if(this.restaurant.status=='OPEN'){
+             if(this.restaurant.status == 'OPEN'){
+               console.log("AAAAA  "+ item.numberInOrder);
+               if(item.numberInOrder != 0){
              this.basket.buyer.username=this.id
              this.basket.items.push(item);
              
-
+             console.log("AAAAAfdfdfdfd  "+ item.numberInOrder);
              axios
               .post('/WebShopREST/rest/buyers/addItemInBasket',this.basket)
               .then(response=>{
                 location.reload()
                
               })
+            }else {
+              alert("Quantity must be a number greater then 0")
+            }
             }else{
               alert("Restaurant is closed!")
             }

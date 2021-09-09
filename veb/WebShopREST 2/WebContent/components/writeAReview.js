@@ -145,10 +145,12 @@ Vue.component("writeAReview", {
                  deleted: false,
                  status: 'UNREVIEWED',
                  id: '',
+              
 
 
 
-        }
+        },
+        err: ''
         
         
         ,
@@ -209,32 +211,34 @@ Vue.component("writeAReview", {
                               <h6>Rate</h6>
 
                               <div class="form-check form-check-inline">
-                                 <input v-model="review.rating" value="5" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" >
+                                 <input v-model="review.rating" value="5" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" required>
                                  <label class="form-check-label" for="inlineRadio1">5</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input v-model="review.rating" value="4" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" >
+                                 <input v-model="review.rating" value="4" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" required >
                                  <label class="form-check-label" for="inlineRadio1">4</label>
                               </div>
                               
                               <div class="form-check form-check-inline">
-                                 <input v-model="review.rating" value="3" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" >
+                                 <input v-model="review.rating" value="3" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" required >
                                  <label class="form-check-label" for="inlineRadio2">3</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input v-model="review.rating" value="2" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" >
+                                 <input v-model="review.rating" value="2" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"  required>
                                  <label class="form-check-label" for="inlineRadio2">2</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input v-model="review.rating" value="1" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" >
+                                 <input v-model="review.rating" value="1" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"  required>
                                  <label class="form-check-label" for="inlineRadio2">1</label>
                               </div>
 
                             
+                            
                               <textarea v-model="review.comment" class="form-control" id="exampleFormControlTextarea1" ></textarea>
                               <br>
+                              <div style="color:red;">{{err}}</div>
                               <br>
-                              <button @click="write()"  type="button" class="btn btn-outline-dark" >SAVE</button>
+                              <button @click="write(review)"  type="button" class="btn btn-outline-dark" >SAVE</button>
                             </div>
                           </div>
                         </div>
@@ -270,14 +274,13 @@ Vue.component("writeAReview", {
 
 
             },
-            write: function() {
+            write: function(review) {
+
+              if(review.rating != 0 && review.rating != null){
                 this.review.id= Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
                 axios
                 .post('/WebShopREST/rest/reviews/addReview',this.review)
                 .then(response=> {
-
-                    console.log("sacuvao");
-                    
 
                     this.order123.id=this.idOrd
                     
@@ -301,6 +304,9 @@ Vue.component("writeAReview", {
                 }
 
                 )
+              }else {
+                this.err='Please rate the restaurant!'
+              }
             }
             
           },
