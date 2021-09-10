@@ -145,6 +145,18 @@ public class DelivererDAO {
 				order.setStatus(OrderStatus.TRANSPORTING);
 			}
 		}
+		Deliverer pom=null;
+		for(Deliverer del: deliverers) {
+			for(Order ord: del.getOrders()) {
+				if(!del.getUsername().equals(requestDto.getDelivererId()) && ord.getId().equals(requestDto.getOrderId())) {
+					pom=del;
+					pom.setOrders(new ArrayList<Order>());
+					saveDeliverer(pom);
+				
+				}
+			}
+		}
+	
 		saveDeliverer(currentD);
 	}
 

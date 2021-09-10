@@ -133,7 +133,8 @@ Vue.component("newRestaurant", {
         },
         isHidden: true,
         value: null,
-        err: ''
+        err: '',
+        err2: ''
       }
     
     },
@@ -252,7 +253,7 @@ Vue.component("newRestaurant", {
 </div>
   </div>
       <br>
-      <div style="color:red;">{{err}}</div>
+      <div style="color:red;">{{err2}}</div>
       <br>
       <div class="form-group">
           <button type="submit" class="btn btn-outline-success"> Create  </button>
@@ -391,7 +392,7 @@ Vue.component("newRestaurant", {
         })
         .catch(err=>console.log("GRESKA drugi"))
         })
-        .catch(err=>this.err='Restaurant name already exists!')
+        .catch(err=>this.err2='Restaurant name already exists!')
 
      
 
